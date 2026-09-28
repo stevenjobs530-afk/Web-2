@@ -594,8 +594,41 @@ button {
   word-break: keep-all;
 }
 
-.hero__cta {
-  margin-top: 2rem;
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2.2rem;
+}
+
+.hero__actions .pill {
+  min-height: 3.2rem;
+  padding-inline: 1.6rem;
+  font-size: 0.98rem;
+}
+
+.pill--glass {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 8px 30px rgba(30, 20, 10, 0.16);
+}
+
+.pill--glass:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.hero__cv-note {
+  padding: 0.12rem 0.4rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
 }
 
 .hero__footer {
@@ -634,8 +667,21 @@ button {
     font-size: clamp(2.2rem, 10vw, 3rem);
   }
 
-  .hero__cta {
-    margin-top: 1.5rem;
+  .hero__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 360px;
+    margin-top: 1.6rem;
+  }
+
+  .hero__actions .hero__cta {
+    grid-column: 1 / -1;
+  }
+
+  .hero__actions .pill {
+    padding-inline: 0.9rem;
+    font-size: 0.9rem;
   }
 
   .hero__footer {
@@ -2526,5 +2572,49 @@ button {
 
   .voyage__video {
     object-position: 50% 30%;
+  }
+}
+
+/* Chinese headings break only at the phrase boundaries marked in the copy (BudouX). */
+:lang(zh-CN) :is(h1, h2, h3) {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  /* Drop the blank half of full-width punctuation at line edges so centred lines stay centred. */
+  text-spacing-trim: trim-both;
+}
+
+/* Phones: the hero flows instead of pinning, so short screens (320×568, 360×640)
+   grow the section rather than overlapping the headline, buttons and intro. */
+@media (max-width: 720px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .hero__center {
+    position: relative;
+    inset: auto;
+    z-index: 2;
+    flex: 1 0 auto;
+    justify-content: center;
+    padding: max(96px, 13svh) 16px 36px;
+  }
+
+  .hero__footer {
+    position: relative;
+    inset: auto;
+    padding: 0 16px max(12svh, 88px);
+  }
+}
+
+.hero__actions .pill {
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .hero__cv-note {
+    display: none;
   }
 }

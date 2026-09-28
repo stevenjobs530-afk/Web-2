@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
-    "preview": "vite preview --host 127.0.0.1"
+    "preview": "vite preview --host 127.0.0.1",
+    "phrase:zh": "node scripts/phrase-zh.mjs src/data/content.ts src/legacy/case-studies/*/*.ts src/legacy/case-studies/*/*.tsx src/legacy/personal-projects/*/*.tsx"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.3.0",
@@ -22,6 +23,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.1",
+    "budoux": "^0.9.3",
     "sass": "^1.105.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",

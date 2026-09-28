@@ -29,7 +29,7 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
-    document.title = t.meta.title;
+    document.title = t.meta.title.replace(/[\u200b\u2060]/g, "");
     document.querySelector('meta[name="description"]')?.setAttribute("content", t.meta.description);
     const url = new URL(location.href);
     url.searchParams.set("lang", lang);

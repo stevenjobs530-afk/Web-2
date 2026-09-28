@@ -48,28 +48,28 @@ const pipelineEvidence = {
   ],
   zh: [
     {
-      label: "已核验的转换文件",
-      body: "公开仓库将转换与清洗分开记录，使最初的 CSV 与 SQLite 副本可以复现。",
+      label: "已核验​的转换​文件",
+      body: "公开​仓库​将转换​与清洗​分开​记录，​使最初​的 C​S​V ​与 S​QLite ​副本​可以​复现。",
       files: "src/convert_apple_appstore_dataset.py\ndata/processed/apple_appstore_apps.csv\ndata/processed/apple_appstore_apps.sqlite",
     },
     {
-      label: "已核验的检查记录",
-      body: "清洗摘要与 SQL 检查让记录数、缺失字段和价格逻辑都可以复核。",
+      label: "已核验​的检查​记录",
+      body: "清洗​摘要​与 S​QL ​检查​让记录数、​缺失​字段​和价格​逻辑​都可以​复核。",
       files: "docs/cleaning_summary.md\nsql/validate_cleaned_apple_appstore.sql",
     },
     {
-      label: "已核验的质量字段",
-      body: "清洗脚本保留原始值，并增加明确的问题字段与可查询的问题计数。",
+      label: "已核验​的质量​字段",
+      body: "清洗​脚本​保留​原始值，​并增加​明确​的问题​字段​与可查询​的问题​计数。",
       files: "src/clean_apple_appstore_dataset.py\nIssue_* fields\nQuality_Issue_Count",
     },
     {
-      label: "已核验的清洗输出",
-      body: "清洗记录、问题记录与分析就绪导出保持为相互独立、名称清楚的输出。",
+      label: "已核验​的清洗​输出",
+      body: "清洗​记录、​问题​记录​与分析​就绪导出​保持​为相互​独立、​名称​清楚​的输出。",
       files: "data/processed/cleaned_output/\n├── apple_appstore_apps_cleaned.csv\n├── apple_appstore_apps_cleaned.sqlite\n└── apple_appstore_apps_quality_issues.csv",
     },
     {
-      label: "已核验的分析输出",
-      body: "分析脚本生成有记录的报告与可复现图表，而不是缺少依据的仪表盘。",
+      label: "已核验​的分析​输出",
+      body: "分析​脚本生成​有记录​的报告​与可复​现图表，​而不​是缺少​依据​的仪表盘。",
       files: "src/analyze_appstore_dataset.py\ndocs/apple_appstore_analysis_report.txt\noutputs/top_10_genres_by_app_count.png",
     },
   ],
@@ -183,61 +183,61 @@ const copy = {
     repository: "代码仓库",
     language: "EN",
     languageLabel: "Switch to English",
-    navigationLabel: "Apple 案例研究导航",
-    backLabel: "返回作品集中的 Apple App Store 项目卡片",
-    repositoryLabel: "在新标签页中打开 Apple App Store 数据分析代码仓库",
-    eyebrow: "案例研究 02 · SQLite · Python · 数据质量",
-    title: "清洗与分析历史 App Store 数据",
-    summary: "一个使用 Python 与 SQLite 转换、检查、清洗并描述 2021 年历史 App Store 数据的完整流程。",
-    explore: "浏览分析证据",
-    viewRepository: "查看代码仓库",
-    historyArtworkAlt: "Apple 标志的几何构造研究图",
-    metrics: [["1,230,376", "清洗摘要中的记录数"], ["1,229,886", "最终分析报告中的记录数"], ["2021 年 10 月", "数据源收集时点"]],
+    navigationLabel: "Apple ​案例​研究导航",
+    backLabel: "返回​作品​集中​的 A​pple App Store ​项目​卡片",
+    repositoryLabel: "在新标签页​中打​开 ​Apple App Store 数​据分析代​码仓库",
+    eyebrow: "案例​研究​ 02 · SQLite · Python · 数​据质量",
+    title: "清洗​与分析​历史​ App Store 数据",
+    summary: "一个​使用​ P​ython ​与 S​QLite ​转换、​检查、​清洗​并描述​ 2021 年​历史​ App Store ​数据​的完整​流程。",
+    explore: "浏览​分析证据",
+    viewRepository: "查看代​码仓库",
+    historyArtworkAlt: "Apple ​标志​的几何​构造​研究图",
+    metrics: [["1,230,376", "清洗​摘要​中的​记录数"], ["1,229,886", "最终​分析​报告​中的​记录数"], ["2021 年​ 10 月", "数据源​收集时点"]],
     sections: {
       question: {
-        label: "01 / 分析问题",
-        title: "在这一数据规模下检查过程需要可重复",
-        body: "该数据涵盖 120 万余个 iOS 应用的文本、价格、评分、时间戳、开发者信息与文件大小。在这个规模上，可靠比较必须从可重复的检查开始，而不是依赖零散的人工修改。",
+        label: "01 / ​分析​问题",
+        title: "在这​一数​据规模​下检查​过程​需要​可重复",
+        body: "该数​据涵盖​ ​120 万​余个​ iOS ​应用​的文本、​价格、​评分、​时间​戳、​开发者​信息​与文件​大小。​在这个​规模​上，​可靠​比较​必须​从可​重复​的检查​开始，​而不​是依赖​零散​的人​工修改。",
         contextLabel: "历史边界",
-        context: "数据源仓库说明数据收集于 2021 年 10 月。本案例只描述该历史数据集，不代表当前的 App Store。",
+        context: "数据源仓库​说明数​据收集于​ 2021 年​ 10​ 月。​本案例​只描述​该历史​数据​集，​不代表​当前​的 A​pp Store。",
       },
       pipeline: {
-        label: "02 / 证据流程",
-        title: "从源文件转换到分析的完整记录流程",
+        label: "02 / 证据​流程",
+        title: "从源​文件​转换​到分析​的完整​记录​流程",
         detailPrompt: "查看证据",
-        steps: [["01", "转换", "将源 JSON 转换为 CSV 与 SQLite，以统一方式检查完整数据。"], ["02", "检查", "在修改记录前，分析缺失值、时间戳、价格逻辑、标识符与非正文件大小。"], ["03", "标记", "建立明确的 Issue_* 字段，而不用主观假设填补模糊值。"], ["04", "结构化", "构建清洗输出与分析视图，同时保留原始字段用于比较。"], ["05", "分析", "使用 pandas、matplotlib 和 seaborn 生成可复现的类别、价格与更新摘要。"]],
+        steps: [["01", "转换", "将源​ JSON ​转换​为 C​S​V ​与 S​QLi​te，​以统​一方式​检查​完整​数据。"], ["02", "检查", "在修改记​录前，​分析​缺失值、​时间​戳、​价格​逻辑、​标识符​与非正​文件​大小。"], ["03", "标记", "建立​明确​的 I​ssue_*​ ​字段，​而不​用主观​假设填​补模​糊值。"], ["04", "结构化", "构建清洗​输出​与分析​视图，​同时​保留​原始字段​用于​比较。"], ["05", "分析", "使用​ pandas、​matplotli​b ​和 seaborn 生成​可复现​的类别、​价格​与更新​摘要。"]],
       },
       uncertainty: {
-        label: "03 / 不确定之处",
-        title: "不同类型的缺失字段会影响不同分析",
-        intro: "清洗摘要区分了大规模的信息性缺口，与少量会直接改变分析比较的实质性问题。",
-        items: [["643,988", "开发者网站为空", "这是显著的文档缺口，但不必然意味着应用需要从类别或价格分析中删除。"], ["490", "价格缺失", "这会影响价格比较与免费/付费分类。"], ["224", "文件大小缺失或非正", "在任何文件大小分析中都需要谨慎处理。"], ["3", "无效发布时间", "这是发布日期与更新时段分析的明确边界。"]],
+        label: "03 / ​不确定​之处",
+        title: "不同​类型​的缺失​字段​会影响​不同​分析",
+        intro: "清洗​摘要​区分​了大规模​的信息性​缺口，​与少量​会直接​改变​分析​比较​的实质性​问题。",
+        items: [["643,988", "开发者​网站​为空", "这是​显著​的文档​缺口，​但不必然意味​着应用​需要​从类别或​价格​分析​中删除。"], ["490", "价格缺失", "这会​影响​价格​比较​与免费​/付费​分类。"], ["224", "文件​大小​缺失​或非正", "在任何​文件​大小​分析​中都​需要​谨慎​处理。"], ["3", "无效​发布​时间", "这是​发布​日期​与更新​时段​分析​的明确​边界。"]],
         principleLabel: "清洗原则",
-        principle: "尽可能保留不确定记录，明确标记问题，并且只在某项计算确实需要可靠字段时进行筛选。",
+        principle: "尽可能​保留​不确定​记录，​明确​标记​问题，​并且​只在​某项​计算确实​需要​可靠​字段时​进行​筛选。",
       },
       evidence: {
-        label: "04 / 三组分析证据",
-        title: "来自 2021 年数据集的三项描述性结果",
+        label: "04 / ​三组​分析证据",
+        title: "来自​ ​2021 年​数据集​的三​项描述性​结果",
         stories: [
-          { kicker: "市场结构", title: "免费应用占分析记录的大多数", body: "最终分析报告记录了 1,127,384 个免费应用和 102,502 个付费应用。分类基于数值价格字段，而不是仅依赖原始 Free 标记。", note: "范围：最终报告中的 1,229,886 条分析记录。" },
-          { kicker: "类别集中度", title: "游戏是记录数最多的类别", body: "报告中游戏类包含 193,328 个应用。商务、教育、工具与生活方式也被描述为大型类别，但本页不会虚构证据中未提供的数量。", note: "结论边界：类别规模，而非类别质量或盈利能力。" },
-          { kicker: "数据时期内的活动", title: "记录中的更新活动在接近收集期时上升", body: "报告记录 2020 年更新的应用为 245,922 个，2021 年为 527,359 个。这反映历史数据内的时间戳活动，不代表当前 App Store。", note: "边界：数据收集时间截止于 2021 年 10 月。" },
+          { kicker: "市场结构", title: "免费​应用​占分析​记录​的大多数", body: "最终​分析​报告​记录​了 1​,127,384​ ​个免费​应用​和 102,502 ​个付费​应用。​分类​基于​数值​价格​字段，​而不​是仅​依赖​原始 Free​ ​标记。", note: "范围：​最终​报告​中的​ 1​,229,886 ​条分析​记录。" },
+          { kicker: "类别集​中度", title: "游戏​是记录数​最多​的类别", body: "报告​中游戏类​包含​ 193,328​ ​个应用。​商务、​教育、​工具​与生活​方式​也被​描述​为大型​类别，​但本页​不会​虚构​证据​中未​提供​的数量。", note: "结论​边界：​类别规模，​而非类​别质量​或盈利​能力。" },
+          { kicker: "数据​时期内​的活动", title: "记录​中的​更新​活动​在接近​收集期​时上升", body: "报告​记录​ 2020 年​更新​的应用​为 245,922​ 个，​20​21 年​为 5​27,359​ 个。​这反​映历史​数据内​的时间​戳活动，​不代表​当前​ App Store。", note: "边界：​数据​收集​时间​截止于​ 2021 年​ 10​ 月。" },
         ],
       },
       code: {
-        label: "05 / 技术证据", title: "将数据质量问题记录为可查询字段", body: "该流程基于价格派生分类，分别记录价格缺失与逻辑不一致，然后统计所有问题字段。原始值始终保留，便于复核。", filename: "src/clean_apple_appstore_dataset.py · Python", snippet: `df["Free_By_Price"] = df["Price"].fillna(0).eq(0)\ndf["Issue_Missing_Price"] = df["Price"].isna()\ndf["Issue_Price_Logic_Mismatch"] = (\n    df["Free"].eq(False) & df["Price"].fillna(0).eq(0)\n)\nissue_columns = [c for c in df.columns if c.startswith("Issue_")]\ndf["Quality_Issue_Count"] = df[issue_columns].sum(axis=1)`,
+        label: "05 / ​技术​证据", title: "将数据​质量​问题​记录​为可查​询字段", body: "该流程​基于​价格派生​分类，​分别​记录​价格​缺失​与逻辑​不一致，​然后​统计​所有​问题​字段。​原始值​始终​保留，​便于​复核。", filename: "src/clean_apple_appstore_dataset.py · Python", snippet: `df["Free_By_Price"] = df["Price"].fillna(0).eq(0)\ndf["Issue_Missing_Price"] = df["Price"].isna()\ndf["Issue_Price_Logic_Mismatch"] = (\n    df["Free"].eq(False) & df["Price"].fillna(0).eq(0)\n)\nissue_columns = [c for c in df.columns if c.startswith("Issue_")]\ndf["Quality_Issue_Count"] = df[issue_columns].sum(axis=1)`,
       },
       results: {
-        label: "06 / 结果与边界", title: "项目记录的输出、筛选条件与数据限制", items: [["可复现", "代码仓库将转换、清洗、SQL 验证与 Python 分析记录为独立步骤。"], ["可筛选", "问题字段使每项分析能够定义自己真正需要的数据质量条件。"], ["历史范围明确", "证据支持对 2021 年数据集的比较，而不支持对当前应用目录或市场表现的结论。"]], countLabel: "保持可见的记录差异", countNote: "清洗摘要记录 1,230,376 条，而后续分析报告记录 1,229,886 条。本页不会为这 490 条差异虚构未记录的原因；只有在引用最终分析报告时才使用后一个数字。",
+        label: "06 / ​结果​与边界", title: "输出​结果、⁠筛选​条件\n与数据​限制", items: [["可复现", "代码​仓库​将转换、​清洗、​SQL​ 验证​与 P​ython ​分析​记录​为独立​步骤。"], ["可筛选", "问题​字段​使每​项分析​能够​定义​自己​真正​需要​的数据​质量​条件。"], ["历史​范围​明确", "证据​支持​对 2021 年​数据​集的​比较，​而不​支持​对当前​应用​目录​或市场​表现​的结论。"]], countLabel: "保持​可见​的记录​差异", countNote: "清洗​摘要​记录​ 1,​230,376​ 条，​而后续​分析​报告​记录​ 1,229,886​ 条。​本页​不会​为这​ ​490 ​条差异​虚构​未记录​的原因；​只有​在引用​最终​分析​报告​时才​使用​后一​个数字。",
       },
-      closing: { label: "项目总结", title: "代码仓库记录了完整流程与当前限制", body: "其中包含源记录、明确的处理规则、数据质量字段与描述性分析结果。", repository: "查看完整证据", projects: "返回所有项目" },
+      closing: { label: "项目总结", title: "代码​仓库​记录​了完整​流程​与当前​限制", body: "其中​包含源​记录、​明确​的处理​规则、​数据​质量​字段​与描述性​分析​结果。", repository: "查看​完整​证据", projects: "返回​所有​项目" },
     },
   },
 } as const;
 
 export default function AppleCaseStudy({ initialLanguage }: { initialLanguage: Language }) {
   const [language, setLanguage] = useState<Language>(initialLanguage);
-  const [activePipelineStep, setActivePipelineStep] = useState<number | null>(null);
+  const [activePipelineStep, setActivePipelineStep] = useState(0);
   const resolvedUrlLanguage = useRef(false);
   const t = copy[language];
   const portfolioHref = `${appBasePath}/?lang=${language}#project-apple-app-store`;
@@ -259,7 +259,7 @@ export default function AppleCaseStudy({ initialLanguage }: { initialLanguage: L
     document.querySelector('meta[name="description"]')?.setAttribute(
       "content",
       language === "zh"
-        ? "一个聚焦数据质量、可追溯处理与谨慎解读的 App Store 数据案例。"
+        ? "一个​聚焦​数据​质量、​可追溯​处理​与谨慎​解读​的 A​pp Store 数​据案例。"
         : "A documented Python and SQLite workflow for cleaning and analysing a historical Apple App Store dataset.",
     );
     return () => { document.documentElement.lang = previousLanguage; };
@@ -325,35 +325,65 @@ export default function AppleCaseStudy({ initialLanguage }: { initialLanguage: L
 
         <section id="pipeline" className="apple-section apple-pipeline apple-dark" aria-labelledby="pipeline-title">
           <div className="apple-heading"><p>{t.sections.pipeline.label}</p><h2 id="pipeline-title">{t.sections.pipeline.title}</h2></div>
-          <ol onKeyDown={(event) => {
-            if (event.key === "Escape") setActivePipelineStep(null);
-          }}>{t.sections.pipeline.steps.map(([number, title, body], index) => {
-            const Icon = pipelineIcons[index];
-            const evidence = pipelineEvidence[language][index];
-            const isActive = activePipelineStep === index;
-            const detailId = `apple-pipeline-detail-${index + 1}`;
-            return <li className={isActive ? "is-active" : undefined} key={number}>
-              <button
-                className="apple-pipeline-trigger"
-                type="button"
-                aria-expanded={isActive}
-                aria-controls={detailId}
-                onClick={() => setActivePipelineStep((current) => current === index ? null : index)}
+          {(() => {
+            const steps = t.sections.pipeline.steps;
+            const current = steps[activePipelineStep];
+            const evidence = pipelineEvidence[language][activePipelineStep];
+            const CurrentIcon = pipelineIcons[activePipelineStep];
+            const ui = language === "en"
+              ? { step: "Step", of: "of", evidence: "Evidence in the repository", files: "Files", prev: "Previous step", next: "Next step", rail: "Pipeline steps" }
+              : { step: "步骤", of: "/", evidence: "仓库​中的​证据", files: "相关文件", prev: "上一步", next: "下一步", rail: "流程步骤" };
+            const go = (index: number) => setActivePipelineStep(Math.min(steps.length - 1, Math.max(0, index)));
+            return <div className="apple-flow" style={{ ["--flow-progress" as string]: activePipelineStep / (steps.length - 1) }}>
+              <ol
+                className="apple-flow-rail"
+                aria-label={ui.rail}
+                onKeyDown={(event) => {
+                  if (event.key === "ArrowRight") { event.preventDefault(); go(activePipelineStep + 1); }
+                  if (event.key === "ArrowLeft") { event.preventDefault(); go(activePipelineStep - 1); }
+                }}
               >
-                {/* Buttons only accept phrasing content, so the card text uses spans rather than h3/p. */}
-                <span className="apple-pipeline-icon" aria-hidden="true"><Icon /></span>
-                <span className="apple-pipeline-number">{number}</span>
-                <span className="apple-pipeline-title">{title}</span>
-                <span className="apple-pipeline-body">{body}</span>
-                <small>{t.sections.pipeline.detailPrompt}</small>
-              </button>
-              <div id={detailId} className="apple-pipeline-detail">
-                <strong>{evidence.label}</strong>
-                <p>{evidence.body}</p>
-                <pre><code>{evidence.files}</code></pre>
+                {steps.map(([number, title], index) => {
+                  const Icon = pipelineIcons[index];
+                  const state = index === activePipelineStep ? "is-active" : index < activePipelineStep ? "is-done" : undefined;
+                  return <li key={number} className={state}>
+                    <button
+                      type="button"
+                      aria-current={index === activePipelineStep ? "step" : undefined}
+                      aria-controls="apple-flow-stage"
+                      onClick={() => go(index)}
+                      onMouseEnter={(event) => { if (window.matchMedia("(hover: hover)").matches && event.buttons === 0) go(index); }}
+                    >
+                      <span className="apple-flow-node" aria-hidden="true"><Icon /></span>
+                      <span className="apple-flow-num">{number}</span>
+                      <span className="apple-flow-title">{title}</span>
+                    </button>
+                  </li>;
+                })}
+              </ol>
+
+              <div id="apple-flow-stage" className="apple-flow-stage" aria-live="polite">
+                <div className="apple-flow-copy" key={`copy-${activePipelineStep}`}>
+                  <span className="apple-flow-kicker">{ui.step} {current[0]} {ui.of} 0{steps.length}</span>
+                  <h3><CurrentIcon aria-hidden="true" />{current[1]}</h3>
+                  <p className="apple-flow-body">{current[2]}</p>
+                  <div className="apple-flow-evidence">
+                    <strong>{ui.evidence}</strong>
+                    <p><em>{evidence.label}</em> — {evidence.body}</p>
+                  </div>
+                  <div className="apple-flow-controls">
+                    <button type="button" onClick={() => go(activePipelineStep - 1)} disabled={activePipelineStep === 0} aria-label={ui.prev}><ArrowLeft aria-hidden="true" /></button>
+                    <span className="apple-flow-dots" aria-hidden="true">{steps.map((step, index) => <i key={step[0]} className={index === activePipelineStep ? "is-active" : undefined} />)}</span>
+                    <button type="button" onClick={() => go(activePipelineStep + 1)} disabled={activePipelineStep === steps.length - 1} aria-label={ui.next}><ArrowRight aria-hidden="true" /></button>
+                  </div>
+                </div>
+                <figure className="apple-flow-window" key={`window-${activePipelineStep}`}>
+                  <figcaption><span className="apple-flow-lights" aria-hidden="true"><i /><i /><i /></span>{ui.files}</figcaption>
+                  <pre><code>{evidence.files}</code></pre>
+                </figure>
               </div>
-            </li>;
-          })}</ol>
+            </div>;
+          })()}
         </section>
 
         <section className="apple-section apple-uncertainty" aria-labelledby="uncertainty-title">

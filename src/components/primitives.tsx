@@ -7,6 +7,15 @@ export function asset(path: string) {
   return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 }
 
+const CJK = /[\u3000-\u9fff\uff00-\uffef]/;
+
+/** English joins title and accent with a space; Chinese runs on, with a phrase break point between them. */
+export function gap(before: string, after: string) {
+  const a = before.replace(/\u200b/g, "");
+  const b = after.replace(/\u200b/g, "");
+  return CJK.test(a.slice(-1)) || CJK.test(b.charAt(0)) ? "\u200b" : " ";
+}
+
 export function cx(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
 }
@@ -81,7 +90,9 @@ export function SectionHead({
       <div className="section-head__row">
         <Reveal delay={0.06}>
           <h2 className="display-title">
-            {title} {italic ? <em className="serif-accent">{italic}</em> : null}
+            {title}
+            {italic ? gap(title, italic) : null}
+            {italic ? <em className="serif-accent">{italic}</em> : null}
           </h2>
         </Reveal>
         <Reveal delay={0.12}>

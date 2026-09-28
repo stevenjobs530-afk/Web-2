@@ -343,3 +343,18 @@ main .ai-concept-primary { min-height: 48px; height: auto; padding: 12px 20px; w
   main .uk-retail-panel-items { grid-template-columns: 1fr; }
   main .uk-retail-panel-items > div { border-right: 0; padding: 16px; gap: 20px; flex-wrap: wrap; }
 }
+
+
+/* Web 2: Chinese headings break only at the phrase boundaries marked in the copy (BudouX). */
+:lang(zh-CN) :is(h1, h2, h3),
+.lang-zh :is(h1, h2, h3) {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  /* Drop the blank half of full-width punctuation at line edges so centred lines stay centred. */
+  text-spacing-trim: trim-both;
+}
+
+/* Web 2: headings may carry an explicit line break (\n) instead of trailing punctuation. */
+:is(h1, h2, h3) {
+  white-space: pre-line;
+}

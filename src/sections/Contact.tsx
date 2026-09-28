@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useScroll } from "motion/react";
 import { Mail } from "lucide-react";
 import { links, type Content } from "../data/content";
-import { ArrowUpRight, Film, Reveal, asset, useRange } from "../components/primitives";
+import { ArrowUpRight, Film, Reveal, asset, gap, useRange } from "../components/primitives";
 import { scrollToId } from "./Nav";
 
 export function Contact({ t }: { t: Content }) {
@@ -34,7 +34,9 @@ export function Contact({ t }: { t: Content }) {
         </Reveal>
         <Reveal delay={0.06}>
           <h2 className="finale__title">
-            {c.title} <em className="serif-accent">{c.italic}</em>
+            {c.title}
+            {gap(c.title, c.italic)}
+            <em className="serif-accent">{c.italic}</em>
           </h2>
         </Reveal>
         <Reveal delay={0.12}>

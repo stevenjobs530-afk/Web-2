@@ -86,36 +86,36 @@ if (payload.route !== expectedRoute(payload.situation as string)) {
     safeguards: "保护措施",
     language: "EN",
     languageLabel: "Switch to English",
-    navLabel: "AEP 案例研究导航",
-    backLabel: "返回作品集中的 AEP 项目卡片",
-    repositoryLabel: "在新标签页中打开 AEP 问卷代码仓库",
+    navLabel: "AEP ​案例​研究导航",
+    backLabel: "返回​作品​集中​的 A​EP ​项目​卡片",
+    repositoryLabel: "在新标签页​中打​开 ​AEP 问卷代​码仓库",
     sections: {
       flow: {
-        label: "07 / 技术支撑",
-        title: "回答验证、存储与导出准备",
+        label: "07 / ​技术​支撑",
+        title: "回答验证、⁠存储​与导出​准备",
         steps: [
-          ["01", "问卷", "序列化当前路径与可选回答，不收集账户或登录标识。"],
-          ["02", "验证", "Edge Function 检查来源、同意状态、版本、路径、选项、评分范围与文本长度。"],
-          ["03", "保护", "浏览器不能直接读写回答表；只有服务器函数执行插入。"],
-          ["04", "检查", "导出前使用完整性查询检查重复、同意状态、路径与选择限制。"],
-          ["05", "导出", "扁平化的 CSV 查询支持后续分析，同时保持测试与正式数据分离。"],
+          ["01", "问卷", "序列化​当前​路径​与可选​回答，​不收集账户​或登录​标识。"],
+          ["02", "验证", "Edge Funct​ion ​检查​来源、​同意​状态、​版本、​路径、​选项、​评分​范围​与文本​长度。"],
+          ["03", "保护", "浏览器​不能​直接​读写​回答表；​只有​服务器​函数​执行​插入。"],
+          ["04", "检查", "导出​前使用​完整性​查询​检查​重复、​同意​状态、​路径​与选择​限制。"],
+          ["05", "导出", "扁平化​的 C​SV 查询​支持​后续​分析，​同时​保持​测试​与正式​数据​分离。"],
         ],
       },
       safeguards: {
-        label: "08 / 参与者保护",
-        title: "界面与后端共同处理可选性和数据访问",
-        intro: "界面与后端遵循同一原则：只收集研究真正需要的信息，明确展示可选性，并防止公开浏览器成为数据访问入口。",
+        label: "08 / 参与者​保护",
+        title: "界面​与后端​共同​处理​可选性​和数据​访问",
+        intro: "界面​与后端遵​循同​一原​则：​只收集​研究​真正​需要​的信息，​明确​展示​可选性，​并防止​公开​浏览器​成为​数据​访问​入口。",
         items: [
-          ["自愿参与", "参与者可在提交前停止，并可跳过除同意与路径分流所需之外的问题。"],
-          ["非诊断", "问卷明确说明自己不是心理或临床评估。"],
-          ["匿名设计", "回答结构不存储姓名、邮箱、登录标识、IP 地址或浏览器用户代理。"],
-          ["默认拒绝", "RLS 已启用，公开浏览器角色没有回答表的直接访问权限。"],
+          ["自愿参与", "参与者​可在​提交​前停止，​并可​跳过除​同意​与路径​分流​所需​之外​的问题。"],
+          ["非诊断", "问卷明确​说明​自己​不是​心理​或临床​评估。"],
+          ["匿名设计", "回答​结构​不存储​姓名、​邮箱、​登录​标识、​IP ​地址​或浏览器​用户​代理。"],
+          ["默认拒绝", "RLS ​已启用，​公开​浏览器​角色​没有​回答表​的直接​访问​权限。"],
         ],
       },
       code: {
         label: "技术细节",
-        title: "服务器检查每次提交是否符合所选路径",
-        body: "客户端分流可以改善体验，但隐藏字段并不是安全边界。提交函数会独立推导应有路径，并拒绝不一致的数据。",
+        title: "服务器​检查​每次​提交​是否​符合所​选路径",
+        body: "客户​端分流​可以​改善​体验，​但隐藏​字段​并不​是安全​边界。​提交​函数​会独立​推导​应有​路径，​并拒绝​不一致​的数据。",
         filename: "supabase/functions/submit-aep-questionnaire/index.ts · TypeScript",
         snippet: `function expectedRoute(situation: string) {
   if (situation === "student" || situation === "recent") return "b1";
@@ -222,7 +222,7 @@ export default function AepCaseStudy({ initialLanguage }: { initialLanguage: Lan
       </section>
 
       <article className="aep-story">
-        <nav className="aep-reading-links" aria-label={language === "en" ? "Explore the case study" : "浏览案例内容"}>
+        <nav className="aep-reading-links" aria-label={language === "en" ? "Explore the case study" : "浏览案​例内容"}>
           <a href="#research">{t.research}</a>
           <a href="#contribution">{r.contributionLink}</a>
           <a href="#questionnaire">{r.questionnairePreview.link}</a>

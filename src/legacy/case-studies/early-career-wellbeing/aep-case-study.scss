@@ -1407,3 +1407,8 @@ $line: rgba($ink, 0.12);
 @media (max-width: 900px) {
   .aep-questionnaire-gallery { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; gap: 36px; }
 }
+
+// Headings may carry an explicit line break instead of a trailing comma.
+.aep-heading h2 {
+  white-space: pre-line;
+}

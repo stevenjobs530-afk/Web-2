@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll } from "motion/react";
-import { Pause, Play } from "lucide-react";
+import { Download, Pause, Play } from "lucide-react";
 import type { Content } from "../data/content";
-import { ArrowUpRight, asset, ease, useRange } from "../components/primitives";
+import { ArrowUpRight, asset, ease, gap, useRange } from "../components/primitives";
 import { scrollToId } from "./Nav";
 
 /** VertexAI-style hero over the concrete-and-grass film. */
@@ -63,14 +63,21 @@ export function Hero({ t }: { t: Content }) {
           <span className="block">{t.hero.lead}</span>
           <span className="block">
             <em className="serif-accent">{t.hero.accent}</em>
-            {/[\u3000-\u9fff\uff0c]$/.test(t.hero.accent) ? "" : " "}
+            {gap(t.hero.accent, t.hero.tail)}
             {t.hero.tail}
           </span>
         </motion.h1>
-        <motion.div {...rise(0.4)}>
+        <motion.div className="hero__actions" {...rise(0.4)}>
           <button type="button" className="pill pill--white hero__cta" onClick={() => scrollToId("projects")}>
             {t.hero.cta}
           </button>
+          {t.hero.cvs.map((cv) => (
+            <a key={cv.href} className="pill pill--glass hero__cv" href={asset(cv.href)} download>
+              <Download className="size-4" aria-hidden="true" />
+              {cv.label}
+              <span className="hero__cv-note">{cv.note}</span>
+            </a>
+          ))}
         </motion.div>
       </motion.div>
 
@@ -79,9 +86,6 @@ export function Hero({ t }: { t: Content }) {
           {t.hero.intro}
         </motion.p>
         <motion.div className="hero__tags" {...rise(0.62)}>
-          <a className="pill pill--outline" href={asset(t.hero.cvHref)} download>
-            {t.hero.cv}
-          </a>
           <div className="flex items-center gap-2">
             <button type="button" className="icon-pill" onClick={toggleVideo} aria-label={paused ? t.hero.play : t.hero.pause}>
               {paused ? <Play className="size-3.5" aria-hidden="true" /> : <Pause className="size-3.5" aria-hidden="true" />}

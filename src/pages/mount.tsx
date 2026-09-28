@@ -10,6 +10,13 @@ export function mountPage(Page: ComponentType<{ initialLanguage: Language }>) {
   const initialLanguage: Language = new URLSearchParams(location.search).get("lang") === "zh" ? "zh" : "en";
   document.documentElement.lang = initialLanguage === "zh" ? "zh-CN" : "en";
 
+  // Copy carries invisible phrase-break marks; keep them out of the browser tab title.
+  const cleanTitle = () => {
+    const clean = document.title.replace(/[\u200b\u2060]/g, "");
+    if (clean !== document.title) document.title = clean;
+  };
+  new MutationObserver(cleanTitle).observe(document.head, { subtree: true, childList: true, characterData: true });
+
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <Page initialLanguage={initialLanguage} />
