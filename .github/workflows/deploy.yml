@@ -1,8 +1,7 @@
 name: Deploy personal website
 
+# Web 2 is private for now: deploy only when triggered by hand.
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
 
 permissions:

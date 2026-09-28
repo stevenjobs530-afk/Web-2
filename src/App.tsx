@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Camera, CheckCircle2, Download, Drum, Dumbbell, FileText, Palette, ShieldCheck } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { GlassButton } from "@/components/ui/apple-tahoe-liquid-glass-button";
 import { BackgroundComponents } from "@/components/ui/background-components";
 import { Button } from "@/components/ui/button";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { LanguageSelectorDropdown } from "@/components/ui/language-selector-dropdown";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { RevealArticle, RevealBlock, RevealListItem, StaggerBlock, StaggerItem } from "@/components/ui/text-animations";
@@ -14,7 +12,19 @@ import { HelloIntro } from "@/components/HelloIntro";
 import { PortfolioGuidedHints } from "@/components/PortfolioGuidedHints";
 import { ProjectGalleryShowcase } from "@/components/ProjectGalleryShowcase";
 import { SectionNavigator } from "@/components/SectionNavigator";
+import { Eyebrow, FadeUp } from "@/components/web2/primitives";
+import {
+  DeskFilmSection,
+  ExperienceDetails,
+  FinaleSection,
+  NumbersSection,
+  PlacesSection,
+  SkillsSection,
+  StatementSection,
+  StrengthsSection,
+} from "@/components/web2/Web2Sections";
 import { languageOptions, portfolioByLanguage, type LanguageCode, type PortfolioContent } from "@/data/portfolio";
+import { web2ByLanguage, type Web2Copy } from "@/data/web2";
 
 const defaultLanguage: LanguageCode = "en";
 
@@ -211,92 +221,14 @@ function Hero({ content, language }: { content: PortfolioContent; language: Lang
   );
 }
 
-function Metrics({ content }: { content: PortfolioContent }) {
-  return (
-    <RevealBlock>
-      <LiquidGlass className="mx-auto grid w-[min(1180px,calc(100%-40px))] grid-cols-4 divide-x divide-white/50 max-lg:grid-cols-2 max-lg:divide-x-0 max-sm:w-[calc(100%-28px)] max-sm:grid-cols-1">
-        {content.metrics.map((metric) => (
-          <article key={metric.label} className="min-h-32 p-6">
-            <span className="apple-display-text block whitespace-nowrap text-[clamp(1.55rem,2.7vw,2.75rem)] text-neutral-950">{metric.value}</span>
-            <span className="mt-2 block text-sm leading-6 text-neutral-500">{metric.label}</span>
-          </article>
-        ))}
-      </LiquidGlass>
-    </RevealBlock>
-  );
-}
-
-function RecruiterQuickView({ content }: { content: PortfolioContent }) {
-  const quickView = content.recruiterQuickView;
-
-  return (
-    <section className="mx-auto w-[min(1180px,calc(100%-40px))] pt-10 max-sm:w-[calc(100%-28px)]">
-      <RevealBlock>
-        <LiquidGlass className="grid grid-cols-[.72fr_1.28fr] gap-8 p-7 md:p-8 max-lg:grid-cols-1">
-          <div className="relative z-[1]">
-            <p className="text-xs font-semibold uppercase tracking-normal text-blue-600">{quickView.label}</p>
-            <h2 className="apple-display-text mt-4 text-[clamp(1.8rem,3vw,3rem)] leading-none text-neutral-900">
-              {quickView.title}
-            </h2>
-            <p className="mt-5 text-[0.95rem] leading-7 text-neutral-600 md:text-base md:leading-8">{quickView.body}</p>
-          </div>
-          <div className="relative z-[1] grid grid-cols-2 gap-4 max-md:grid-cols-1">
-            {quickView.items.map((item, index) => (
-              <RevealArticle key={item.title} className="border-t border-white/55 pt-4" delay={index * 0.05}>
-                <h3 className="apple-display-text text-base text-neutral-900">{item.title}</h3>
-                <p className="mt-3 text-[0.95rem] leading-7 text-neutral-600 md:text-base md:leading-8">{item.body}</p>
-              </RevealArticle>
-            ))}
-          </div>
-        </LiquidGlass>
-      </RevealBlock>
-    </section>
-  );
-}
-
 function SectionHeading({ label, title, compact = false }: { label: string; title: string; compact?: boolean }) {
   return (
-    <StaggerBlock>
-      <StaggerItem>
-        <p className="text-xs font-semibold uppercase tracking-normal text-blue-600">{label}</p>
-      </StaggerItem>
-      <StaggerItem>
-        <h2
-          className={`apple-display-text mt-4 text-neutral-800 ${
-            compact ? "text-[clamp(2.25rem,4vw,4rem)] leading-[.96]" : "text-[clamp(2.25rem,5vw,4.8rem)] leading-none"
-          }`}
-        >
-          {title}
-        </h2>
-      </StaggerItem>
-    </StaggerBlock>
-  );
-}
-
-function About({ content }: { content: PortfolioContent }) {
-  return (
-    <section id="about" className="mx-auto grid w-[min(1180px,calc(100%-40px))] grid-cols-[.82fr_1.18fr] gap-20 pt-32 max-lg:grid-cols-1 max-sm:w-[calc(100%-28px)] max-sm:pt-24">
-      <SectionHeading label={content.sections.about.label} title={content.sections.about.title} />
-      <div className="flex flex-col gap-5 text-base leading-8 text-neutral-600">
-        {content.profile.about.map((paragraph, index) => (
-          <RevealBlock key={paragraph} delay={index * 0.08}>
-            <p>{paragraph}</p>
-          </RevealBlock>
-        ))}
-        <RevealBlock delay={0.18}>
-          <LiquidGlass className="mt-3 p-6">
-            <p className="text-xs font-semibold uppercase tracking-normal text-blue-600">{content.targetRoles.label}</p>
-            <h3 className="apple-display-text mt-3 text-xl leading-tight text-neutral-900">{content.targetRoles.title}</h3>
-            <p className="mt-3 text-sm leading-7 text-neutral-600">{content.targetRoles.body}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {content.targetRoles.roles.map((role) => (
-                <Badge key={role}>{role}</Badge>
-              ))}
-            </div>
-          </LiquidGlass>
-        </RevealBlock>
-      </div>
-    </section>
+    <div>
+      <Eyebrow>{label}</Eyebrow>
+      <FadeUp as="h2" className={`web2-headline mt-5 ${compact ? "!text-[clamp(2.2rem,4.2vw,3.8rem)]" : "!text-[clamp(2.3rem,4.4vw,4rem)]"}`}>
+        {title}
+      </FadeUp>
+    </div>
   );
 }
 
@@ -444,95 +376,6 @@ function CaseStudies({ content, language }: { content: PortfolioContent; languag
         ))}
       </div>
     </section>
-  );
-}
-
-function ExperienceShowcase({ content }: { content: PortfolioContent }) {
-  return (
-    <div className="h-full overflow-x-hidden overflow-y-auto bg-[radial-gradient(circle_at_12%_2%,rgba(0,122,255,.12),transparent_18%),radial-gradient(circle_at_8%_92%,rgba(21,214,180,.15),transparent_28%),linear-gradient(135deg,#f9fbff_0%,#eef5f8_52%,#f8f9fc_100%)] p-5 max-lg:h-auto max-lg:overflow-visible max-lg:rounded-[1.5rem] md:p-8">
-      <div className="mx-auto max-w-[760px]">
-        <p className="text-xs font-semibold uppercase tracking-normal text-blue-600">{content.sections.experience.label}</p>
-        <LiquidGlass className="mt-5">
-          {content.experiences.map((item, index) => (
-            <RevealArticle key={item.role} className={index > 0 ? "border-t border-white/50 p-5 md:p-6" : "p-5 md:p-6"} delay={index * 0.08}>
-              <time className="text-sm leading-6 text-neutral-500">{item.date}</time>
-              <h3 className="apple-display-text mt-1 text-lg text-neutral-900">{item.role}</h3>
-              <p className="mt-1 text-sm text-neutral-500">{item.company}</p>
-              <ul className="mt-4 list-disc pl-5 text-[0.95rem] leading-7 text-neutral-600">
-                {item.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
-              </ul>
-              {item.badges ? (
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {item.badges.map((badge) => (
-                    <Badge key={badge}>{badge}</Badge>
-                  ))}
-                </div>
-              ) : null}
-              {item.caseStudy ? (
-                <div className="mt-6 border-t border-white/55 pt-5">
-                  <h4 className="apple-display-text text-base text-neutral-900">{item.caseStudy.title}</h4>
-                  <p className="mt-3 text-[0.95rem] leading-7 text-neutral-600">{item.caseStudy.body}</p>
-                  <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 max-md:grid-cols-1">
-                    {item.caseStudy.details.map((detail) => (
-                      <article key={detail.title} className="border-t border-white/45 pt-4">
-                        <h5 className="text-sm font-semibold text-neutral-900">{detail.title}</h5>
-                        <p className="mt-1 text-[0.95rem] leading-7 text-neutral-600">{detail.body}</p>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-            </RevealArticle>
-          ))}
-        </LiquidGlass>
-      </div>
-    </div>
-  );
-}
-
-function ExperienceSkills({ content }: { content: PortfolioContent }) {
-  return (
-    <>
-      <section id="experience" className="pt-24 max-sm:pt-16">
-        <ContainerScroll
-          titleComponent={
-            <StaggerBlock>
-              <StaggerItem>
-                <p className="text-xs font-semibold uppercase tracking-normal text-blue-600">{content.sections.experience.label}</p>
-              </StaggerItem>
-              <StaggerItem>
-                <h2 className="apple-display-text mx-auto mt-4 max-w-4xl text-[clamp(2.6rem,6vw,5.4rem)] leading-[.95] text-neutral-900">
-                  {content.sections.experience.title}
-                </h2>
-              </StaggerItem>
-            </StaggerBlock>
-          }
-        >
-          <ExperienceShowcase content={content} />
-        </ContainerScroll>
-      </section>
-
-      <section id="skills" className="mx-auto w-[min(1180px,calc(100%-40px))] pt-12 max-sm:w-[calc(100%-28px)]">
-        <div className="grid grid-cols-[.82fr_1.18fr] gap-20 max-lg:grid-cols-1">
-          <SectionHeading label={content.sections.skills.label} title={content.sections.skills.title} />
-          <LiquidGlass>
-            {content.skills.map((skill, index) => (
-              <RevealArticle key={skill.title} className={index > 0 ? "border-t border-white/50 p-7" : "p-7"} delay={index * 0.06}>
-                <h3 className="apple-display-text text-lg text-neutral-900">{skill.title}</h3>
-                <p className="mt-3 text-[0.95rem] leading-7 text-neutral-600 md:text-base md:leading-8">{skill.body}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {skill.tags.map((tag) => (
-                    <Badge key={tag}>{tag}</Badge>
-                  ))}
-                </div>
-              </RevealArticle>
-            ))}
-          </LiquidGlass>
-        </div>
-      </section>
-    </>
   );
 }
 
@@ -850,96 +693,36 @@ function Interests({ content }: { content: PortfolioContent }) {
   );
 }
 
-function Contact({ content, language }: { content: PortfolioContent; language: LanguageCode }) {
-  const cvPdfPath = cvPdfPaths[language];
-
+function ExperienceChapter({ content, copy }: { content: PortfolioContent; copy: Web2Copy }) {
   return (
-    <section id="contact" className="mx-auto mt-32 w-[min(1180px,calc(100%-40px))] max-sm:mt-24 max-sm:w-[calc(100%-28px)]">
-      <RevealBlock>
-        <LiquidGlass className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-11 p-12 max-lg:grid-cols-1 max-sm:p-7">
-          <StaggerBlock>
-            <StaggerItem>
-              <p className="text-xs font-semibold uppercase tracking-normal text-blue-600">{content.sections.contact.label}</p>
-            </StaggerItem>
-            <StaggerItem>
-              <h2 className="apple-display-text mt-4 text-[clamp(2.25rem,5vw,4.8rem)] leading-none text-neutral-900">
-                {content.sections.contact.title}
-              </h2>
-            </StaggerItem>
-            <StaggerItem>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-neutral-600">
-                {content.sections.contact.body}
-              </p>
-            </StaggerItem>
-          </StaggerBlock>
-        <div className="grid min-w-64 gap-3 max-lg:min-w-0">
-          <GlassButton
-            className="h-12 text-neutral-950"
-            glassColor="oklch(from var(--foreground) l c h / 5%)"
-            onClick={() => {
-              window.location.href = `mailto:${content.profile.email}`;
-            }}
-          >
-            {content.profile.email}
-          </GlassButton>
-          <GlassButton
-            className="h-12 text-neutral-950"
-            glassColor="oklch(from var(--foreground) l c h / 5%)"
-            onClick={() => window.open(content.profile.linkedin, "_blank", "noopener,noreferrer")}
-          >
-            LinkedIn
-          </GlassButton>
-          <GlassButton
-            className="h-12 text-neutral-950"
-            glassColor="oklch(from var(--foreground) l c h / 5%)"
-            onClick={() => window.open(content.profile.github, "_blank", "noopener,noreferrer")}
-          >
-            GitHub
-          </GlassButton>
-          <GlassButton asChild className="h-12 text-neutral-950" glassColor="oklch(from var(--foreground) l c h / 5%)">
-            <a href={cvPdfPath} download>
-              {content.actions.downloadCV}
-            </a>
-          </GlassButton>
-        </div>
-        </LiquidGlass>
-      </RevealBlock>
-    </section>
-  );
-}
-
-function Footer({ content }: { content: PortfolioContent }) {
-  return (
-    <footer className="mx-auto flex w-[min(1180px,calc(100%-40px))] items-center justify-between gap-5 py-12 text-sm text-neutral-500 max-sm:w-[calc(100%-28px)] max-sm:flex-col max-sm:items-start">
-      <span>{content.footer.rights}</span>
-      <a
-        className="nav-link hover:text-blue-700"
-        href="#top"
-        onClick={(event) => {
-          event.preventDefault();
-          scrollToPageSection("top");
-        }}
-      >
-        {content.actions.backToTop}
-      </a>
-    </footer>
+    <>
+      <PlacesSection copy={copy} id="experience" />
+      <ExperienceDetails content={content} />
+    </>
   );
 }
 
 function MainContent({ content, language }: { content: PortfolioContent; language: LanguageCode }) {
+  const copy = web2ByLanguage[language];
+  const finale = (
+    <FinaleSection copy={copy} content={content} cvPdfPath={cvPdfPaths[language]} onBackToTop={() => scrollToPageSection("top")} />
+  );
+
   if (language === "zh-CN") {
     return (
       <main>
         <Hero content={content} language={language} />
         <EducationAwards content={content} compactTop />
-        <Metrics content={content} />
-        <RecruiterQuickView content={content} />
+        <NumbersSection copy={copy} content={content} />
+        <StrengthsSection copy={copy} />
+        <DeskFilmSection copy={copy} />
         <Projects content={content} />
         <CaseStudies content={content} language={language} />
-        <ExperienceSkills content={content} />
-        <About content={content} />
+        <ExperienceChapter content={content} copy={copy} />
+        <SkillsSection content={content} id="skills" />
+        <StatementSection copy={copy} content={content} language={language} id="about" />
         <Interests content={content} />
-        <Contact content={content} language={language} />
+        {finale}
       </main>
     );
   }
@@ -947,15 +730,17 @@ function MainContent({ content, language }: { content: PortfolioContent; languag
   return (
     <main>
       <Hero content={content} language={language} />
-      <Metrics content={content} />
-      <RecruiterQuickView content={content} />
-      <About content={content} />
+      <StatementSection copy={copy} content={content} language={language} id="about" />
+      <NumbersSection copy={copy} content={content} />
+      <StrengthsSection copy={copy} />
+      <DeskFilmSection copy={copy} />
       <Projects content={content} />
       <CaseStudies content={content} language={language} />
-      <ExperienceSkills content={content} />
+      <ExperienceChapter content={content} copy={copy} />
+      <SkillsSection content={content} id="skills" />
       <EducationAwards content={content} />
       <Interests content={content} />
-      <Contact content={content} language={language} />
+      {finale}
     </main>
   );
 }
@@ -980,7 +765,6 @@ export default function App() {
       <SectionNavigator language={language} />
       <PortfolioGuidedHints introComplete={helloIntroComplete} language={language} />
       <MainContent content={content} language={language} />
-      <Footer content={content} />
     </>
   );
 }
