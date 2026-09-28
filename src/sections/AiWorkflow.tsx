@@ -1,9 +1,9 @@
 import { Sparkles } from "lucide-react";
-import { LIVE_SITE, remoteMedia, type Content } from "../data/content";
-import { ArrowRight, Film, Reveal, SectionHead } from "../components/primitives";
+import { remoteMedia, type Content, type Lang } from "../data/content";
+import { ArrowRight, Film, Reveal, SectionHead, pageHref } from "../components/primitives";
 
 /** Split layout from the falcon reference: film on the left, the workflow as a clean panel on the right. */
-export function AiWorkflow({ t }: { t: Content }) {
+export function AiWorkflow({ t, lang }: { t: Content; lang: Lang }) {
   const a = t.ai;
 
   return (
@@ -43,7 +43,7 @@ export function AiWorkflow({ t }: { t: Content }) {
             ))}
           </ol>
 
-          <a className="dark-pill" href={`${LIVE_SITE}/case-studies/ai-assisted-job-workflow/`} target="_blank" rel="noreferrer">
+          <a className="dark-pill" href={pageHref("case-studies/ai-assisted-job-workflow", lang)}>
             {a.cta}
             <ArrowRight className="h-3 w-4" />
           </a>

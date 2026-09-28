@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useMotionTemplate, useReducedMotion, useScroll } from "motion/react";
-import { LIVE_SITE, QUESTIONNAIRE_URL, links, type Content } from "../data/content";
-import { ArrowRight, ArrowUpRight, Film, Reveal, SectionHead, asset, useRange } from "../components/primitives";
+import { QUESTIONNAIRE_URL, links, type Content, type Lang } from "../data/content";
+import { ArrowRight, Cta, Film, Reveal, SectionHead, asset, pageHref, useRange } from "../components/primitives";
 
 type Project = Content["projects"]["items"][number];
 
@@ -18,14 +18,14 @@ function Path({ steps, tone = "light" }: { steps: readonly string[]; tone?: "lig
   );
 }
 
-function caseStudyHref(slug: string) {
-  return `${LIVE_SITE}/case-studies/${slug}/`;
+function caseStudyHref(slug: string, lang: Lang) {
+  return pageHref(`case-studies/${slug}`, lang);
 }
 
 /** 01 · UK retail — bright product panel with the cleaned-data artwork. */
-function RetailPanel({ p, read }: { p: Project; read: string }) {
+function RetailPanel({ p, read, lang }: { p: Project; read: string; lang: Lang }) {
   return (
-    <Reveal className="panel panel--light">
+    <Reveal className="panel panel--light" id="project-uk-retail">
       <div className="panel__copy">
         <p className="mono-label">
           <span className="mono-label__num">01</span>
@@ -39,9 +39,7 @@ function RetailPanel({ p, read }: { p: Project; read: string }) {
         </div>
         <Path steps={p.path} />
         <p className="panel__note">{p.value}</p>
-        <a className="text-link" href={caseStudyHref(p.slug)} target="_blank" rel="noreferrer">
-          {read} <ArrowUpRight className="size-4" />
-        </a>
+        <Cta href={caseStudyHref(p.slug, lang)}>{read}</Cta>
       </div>
       <div className="panel__art">
         <img src={asset("projects/uk-retail-hero-clean-data.webp")} alt="" loading="lazy" />
@@ -51,7 +49,7 @@ function RetailPanel({ p, read }: { p: Project; read: string }) {
 }
 
 /** 02 · Apple App Store — the boy-at-the-window film opens up to full bleed as you scroll. */
-function AppleCinema({ p, read }: { p: Project; read: string }) {
+function AppleCinema({ p, read, lang }: { p: Project; read: string; lang: Lang }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
@@ -62,7 +60,7 @@ function AppleCinema({ p, read }: { p: Project; read: string }) {
   const clipPath = useMotionTemplate`inset(${inset}% ${inset}% ${inset}% ${inset}% round ${radius}px)`;
 
   return (
-    <div ref={ref} className="cinema">
+    <div ref={ref} className="cinema" id="project-apple-app-store">
       <div className="cinema__sticky">
         <motion.div
           className="cinema__frame"
@@ -78,9 +76,9 @@ function AppleCinema({ p, read }: { p: Project; read: string }) {
             <h3 className="cinema__title">{p.title}</h3>
             <p className="cinema__body">{p.description}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a className="square-btn square-btn--light" href={caseStudyHref(p.slug)} target="_blank" rel="noreferrer">
-                {read} <ArrowUpRight className="size-4" />
-              </a>
+              <Cta href={caseStudyHref(p.slug, lang)} tone="light">
+                {read}
+              </Cta>
               <span className="terminal">
                 <span className="text-[#6ee7a8]">$</span> {p.metric} <span className="text-white/50">{p.metricLabel}</span>
                 <span className="terminal__caret" aria-hidden="true" />
@@ -97,9 +95,9 @@ function AppleCinema({ p, read }: { p: Project; read: string }) {
 }
 
 /** 03 · Applied research — the desk-under-the-stars film beside the findings. */
-function ResearchPanel({ p, read, questionnaire }: { p: Project; read: string; questionnaire: string }) {
+function ResearchPanel({ p, read, questionnaire, lang }: { p: Project; read: string; questionnaire: string; lang: Lang }) {
   return (
-    <Reveal className="panel panel--dark">
+    <Reveal className="panel panel--dark" id="project-early-career-wellbeing">
       <div className="panel__film">
         <Film src={asset("media/early-career-wellbeing-hero.mp4")} poster={asset("media/early-career-wellbeing-hero.jpg")} className="h-full w-full object-cover" />
       </div>
@@ -116,47 +114,65 @@ function ResearchPanel({ p, read, questionnaire }: { p: Project; read: string; q
         </div>
         <Path steps={p.path} tone="dark" />
         <p className="panel__note !text-white/55">{p.value}</p>
-        <div className="flex flex-wrap gap-5">
-          <a className="text-link text-link--dark" href={caseStudyHref(p.slug)} target="_blank" rel="noreferrer">
-            {read} <ArrowUpRight className="size-4" />
-          </a>
-          <a className="text-link text-link--dark" href={QUESTIONNAIRE_URL} target="_blank" rel="noreferrer">
-            {questionnaire} <ArrowUpRight className="size-4" />
-          </a>
+        <div className="cta-row">
+          <Cta href={caseStudyHref(p.slug, lang)} tone="light">
+            {read}
+          </Cta>
+          <Cta href={QUESTIONNAIRE_URL} tone="ghost-dark" external>
+            {questionnaire}
+          </Cta>
         </div>
       </div>
     </Reveal>
   );
 }
 
-function FitnessPanel({ f }: { f: Content["projects"]["fitness"] }) {
+/** Personal project — the ship driving into the wind, with the build pipeline as a glass instrument bar. */
+function VoyagePanel({ f, lang }: { f: Content["projects"]["fitness"]; lang: Lang }) {
   return (
-    <Reveal className="panel panel--light panel--reverse">
-      <div className="panel__art panel__art--photo">
-        <img src={asset("projects/personal-training-runner.webp")} alt="" loading="lazy" />
-      </div>
-      <div className="panel__copy">
-        <p className="mono-label">
+    <Reveal className="voyage" id="personal-training-project">
+      <Film
+        src={asset("personal-projects/personal-training/video/ocean-hero-720p.mp4")}
+        poster={asset("personal-projects/personal-training/video/ocean-hero-poster.jpg")}
+        className="voyage__video"
+      />
+      <div className="voyage__shade" aria-hidden="true" />
+
+      <div className="voyage__head">
+        <p className="mono-label mono-label--dark">
           <span className="mono-label__num">+</span>
           {f.label} · React · Supabase · RLS
         </p>
-        <h3 className="panel__title">{f.heading}</h3>
-        <p className="panel__body">{f.description}</p>
-        <Path steps={f.flow} />
-        <div className="mt-2 flex flex-wrap gap-5">
-          <a className="text-link" href={`${LIVE_SITE}/personal-projects/personal-training/`} target="_blank" rel="noreferrer">
-            {f.view} <ArrowUpRight className="size-4" />
-          </a>
-          <a className="text-link" href={links.trainingRepo} target="_blank" rel="noreferrer">
-            GitHub <ArrowUpRight className="size-4" />
-          </a>
+        <h3 className="voyage__title">{f.heading}</h3>
+      </div>
+
+      <div className="voyage__deck">
+        <div className="voyage__copy">
+          <p className="voyage__name">{f.title}</p>
+          <p className="voyage__body">{f.description}</p>
+          <div className="cta-row">
+            <Cta href={pageHref("personal-projects/personal-training", lang)} tone="light">
+              {f.view}
+            </Cta>
+            <Cta href={links.trainingRepo} tone="ghost-dark" external>
+              GitHub
+            </Cta>
+          </div>
         </div>
+        <ol className="voyage__flow">
+          {f.flow.map((step, index) => (
+            <li key={step}>
+              <span className="voyage__flow-num">0{index + 1}</span>
+              <span className="voyage__flow-label">{step}</span>
+            </li>
+          ))}
+        </ol>
       </div>
     </Reveal>
   );
 }
 
-export function Projects({ t }: { t: Content }) {
+export function Projects({ t, lang }: { t: Content; lang: Lang }) {
   const p = t.projects;
   const [retail, apple, research] = p.items;
 
@@ -164,12 +180,12 @@ export function Projects({ t }: { t: Content }) {
     <section id="projects" className="section">
       <div className="shell">
         <SectionHead number={p.number} label={p.label} title={p.title} italic={p.italic} summary={p.summary} />
-        <RetailPanel p={retail} read={p.read} />
+        <RetailPanel p={retail} read={p.read} lang={lang} />
       </div>
-      <AppleCinema p={apple} read={p.read} />
+      <AppleCinema p={apple} read={p.read} lang={lang} />
       <div className="shell">
-        <ResearchPanel p={research} read={p.read} questionnaire={p.questionnaire} />
-        <FitnessPanel f={p.fitness} />
+        <ResearchPanel p={research} read={p.read} questionnaire={p.questionnaire} lang={lang} />
+        <VoyagePanel f={p.fitness} lang={lang} />
       </div>
     </section>
   );

@@ -17,16 +17,19 @@ export function Reveal({
   className,
   delay = 0,
   y = 26,
+  id,
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   y?: number;
+  id?: string;
 }) {
   const reduce = useReducedMotion();
 
   return (
     <motion.div
+      id={id}
       className={className}
       initial={reduce ? false : { opacity: 0, y, filter: "blur(6px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -145,5 +148,38 @@ export function ArrowRight({ className }: { className?: string }) {
     <svg className={className} viewBox="0 0 20 12" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M1 6h16M13.25 2.5 17.5 6l-4.25 3.5" />
     </svg>
+  );
+}
+
+/** Link to one of the detail pages that live inside Web 2, keeping the current language. */
+export function pageHref(path: string, lang: "en" | "zh") {
+  return `${asset(path.replace(/\/?$/, "/"))}?lang=${lang}`;
+}
+
+/** Large, unmistakable call to action: pill label with a circled arrow that turns on hover. */
+export function Cta({
+  href,
+  children,
+  tone = "dark",
+  external = false,
+  className,
+}: {
+  href: string;
+  children: ReactNode;
+  tone?: "dark" | "light" | "ghost" | "ghost-dark";
+  external?: boolean;
+  className?: string;
+}) {
+  return (
+    <a
+      className={cx("cta", `cta--${tone}`, className)}
+      href={href}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+    >
+      <span className="cta__label">{children}</span>
+      <span className="cta__icon" aria-hidden="true">
+        <ArrowUpRight className="size-4" />
+      </span>
+    </a>
   );
 }

@@ -41,6 +41,20 @@ export default function App() {
     }
   }, [lang, t]);
 
+  // Returning from a detail page lands on its card (e.g. #project-uk-retail).
+  useEffect(() => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const timer = window.setTimeout(() => {
+      const target = document.getElementById(id);
+      if (!target) return;
+      // The Apple film is a tall scroll scene; land where its copy is fully open.
+      const extra = id === "project-apple-app-store" ? target.offsetHeight - window.innerHeight : -96;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY + extra, behavior: "auto" });
+    }, 120);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <a className="skip-link" href="#education">
@@ -51,8 +65,8 @@ export default function App() {
         <Hero t={t} />
         <Education t={t} />
         <Honours t={t} lang={lang} />
-        <Projects t={t} />
-        <AiWorkflow t={t} />
+        <Projects t={t} lang={lang} />
+        <AiWorkflow t={t} lang={lang} />
         <Method t={t} />
         <Experience t={t} />
         <Hubs t={t} />

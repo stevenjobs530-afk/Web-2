@@ -26,8 +26,8 @@ Add `?lang=zh` to the URL to open the Chinese version.
 |---|---|---|---|
 | — | **Hero** | *Motion Hero 1* (VertexAI) | Concrete-and-grass film behind a frosted nav pill. A centred headline mixes sans and serif italic, with a white CTA. The intro sits bottom-left, and the CV, Explore and pause controls bottom-right. The film slowly zooms and the text drifts away on scroll. |
 | 01 | **Education** | Apple bento | The 87.36 weighted average counts up in a gradient. Selected grades are shown as thin progress rules. A dark tile marks the current MSc at Bristol. |
-| 02 | **Honours** | — | A horizontal, snap-scrolling shelf of certificates. Opening one gives a full-screen view with previous/next and keyboard controls. |
-| 03 | **Projects** | *Motion (We can set in the Final)* | UK retail as a bright product panel. **Apple App Store** gets the boy-at-the-window film: it starts inset and opens to full bleed as you scroll, with Prime-Intellect-style copy and a terminal-style metric. The research project sits beside the desk-under-the-stars film. The training app sits beside the runner photo. |
+| 02 | **Honours** | — | A centred shelf: the middle certificate is in focus, the edges fade and blur, and it can be dragged, swiped or stepped with arrows and dots. Opening the focused card gives a full-screen view. |
+| 03 | **Projects** | *Motion (We can set in the Final)* | UK retail as a bright product panel. **Apple App Store** gets the boy-at-the-window film: it starts inset and opens to full bleed as you scroll, with Prime-Intellect-style copy and a terminal-style metric. The research project sits beside the desk-under-the-stars film. The training app is a full-width card over the ship film, with its build pipeline on a glass panel. Each project has a large, clearly clickable call to action. |
 | 04 | **AI workflow** | *猎鹰* (falcon) | A split card: the diving-falcon film with "From signal to action" on the left, and the four workflow steps laid out like a clean form on the right. |
 | 05 | **Method** | Apple sticky story | Dark chapter. A pinned ring and number (01–05) advance as each step scrolls past. |
 | 06 | **Experience** | — | Two role cards with large gradient metrics and three columns of detail. |
@@ -39,4 +39,4 @@ Add `?lang=zh` to the URL to open the Chinese version.
 - Copy: `src/data/content.ts`, carried over from the live site in English and Chinese. New lines written for Web 2: the hero accent, the falcon panel and the time-zone section.
 - Local media in `public/`: the hero, Apple, research and contact films, certificates, CVs and project images, all copied from the live site's repository.
 - **Hotlinked third-party media**: the falcon film and the three city images come from the design-gallery CDN, as chosen for this draft. Replace them with self-hosted, licensed files before making the site public.
-- Case-study links currently point to the live site's case-study pages.
+- **Detail pages live inside Web 2.** The four case studies and the personal-training page are ported from the live site into `src/legacy/`, and each gets its own page under `case-studies/…` and `personal-projects/…`. Their "Back to Portfolio" links return to the matching card in Web 2, in the same language. `next/image` is replaced by a small shim (`src/shims/next-image.tsx`).

@@ -103,6 +103,8 @@ const en = {
     close: "Close certificate",
     prev: "Previous",
     next: "Next",
+    hint: "Drag or swipe to browse",
+    goTo: "Show certificate",
   },
   projects: {
     number: "03",
@@ -315,6 +317,8 @@ const zh: Content = {
     close: "关闭证书",
     prev: "上一项",
     next: "下一项",
+    hint: "拖动或滑动浏览",
+    goTo: "查看证书",
   },
   projects: {
     number: "03",
