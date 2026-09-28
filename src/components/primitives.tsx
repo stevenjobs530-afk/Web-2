@@ -103,15 +103,47 @@ export function SectionHead({
   );
 }
 
-/** Muted looping film that only plays while on screen; a still poster for reduced motion. */
+// Mobile browsers (in-app webviews, Low Power Mode, data saver) may refuse autoplay until
+// the visitor touches the page. One shared listener retries every film on first touch.
+const films = new Set<HTMLVideoElement>();
+let gestureHooked = false;
+function hookFirstGesture() {
+  if (gestureHooked || typeof window === "undefined") return;
+  gestureHooked = true;
+  const retry = () => {
+    films.forEach((video) => {
+      const rect = video.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) void video.play().catch(() => undefined);
+    });
+  };
+  for (const type of ["touchstart", "pointerdown", "scroll"] as const) {
+    window.addEventListener(type, retry, { passive: true, once: type !== "scroll" });
+  }
+}
+
+/**
+ * Muted looping film. The poster is always visible underneath, so if a phone blocks
+ * autoplay the frame still shows; the moving picture fades in only once it is really playing.
+ */
 export function Film({ src, poster, className, label }: { src: string; poster?: string; className?: string; label?: string }) {
   const ref = useRef<HTMLVideoElement | null>(null);
   const reduce = useReducedMotion();
-  const [ready, setReady] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const video = ref.current;
-    if (!video || reduce || typeof IntersectionObserver === "undefined") return;
+    if (!video || reduce) return;
+    films.add(video);
+    hookFirstGesture();
+    // iOS needs the muted property set before play() is allowed.
+    video.muted = true;
+
+    if (typeof IntersectionObserver === "undefined") {
+      void video.play().catch(() => undefined);
+      return () => {
+        films.delete(video);
+      };
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -121,28 +153,33 @@ export function Film({ src, poster, className, label }: { src: string; poster?: 
       { threshold: 0.02 },
     );
     observer.observe(video);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      films.delete(video);
+    };
   }, [reduce]);
 
-  if (reduce && poster) {
-    return <img className={cx("film", "is-ready", className)} src={poster} alt={label ?? ""} aria-hidden={label ? undefined : true} />;
+  if (reduce) {
+    return poster ? <img className={cx("film", className)} src={poster} alt={label ?? ""} aria-hidden={label ? undefined : true} /> : null;
   }
 
   return (
-    <video
-      ref={ref}
-      className={cx("film", ready && "is-ready", className)}
-      src={src}
-      poster={poster}
-      autoPlay={!reduce}
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      aria-hidden="true"
-      tabIndex={-1}
-      onLoadedData={() => setReady(true)}
-    />
+    <div className={cx("film-stack", className)} aria-hidden="true">
+      {poster ? <img className="film-stack__poster" src={poster} alt="" decoding="async" /> : null}
+      <video
+        ref={ref}
+        className={cx("film-stack__video", playing && "is-playing")}
+        src={src}
+        poster={poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        tabIndex={-1}
+        onPlaying={() => setPlaying(true)}
+      />
+    </div>
   );
 }
 

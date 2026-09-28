@@ -1,6 +1,6 @@
 import { Sparkles } from "lucide-react";
 import { remoteMedia, type Content, type Lang } from "../data/content";
-import { ArrowRight, Film, Reveal, SectionHead, pageHref } from "../components/primitives";
+import { ArrowRight, Film, Reveal, SectionHead, asset, pageHref } from "../components/primitives";
 
 /** Split layout from the falcon reference: film on the left, the workflow as a clean panel on the right. */
 export function AiWorkflow({ t, lang }: { t: Content; lang: Lang }) {
@@ -12,7 +12,7 @@ export function AiWorkflow({ t, lang }: { t: Content; lang: Lang }) {
 
       <Reveal className="falcon">
         <div className="falcon__film">
-          <Film src={remoteMedia.falcon} className="falcon__video" />
+          <Film src={remoteMedia.falcon} poster={asset("media/posters-web2/falcon.jpg")} className="falcon__video" />
           <div className="falcon__shade" aria-hidden="true" />
           <span className="falcon__chip">
             <Sparkles className="size-3.5" aria-hidden="true" />
