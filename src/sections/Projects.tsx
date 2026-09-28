@@ -66,7 +66,12 @@ function AppleCinema({ p, read, lang }: { p: Project; read: string; lang: Lang }
           className="cinema__frame"
           style={reduce ? undefined : { clipPath }}
         >
-          <Film src={asset("media/apple-app-store-hero.mp4")} poster={asset("media/apple-app-store-hero.jpg")} className="cinema__video" />
+          <Film
+            src={asset("media/apple-app-store-hero.mp4")}
+            poster={asset("media/apple-app-store-hero.jpg")}
+            phone={{ src: asset("media/mobile/apple.mp4"), poster: asset("media/mobile/apple.webp") }}
+            className="cinema__video"
+          />
           <div className="cinema__shade" aria-hidden="true" />
           <motion.div className="cinema__copy" style={reduce ? undefined : { opacity: copyOpacity, y: copyY }}>
             <p className="mono-label mono-label--dark">
@@ -99,7 +104,11 @@ function ResearchPanel({ p, read, questionnaire, lang }: { p: Project; read: str
   return (
     <Reveal className="panel panel--dark" id="project-early-career-wellbeing">
       <div className="panel__film">
-        <Film src={asset("media/early-career-wellbeing-hero.mp4")} poster={asset("media/early-career-wellbeing-hero.jpg")} className="h-full w-full object-cover" />
+        <Film
+          src={asset("media/early-career-wellbeing-hero.mp4")}
+          poster={asset("media/early-career-wellbeing-hero.jpg")}
+          phone={{ src: asset("media/mobile/research.mp4"), poster: asset("media/mobile/research.webp") }}
+          className="h-full w-full object-cover" />
       </div>
       <div className="panel__copy">
         <p className="mono-label mono-label--dark">
@@ -134,6 +143,7 @@ function VoyagePanel({ f, lang }: { f: Content["projects"]["fitness"]; lang: Lan
       <Film
         src={asset("personal-projects/personal-training/video/ocean-hero-720p.mp4")}
         poster={asset("personal-projects/personal-training/video/ocean-hero-poster.jpg")}
+        phone={{ src: asset("media/mobile/ocean.mp4"), poster: asset("media/mobile/ocean.webp") }}
         className="voyage__video"
       />
       <div className="voyage__shade" aria-hidden="true" />

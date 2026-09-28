@@ -21,7 +21,12 @@ export function Contact({ t }: { t: Content }) {
   return (
     <section id="contact" ref={ref} className="finale">
       <motion.div className="finale__media" style={reduce ? undefined : { scale }}>
-        <Film src={asset("media/homepage-contact.mp4")} poster={asset("media/homepage-contact.jpg")} className="h-full w-full object-cover" />
+        <Film
+          src={asset("media/homepage-contact.mp4")}
+          poster={asset("media/homepage-contact.jpg")}
+          phone={{ src: asset("media/mobile/contact.mp4"), poster: asset("media/mobile/contact.webp") }}
+          className="h-full w-full object-cover"
+        />
       </motion.div>
       <div className="finale__shade" aria-hidden="true" />
 

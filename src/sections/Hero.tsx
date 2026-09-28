@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll } from "motion/react";
 import { Download, Pause, Play } from "lucide-react";
 import type { Content } from "../data/content";
-import { ArrowUpRight, asset, ease, gap, useRange } from "../components/primitives";
+import { ArrowUpRight, asset, ease, gap, mediaPlan, useRange } from "../components/primitives";
 import { scrollToId } from "./Nav";
 
 /** VertexAI-style hero over the concrete-and-grass film. */
@@ -11,6 +11,9 @@ export function Hero({ t }: { t: Content }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const reduce = useReducedMotion();
   const [paused, setPaused] = useState(false);
+  const [plan] = useState(mediaPlan);
+  const heroSrc = plan.phone ? asset("media/mobile/hero.mp4") : asset("media/homepage-hero.mp4");
+  const heroPoster = plan.phone ? asset("media/mobile/hero.webp") : asset("media/homepage-hero.jpg");
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const scale = useRange(scrollYProgress, [0, 1], [1, 1.12]);
   const contentY = useRange(scrollYProgress, [0, 1], [0, 120]);
@@ -40,18 +43,23 @@ export function Hero({ t }: { t: Content }) {
   return (
     <section id="home" ref={ref} className="hero">
       <motion.div className="hero__media" style={reduce ? undefined : { scale }}>
-        <video
-          ref={videoRef}
-          className="hero__video"
-          src={asset("media/homepage-hero.mp4")}
-          poster={asset("media/homepage-hero.jpg")}
-          autoPlay={!reduce}
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-          tabIndex={-1}
-        />
+        {plan.stills ? (
+          <img className="hero__video" src={heroPoster} alt="" aria-hidden="true" />
+        ) : (
+          <video
+            ref={videoRef}
+            className="hero__video"
+            src={heroSrc}
+            poster={heroPoster}
+            autoPlay={!reduce}
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
+        )}
       </motion.div>
       <div className="hero__shade" aria-hidden="true" />
 

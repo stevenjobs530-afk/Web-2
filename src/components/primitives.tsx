@@ -121,61 +121,108 @@ function hookFirstGesture() {
   }
 }
 
+type Connection = { saveData?: boolean; effectiveType?: string };
+
+/**
+ * How much film this visitor should get: phones receive the portrait-cropped
+ * phone encodes, and data-saver or 2G connections get still frames only.
+ */
+export function mediaPlan() {
+  if (typeof window === "undefined") return { phone: false, stills: false };
+  const connection = (navigator as Navigator & { connection?: Connection }).connection;
+  const stills = Boolean(connection?.saveData) || /(^|-)2g$/.test(connection?.effectiveType ?? "");
+  return { phone: window.matchMedia("(max-width: 720px)").matches, stills };
+}
+
+export type FilmSource = { src: string; poster?: string };
+
 /**
  * Muted looping film. The poster is always visible underneath, so if a phone blocks
  * autoplay the frame still shows; the moving picture fades in only once it is really playing.
+ * The video file is only requested when the film comes near the viewport.
  */
-export function Film({ src, poster, className, label }: { src: string; poster?: string; className?: string; label?: string }) {
+export function Film({
+  src,
+  poster,
+  phone,
+  className,
+  label,
+}: {
+  src: string;
+  poster?: string;
+  phone?: FilmSource;
+  className?: string;
+  label?: string;
+}) {
   const ref = useRef<HTMLVideoElement | null>(null);
   const reduce = useReducedMotion();
+  const [plan] = useState(mediaPlan);
+  const [near, setNear] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const chosen = plan.phone && phone ? phone : { src, poster };
+  const stillOnly = reduce || plan.stills;
 
   useEffect(() => {
     const video = ref.current;
-    if (!video || reduce) return;
+    if (!video || stillOnly) return;
     films.add(video);
     hookFirstGesture();
     // iOS needs the muted property set before play() is allowed.
     video.muted = true;
 
     if (typeof IntersectionObserver === "undefined") {
-      void video.play().catch(() => undefined);
+      setNear(true);
       return () => {
         films.delete(video);
       };
     }
 
-    const observer = new IntersectionObserver(
+    // Start fetching a little before the film scrolls into view.
+    const loader = new IntersectionObserver(([entry]) => entry.isIntersecting && setNear(true), { rootMargin: "600px 0px" });
+    const player = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) void video.play().catch(() => undefined);
         else video.pause();
       },
       { threshold: 0.02 },
     );
-    observer.observe(video);
+    loader.observe(video);
+    player.observe(video);
     return () => {
-      observer.disconnect();
+      loader.disconnect();
+      player.disconnect();
       films.delete(video);
     };
-  }, [reduce]);
+  }, [stillOnly]);
 
-  if (reduce) {
-    return poster ? <img className={cx("film", className)} src={poster} alt={label ?? ""} aria-hidden={label ? undefined : true} /> : null;
+  // Once the source is attached, ask it to play if it is already on screen.
+  useEffect(() => {
+    const video = ref.current;
+    if (!near || !video) return;
+    const rect = video.getBoundingClientRect();
+    if (rect.bottom > 0 && rect.top < window.innerHeight) void video.play().catch(() => undefined);
+  }, [near]);
+
+  if (stillOnly) {
+    return chosen.poster ? (
+      <div className={cx("film-stack", className)} aria-hidden={label ? undefined : true}>
+        <img className="film-stack__poster" src={chosen.poster} alt={label ?? ""} decoding="async" />
+      </div>
+    ) : null;
   }
 
   return (
     <div className={cx("film-stack", className)} aria-hidden="true">
-      {poster ? <img className="film-stack__poster" src={poster} alt="" decoding="async" /> : null}
+      {chosen.poster ? <img className="film-stack__poster" src={chosen.poster} alt="" decoding="async" loading="lazy" /> : null}
       <video
         ref={ref}
         className={cx("film-stack__video", playing && "is-playing")}
-        src={src}
-        poster={poster}
+        src={near ? chosen.src : undefined}
         autoPlay
         muted
         loop
         playsInline
-        preload="auto"
+        preload={near ? "auto" : "none"}
         tabIndex={-1}
         onPlaying={() => setPlaying(true)}
       />

@@ -12,7 +12,12 @@ export function AiWorkflow({ t, lang }: { t: Content; lang: Lang }) {
 
       <Reveal className="falcon">
         <div className="falcon__film">
-          <Film src={remoteMedia.falcon} poster={asset("media/posters-web2/falcon.jpg")} className="falcon__video" />
+          <Film
+            src={remoteMedia.falcon}
+            poster={asset("media/posters-web2/falcon.jpg")}
+            phone={{ src: asset("media/mobile/falcon.mp4"), poster: asset("media/mobile/falcon.webp") }}
+            className="falcon__video"
+          />
           <div className="falcon__shade" aria-hidden="true" />
           <span className="falcon__chip">
             <Sparkles className="size-3.5" aria-hidden="true" />
