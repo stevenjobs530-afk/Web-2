@@ -1,0 +1,149 @@
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useReducedMotion, useTransform, type MotionValue } from "motion/react";
+
+export const ease = [0.22, 1, 0.36, 1] as const;
+
+export function asset(path: string) {
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+}
+
+export function cx(...parts: Array<string | false | null | undefined>) {
+  return parts.filter(Boolean).join(" ");
+}
+
+/** Blurred fade-up used for every entrance on the page. */
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  y = 26,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  y?: number;
+}) {
+  const reduce = useReducedMotion();
+
+  return (
+    <motion.div
+      className={className}
+      initial={reduce ? false : { opacity: 0, y, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+      transition={{ duration: 0.9, delay, ease }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/**
+ * Scroll-linked range mapping. The function form keeps Motion on the JS path;
+ * its ScrollTimeline shortcut stalls inside sticky frames.
+ */
+export function useRange(progress: MotionValue<number>, [start, end]: [number, number], [from, to]: [number, number]) {
+  return useTransform(progress, (value) => {
+    const t = Math.min(1, Math.max(0, (value - start) / (end - start)));
+    return from + (to - from) * t;
+  });
+}
+
+/** Section heading: numbered mono label, sans title with a serif-italic accent, summary. */
+export function SectionHead({
+  number,
+  label,
+  title,
+  italic,
+  summary,
+  tone = "light",
+  align = "split",
+}: {
+  number: string;
+  label: string;
+  title: string;
+  italic?: string;
+  summary: string;
+  tone?: "light" | "dark";
+  align?: "split" | "center";
+}) {
+  return (
+    <header className={cx("section-head", tone === "dark" && "section-head--dark", align === "center" && "section-head--center")}>
+      <Reveal>
+        <p className="mono-label">
+          <span className="mono-label__num">{number}</span>
+          {label}
+        </p>
+      </Reveal>
+      <div className="section-head__row">
+        <Reveal delay={0.06}>
+          <h2 className="display-title">
+            {title} {italic ? <em className="serif-accent">{italic}</em> : null}
+          </h2>
+        </Reveal>
+        <Reveal delay={0.12}>
+          <p className="section-head__summary">{summary}</p>
+        </Reveal>
+      </div>
+    </header>
+  );
+}
+
+/** Muted looping film that only plays while on screen; a still poster for reduced motion. */
+export function Film({ src, poster, className, label }: { src: string; poster?: string; className?: string; label?: string }) {
+  const ref = useRef<HTMLVideoElement | null>(null);
+  const reduce = useReducedMotion();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video || reduce || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) void video.play().catch(() => undefined);
+        else video.pause();
+      },
+      { threshold: 0.02 },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [reduce]);
+
+  if (reduce && poster) {
+    return <img className={cx("film", "is-ready", className)} src={poster} alt={label ?? ""} aria-hidden={label ? undefined : true} />;
+  }
+
+  return (
+    <video
+      ref={ref}
+      className={cx("film", ready && "is-ready", className)}
+      src={src}
+      poster={poster}
+      autoPlay={!reduce}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden="true"
+      tabIndex={-1}
+      onLoadedData={() => setReady(true)}
+    />
+  );
+}
+
+export function ArrowUpRight({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M7 17 17 7M9 7h8v8" />
+    </svg>
+  );
+}
+
+export function ArrowRight({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 12" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M1 6h16M13.25 2.5 17.5 6l-4.25 3.5" />
+    </svg>
+  );
+}

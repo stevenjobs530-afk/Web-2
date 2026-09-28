@@ -1,7 +1,7 @@
 {
-  "name": "zishun-portfolio",
+  "name": "web-2",
   "private": true,
-  "version": "0.1.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
@@ -9,25 +9,18 @@
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.3.0",
-    "@tailwindcss/vite": "latest",
-    "class-variance-authority": "latest",
-    "clsx": "latest",
-    "framer-motion": "^12.40.0",
-    "lucide-react": "latest",
-    "motion": "^12.40.0",
-    "react": "latest",
-    "react-dom": "latest",
-    "tailwind-merge": "latest",
-    "tailwindcss": "latest",
-    "tw-animate-css": "latest",
-    "vite": "latest"
+    "lucide-react": "^1.48.0",
+    "motion": "^13.4.4",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "@vitejs/plugin-react": "latest",
-    "typescript": "latest"
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1"
   }
 }

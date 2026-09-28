@@ -1,18 +1,42 @@
-# Zishun Gao Portfolio
+# Web 2 — Zishun Gao
 
-Personal portfolio website for Zishun Gao, built with React, TypeScript, Vite and Tailwind CSS.
+A from-scratch, Apple-inspired rebuild of [Zishun Gao's personal website](https://stevenjobs530-afk.github.io/Zishun-Gao-Personal-Website/?lang=en). It keeps the same content, and the same English/Chinese switch, as the live site. The layout, motion and visual system are new.
 
-## Scripts
+Private while in progress. The earlier experiment built on the old portfolio lives on the `v1-portfolio-based` branch.
+
+## Run it
 
 ```bash
 npm install
-npm run dev
-npm run build
+npm run dev        # http://127.0.0.1:5173/Web-2/
+npm run build      # static output in dist/
 ```
 
-## Project Structure
+Add `?lang=zh` to the URL to open the Chinese version.
 
-- `src/App.tsx` - main page structure
-- `src/data/portfolio.ts` - profile, project, experience and skills content
-- `src/styles/globals.css` - global visual system and responsive styling
-- `src/components/` - reusable interactive UI components
+## Design direction
+
+- **Apple-like pacing.** Each section is a chapter with one idea, lots of air and one strong visual. Light chapters hand over to dark ones through long gradients, never hard cuts.
+- **Type.** Inter for everything readable. An Instrument Serif italic accent inside headlines ("Education, *academic record*"). IBM Plex Mono for small labels. Chinese keeps a light sans instead of the italic, and wraps only at punctuation.
+- **Motion.** Blurred fade-ups on entry, scroll-linked films and one sticky story. Everything eases on `cubic-bezier(0.22, 1, 0.36, 1)`, and everything calms down under `prefers-reduced-motion`.
+
+## Page, chapter by chapter
+
+| # | Section | Visual reference | What happens |
+|---|---|---|---|
+| — | **Hero** | *Motion Hero 1* (VertexAI) | Concrete-and-grass film behind a frosted nav pill. A centred headline mixes sans and serif italic, with a white CTA. The intro sits bottom-left, and the CV, Explore and pause controls bottom-right. The film slowly zooms and the text drifts away on scroll. |
+| 01 | **Education** | Apple bento | The 87.36 weighted average counts up in a gradient. Selected grades are shown as thin progress rules. A dark tile marks the current MSc at Bristol. |
+| 02 | **Honours** | — | A horizontal, snap-scrolling shelf of certificates. Opening one gives a full-screen view with previous/next and keyboard controls. |
+| 03 | **Projects** | *Motion (We can set in the Final)* | UK retail as a bright product panel. **Apple App Store** gets the boy-at-the-window film: it starts inset and opens to full bleed as you scroll, with Prime-Intellect-style copy and a terminal-style metric. The research project sits beside the desk-under-the-stars film. The training app sits beside the runner photo. |
+| 04 | **AI workflow** | *猎鹰* (falcon) | A split card: the diving-falcon film with "From signal to action" on the left, and the four workflow steps laid out like a clean form on the right. |
+| 05 | **Method** | Apple sticky story | Dark chapter. A pinned ring and number (01–05) advance as each step scrolls past. |
+| 06 | **Experience** | — | Two role cards with large gradient metrics and three columns of detail. |
+| — | **Three time zones** | *Global Hubs* | The Paris, London and New York landmark cards, as-is. On hover (or tap) a frosted panel shows Zishun's usual UK working hours converted to that city's local time, plus a live clock. |
+| 07 | **Contact** | — | The page fades into the flowers film. A big "Stay *in touch*", three glass contact cards, and the footer. |
+
+## Content and media
+
+- Copy: `src/data/content.ts`, carried over from the live site in English and Chinese. New lines written for Web 2: the hero accent, the falcon panel and the time-zone section.
+- Local media in `public/`: the hero, Apple, research and contact films, certificates, CVs and project images, all copied from the live site's repository.
+- **Hotlinked third-party media**: the falcon film and the three city images come from the design-gallery CDN, as chosen for this draft. Replace them with self-hosted, licensed files before making the site public.
+- Case-study links currently point to the live site's case-study pages.
