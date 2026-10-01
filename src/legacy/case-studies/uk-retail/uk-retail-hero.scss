@@ -26,29 +26,7 @@ $warm-paper: #f5f3ef;
   }
 }
 
-.uk-retail-hero {
-  position: relative;
-  isolation: isolate;
-  height: 100svh;
-  min-height: 760px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  background: #ecebea;
-}
 
-.uk-retail-hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba($paper, 0.12) 0%, rgba($paper, 0) 48%, rgba($paper, 0.08) 100%),
-    url("/case-studies/uk-retail/uk-retail-hero-clean-data.webp") 68% 54% / cover no-repeat;
-  filter: saturate(0.94) contrast(1.12) brightness(0.97);
-}
 
 .uk-retail-nav {
   position: fixed;
@@ -100,7 +78,7 @@ $warm-paper: #f5f3ef;
 }
 
 .uk-retail-nav-cta,
-.uk-retail-hero-copy > a {
+.ukr-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -109,10 +87,12 @@ $warm-paper: #f5f3ef;
   color: white;
   font-size: 14px;
   font-weight: 500;
+  text-decoration: none;
+  transition: background-color 250ms ease, transform 250ms ease;
 
   &:hover,
   &:focus-visible {
-    background: rgba($ink, 0.9);
+    background: rgba($ink, 0.88);
   }
 }
 
@@ -127,111 +107,345 @@ $warm-paper: #f5f3ef;
   display: none;
 }
 
-.uk-retail-hero-copy {
+// ---------------------------------------------------------------------------
+// Hero — full-screen artwork, oversized headline, glass cards pinned to the
+// three acrylic panes (raw data → cleaning → clean data).
+// ---------------------------------------------------------------------------
+$ease: cubic-bezier(0.16, 1, 0.3, 1);
+$glass: rgba(255, 255, 255, 0.58);
+$glass-line: rgba(255, 255, 255, 0.9);
+$hero-font: "Helvetica Neue", "HelveticaNeue", Helvetica, "Inter Tight", "Inter", "Segoe UI", Arial, sans-serif;
+
+@keyframes ukr-plate-in { from { transform: scale(1.06); } to { transform: none; } }
+@keyframes ukr-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ukr-line-open { from { clip-path: inset(-28% -8% 100% -8%); } to { clip-path: inset(-28% -8% -28% -8%); } }
+@keyframes ukr-line-rise { from { transform: translateY(0.62em); opacity: 0; } 40% { opacity: 1; } to { transform: none; opacity: 1; } }
+@keyframes ukr-pill-in { from { opacity: 0; transform: translateY(-9px); } to { opacity: 1; transform: none; } }
+@keyframes ukr-soft-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes ukr-card-in { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes ukr-dot-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0.2); } to { opacity: 1; transform: translate(-50%, -50%); } }
+@keyframes ukr-line-draw { from { transform: scaleY(0); } to { transform: none; } }
+
+.ukr-hero {
   position: relative;
-  z-index: 10;
-  width: min(900px, calc(100% - 32px));
+  isolation: isolate;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  background: #eceaf0;
+  font-family: $hero-font;
+}
+
+// The stage keeps the artwork's 4:3 box so pins stay on their panes at any
+// viewport size (it is "cover"-fitted by hand rather than by object-fit).
+.ukr-stage {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 46%;
+  width: max(100vw, 133.34svh);
+  aspect-ratio: 4 / 3;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+
+  > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    animation: ukr-plate-in 2s $ease both;
+  }
+}
+
+.ukr-scrim {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 24%),
+    linear-gradient(to top, rgba(236, 234, 240, 0.92) 0%, rgba(236, 234, 240, 0) 42%);
+  animation: ukr-fade-in 1.4s ease both;
+}
+
+.ukr-line {
+  display: block;
+  clip-path: inset(-28% -8% 100% -8%);
+  animation: ukr-line-open 1.15s $ease var(--dl, 0s) both;
+}
+
+.ukr-line-in {
+  display: block;
+  animation: ukr-line-rise 1.15s $ease var(--dl, 0s) both;
+}
+
+.ukr-title {
+  position: absolute;
+  z-index: 3;
+  left: clamp(20px, 3.2vw, 56px);
+  bottom: clamp(28px, 6.5vh, 64px);
+  margin: 0;
+  color: $ink;
+  font-size: clamp(54px, 11.4vw, 188px);
+  font-weight: 700;
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.ukr-eyebrow {
+  position: absolute;
+  z-index: 3;
+  left: clamp(20px, 3.2vw, 56px);
+  bottom: calc(clamp(28px, 6.5vh, 64px) + clamp(54px, 11.4vw, 188px) * 1.78);
+  margin: 0;
+  color: rgba($ink, 0.62);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: ukr-soft-up 1.1s $ease 0.3s both;
+}
+
+.ukr-intro {
+  position: absolute;
+  z-index: 3;
+  right: clamp(20px, 3.2vw, 56px);
+  bottom: clamp(32px, 7vh, 72px);
+  width: min(320px, 28vw);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: clamp(94px, 12.5vh, 128px);
-  text-align: center;
+  align-items: flex-start;
+  gap: 18px;
+  animation: ukr-soft-up 1.1s $ease 0.78s both;
 
-  > p {
-    margin-bottom: 12px;
-    color: rgba($ink, 0.68);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    color: $ink;
-    font-family: "P22 Mackinac W01 Book", Georgia, serif;
-    font-size: clamp(56px, 7vw, 112px);
-    font-weight: 400;
-    letter-spacing: -0.06em;
-    line-height: 0.96;
-    text-wrap: balance;
-
-    span {
-      display: block;
-
-      &:last-child {
-        font-style: italic;
-      }
-    }
-  }
-
-  > span {
-    max-width: 540px;
-    margin-top: clamp(18px, 2.5vh, 30px);
-    color: rgba($ink, 0.7);
-    font-size: clamp(13px, 1.1vw, 16px);
-    line-height: 1.65;
-    text-wrap: balance;
-  }
-
-  > a {
-    min-height: 48px;
-    margin-top: clamp(20px, 3vh, 34px);
-    padding: 0 30px;
+  p {
+    margin: 0;
+    color: rgba($ink, 0.72);
+    font-size: 14px;
+    line-height: 1.55;
+    letter-spacing: -0.005em;
   }
 }
 
-.uk-retail-panel-wrap {
-  position: relative;
-  z-index: 10;
-  width: min(1024px, calc(100% - 32px));
-  margin-top: auto;
+.ukr-cta {
+  min-height: 46px;
+  padding: 0 26px;
 }
 
-.uk-retail-panel {
+.ukr-pins {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  margin: 0;
   padding: 0;
-  border: 1px solid rgba($paper, 0.82);
-  border-bottom: 0;
-  border-radius: 22px 22px 0 0;
-  background: rgba($paper, 0.78);
-  box-shadow: 0 18px 60px rgba($ink, 0.1);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  list-style: none;
+  pointer-events: none;
 }
 
-.uk-retail-panel-items {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+.ukr-pin {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 0;
+  height: 0;
+  --ll: 72px;
 
-  > div {
-    min-height: 82px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 0 clamp(20px, 3vw, 36px);
-    border-right: 1px solid rgba($ink, 0.1);
-    color: $ink;
+  &:nth-child(2) { --ll: 118px; }
+  &:nth-child(3) { --ll: 86px; }
+}
 
-    strong {
-      font-family: "P22 Mackinac W01 Book", Georgia, serif;
-      font-size: clamp(24px, 2.5vw, 36px);
-      font-weight: 400;
-      letter-spacing: -0.04em;
-    }
+.ukr-pin-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(25, 25, 25, 0.16), 0 0 10px rgba(25, 25, 25, 0.22);
+  transform: translate(-50%, -50%);
+  animation: ukr-dot-in 0.6s $ease var(--dd, 1.3s) both;
+}
 
-    span {
-      color: rgba($ink, 0.68);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
+.ukr-pin-line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: var(--ll);
+  background: rgba($ink, 0.42);
+  transform-origin: bottom center;
+  animation: ukr-line-draw 0.6s $ease var(--dd, 1.2s) both;
+}
 
-    &:last-child {
-      border-right: 0;
-    }
+.ukr-card {
+  position: absolute;
+  left: 0;
+  bottom: var(--ll);
+  min-width: 168px;
+  padding: 14px 18px 15px;
+  border: 1px solid $glass-line;
+  border-radius: 16px;
+  background: $glass;
+  color: $ink;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 14px 34px rgba($ink, 0.12);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: auto;
+  animation: ukr-card-in 1.1s $ease var(--dc, 0.8s) both;
+
+  em {
+    display: block;
+    color: rgba($ink, 0.5);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.18em;
   }
+
+  strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  span {
+    display: block;
+    margin-top: 6px;
+    color: rgba($ink, 0.66);
+    font-size: 12px;
+    letter-spacing: -0.005em;
+  }
+}
+
+// Stagger (dot / line / card) per pin.
+.ukr-pin:nth-child(1) { --dc: 0.72s; --dd: 1.1s; }
+.ukr-pin:nth-child(2) { --dc: 0.86s; --dd: 1.24s; }
+.ukr-pin:nth-child(3) { --dc: 1s; --dd: 1.38s; }
+
+// Nav pills reuse the existing frosted bar; give them the same entrance.
+.uk-retail-nav-links { animation: ukr-pill-in 0.85s $ease 0.3s both; }
+.uk-retail-nav-cta { animation: ukr-pill-in 0.85s $ease 0.54s both; }
+
+.ukr-hero + .uk-retail-story { position: relative; z-index: 1; }
+
+:focus-visible {
+  outline-color: $ink;
+}
+
+.uk-retail-page:lang(zh) {
+  .ukr-title {
+    font-size: clamp(54px, 9.4vw, 156px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  .ukr-eyebrow {
+    bottom: calc(clamp(28px, 6.5vh, 64px) + clamp(54px, 9.4vw, 156px) * 2.1);
+  }
+
+  .ukr-intro p {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 1000px) {
+  .ukr-hero {
+    height: auto;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .ukr-stage {
+    top: 36%;
+    width: max(190vw, 110svh);
+    left: 56%;
+  }
+
+  .ukr-scrim {
+    background:
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 20%),
+      linear-gradient(to top, #eceaf0 0%, #eceaf0 22%, rgba(236, 234, 240, 0) 62%);
+  }
+
+  .ukr-title,
+  .ukr-eyebrow,
+  .ukr-intro,
+  .ukr-pins {
+    position: relative;
+    inset: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+
+  .ukr-pins {
+    order: 1;
+    margin-top: auto;
+    display: flex;
+    gap: 12px;
+    margin-inline: -20px;
+    padding: 6px 20px;
+    overflow-x: auto;
+    pointer-events: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .ukr-pin {
+    position: static;
+    flex: 0 0 clamp(168px, 46vw, 240px);
+    width: auto;
+    height: auto;
+    scroll-snap-align: start;
+  }
+
+  .ukr-pin-dot,
+  .ukr-pin-line { display: none; }
+
+  .ukr-card {
+    position: static;
+    min-width: 0;
+    transform: none;
+  }
+
+  .ukr-eyebrow { order: 2; margin-top: 28px; }
+  .ukr-title {
+    order: 3;
+    margin-top: 12px;
+    font-size: clamp(46px, 15.2vw, 120px);
+    line-height: 0.88;
+  }
+  .ukr-intro { order: 4; width: auto; max-width: 420px; margin-top: 20px; }
+
+  .uk-retail-page:lang(zh) {
+    .ukr-title { font-size: clamp(44px, 14vw, 100px); line-height: 1; }
+    .ukr-eyebrow { bottom: auto; }
+  }
+}
+
+@media (max-width: 1000px) and (max-height: 640px) {
+  .ukr-hero { min-height: 560px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ukr-line { clip-path: none; }
 }
 
 .uk-retail-story {
@@ -959,18 +1173,13 @@ $warm-paper: #f5f3ef;
 }
 
 .uk-retail-page:lang(zh) {
-  .uk-retail-hero-copy h1,
   .uk-retail-section-heading h2,
   .uk-retail-closing h2 {
     letter-spacing: -0.04em;
     line-height: 1.12;
   }
 
-  .uk-retail-hero-copy h1 span:last-child {
-    font-style: normal;
-  }
 
-  .uk-retail-hero-copy > span,
   .uk-retail-overview-copy > p,
   .uk-retail-section-heading h2,
   .uk-retail-output-intro > p,
@@ -979,9 +1188,6 @@ $warm-paper: #f5f3ef;
     word-break: normal;
   }
 
-  .uk-retail-hero-copy > span {
-    max-width: 500px;
-  }
 
   .uk-retail-output-intro > p {
     max-width: 32em;
@@ -1021,9 +1227,6 @@ $warm-paper: #f5f3ef;
     }
   }
 
-  .uk-retail-hero-copy h1 {
-    font-size: clamp(52px, 11vw, 80px);
-  }
 
   .uk-retail-section-heading {
     grid-template-columns: 1fr;
@@ -1072,44 +1275,7 @@ $warm-paper: #f5f3ef;
   }
 }
 
-@media (max-height: 760px) {
-  .uk-retail-hero {
-    height: auto;
-    min-height: 100svh;
-    overflow: visible;
-  }
-
-  .uk-retail-hero-copy {
-    padding-top: 88px;
-
-    > span {
-      margin-top: 16px;
-    }
-
-    > a {
-      margin-top: 18px;
-    }
-  }
-
-  .uk-retail-panel-wrap {
-    margin-top: auto;
-  }
-
-  .uk-retail-panel {
-    padding: 0;
-  }
-}
-
 @media (max-width: 580px) {
-  .uk-retail-hero {
-    height: auto;
-    min-height: 100svh;
-  }
-
-  .uk-retail-hero-bg {
-    background-position: center, 66% 50%;
-  }
-
   .uk-retail-nav {
     min-height: 64px;
     padding: 12px 16px;
@@ -1126,67 +1292,9 @@ $warm-paper: #f5f3ef;
     min-height: 40px;
   }
 
-  .uk-retail-hero-copy {
-    padding-top: 98px;
-    padding-bottom: 34px;
 
-    > p {
-      font-size: 9px;
-    }
 
-    h1 {
-      font-size: clamp(48px, 15vw, 66px);
-    }
 
-    > span {
-      max-width: 360px;
-      font-size: 13px;
-    }
-
-    > a {
-      min-height: 44px;
-      margin-top: 22px;
-      padding: 0 24px;
-      font-size: 13px;
-    }
-  }
-
-  .uk-retail-panel-wrap {
-    width: calc(100% - 20px);
-  }
-
-  .uk-retail-panel {
-    padding: 0;
-  }
-
-  .uk-retail-panel-items {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0;
-
-    > div {
-      min-height: 72px;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-      padding: 0 6px;
-      border-right: 1px solid rgba($ink, 0.1);
-      border-bottom: 0;
-      text-align: center;
-
-      &:last-child {
-        border-right: 0;
-      }
-
-      strong {
-        font-size: clamp(18px, 5.5vw, 24px);
-      }
-
-      span {
-        font-size: 10px;
-        letter-spacing: 0.1em;
-      }
-    }
-  }
 
   .uk-retail-section {
     padding: 80px 20px;
@@ -1358,10 +1466,6 @@ $warm-paper: #f5f3ef;
     .uk-retail-closing h2 {
       font-size: 38px;
     }
-
-    .uk-retail-hero-copy h1 {
-      font-size: clamp(45px, 14vw, 62px);
-    }
   }
 }
 
@@ -1373,38 +1477,5 @@ $warm-paper: #f5f3ef;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-  }
-}
-
-@media (max-width: 580px) and (max-height: 720px) {
-  .uk-retail-hero-copy {
-    padding-top: 76px;
-    padding-bottom: 18px;
-
-    > p {
-      margin-bottom: 8px;
-    }
-
-    h1 {
-      font-size: clamp(42px, 13vw, 56px);
-    }
-
-    > span {
-      margin-top: 12px;
-      line-height: 1.5;
-    }
-
-    > a {
-      min-height: 40px;
-      margin-top: 14px;
-    }
-  }
-
-  .uk-retail-panel-wrap {
-    margin-top: auto;
-  }
-
-  .uk-retail-panel {
-    padding: 0;
   }
 }

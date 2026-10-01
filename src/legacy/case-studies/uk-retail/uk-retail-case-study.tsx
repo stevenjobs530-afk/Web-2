@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import PortfolioBackLink from "../../components/portfolio-back-link";
@@ -12,6 +12,14 @@ const appBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 function withBasePath(src: string) {
   return src.startsWith("/") ? `${appBasePath}${src}` : src;
 }
+
+// Where each card's pin lands on the artwork (share of its 4:3 frame): the tops of
+// the RAW DATA, CLEANING and CLEAN DATA panes.
+const pinPositions = [
+  ["35%", "43.7%"],
+  ["57.1%", "40.7%"],
+  ["77.9%", "38.5%"],
+];
 
 const repositoryUrl =
   "https://github.com/stevenjobs530-afk/UK-Retail-Sales-ETL-SQL-Analysis";
@@ -266,32 +274,50 @@ export default function UkRetailCaseStudy({ initialLanguage }: { initialLanguage
           {t.cta}
         </a>
       </header>
-      <section className="uk-retail-hero" aria-labelledby="uk-retail-title">
-        <div className="uk-retail-hero-bg" aria-hidden="true" />
+      <section className="ukr-hero" aria-labelledby="uk-retail-title">
+        <div className="ukr-stage" aria-hidden="true">
+          <img
+            src={withBasePath("/case-studies/uk-retail/uk-retail-hero-clean-data.webp")}
+            alt=""
+            fetchPriority="high"
+            draggable={false}
+          />
+        </div>
+        <div className="ukr-scrim" aria-hidden="true" />
 
-        <div className="uk-retail-hero-copy">
-          <p>{t.eyebrow}</p>
-          <h1 id="uk-retail-title">
-            <span>{t.titleTop}</span>
-            <span>{t.titleBottom}</span>
-          </h1>
-          <span>{t.summary}</span>
-          <a href="#overview">
+        <p className="ukr-eyebrow">{t.eyebrow}</p>
+        <h1 id="uk-retail-title" className="ukr-title">
+          <span className="ukr-line" style={{ "--dl": "0.1s" } as CSSProperties}>
+            <span className="ukr-line-in" style={{ "--dl": "0.1s" } as CSSProperties}>{t.titleTop}</span>
+          </span>
+          <span className="ukr-line" style={{ "--dl": "0.22s" } as CSSProperties}>
+            <span className="ukr-line-in" style={{ "--dl": "0.22s" } as CSSProperties}>{t.titleBottom}</span>
+          </span>
+        </h1>
+
+        <ul className="ukr-pins">
+          {t.items.map(([value, label], index) => (
+            <li
+              key={label}
+              className="ukr-pin"
+              style={{ "--x": pinPositions[index][0], "--y": pinPositions[index][1] } as CSSProperties}
+            >
+              <span className="ukr-pin-dot" aria-hidden="true" />
+              <span className="ukr-pin-line" aria-hidden="true" />
+              <div className="ukr-card">
+                <em aria-hidden="true">{String(index + 1).padStart(2, "0")}</em>
+                <strong>{value}</strong>
+                <span>{label}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div className="ukr-intro">
+          <p>{t.summary}</p>
+          <a className="ukr-cta" href="#overview">
             {t.explore}
           </a>
-        </div>
-
-        <div className="uk-retail-panel-wrap">
-          <div className="uk-retail-panel">
-            <div className="uk-retail-panel-items">
-              {t.items.map(([value, label]) => (
-                <div key={label}>
-                  <strong>{value}</strong>
-                  <span>{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
