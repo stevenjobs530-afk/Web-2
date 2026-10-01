@@ -3,7 +3,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-const base = "/Web-2/";
+// GitHub Pages serves the site under /Web-2/; other hosts (e.g. Vercel previews) set BASE_PATH=/.
+const base = process.env.BASE_PATH ?? "/Web-2/";
 const root = import.meta.dirname;
 
 export default defineConfig({
