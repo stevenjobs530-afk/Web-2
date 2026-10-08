@@ -76,6 +76,19 @@ const en = {
     pause: "Pause background video",
     play: "Play background video",
   },
+  idCard: {
+    label: "Zishun Gao's ID card",
+    alt: "Zishun Gao in University of Bristol graduation robes and sunglasses",
+    hint: "Drag the card · click to flip",
+    hintTouch: "Drag · tap to flip · tilt your phone",
+    tip: {
+      title: "Say hi to my ID card",
+      mouse: "Grab it with your mouse and give it a throw. Click it to see the back.",
+      touch: "Drag it with your finger and give it a throw. Tap to flip it, or tilt your phone to make it swing.",
+      enableTilt: "Turn on tilt",
+      gotIt: "Got it",
+    },
+  },
   education: {
     number: "01",
     label: "Academic foundation",
@@ -291,6 +304,19 @@ const zh: Content = {
     explore: "继续了解",
     pause: "暂停背​景视频",
     play: "播放背​景视频",
+  },
+  idCard: {
+    label: "高子舜​的证件卡",
+    alt: "高子舜身穿布里斯托大学毕业袍、戴着墨镜",
+    hint: "拖动​卡片 · 点击​翻面",
+    hintTouch: "拖动 · 轻点​翻面 · 倾斜​手机",
+    tip: {
+      title: "来和​我的​证件卡​打个​招呼",
+      mouse: "用鼠标​抓住​它，​甩一甩；​点击​卡片​可以​看到​背面。",
+      touch: "用手指​拖动​卡片，​甩一甩；​轻点​可以​翻面，​倾斜​手机​它也​会跟着​摆动。",
+      enableTilt: "开启​倾斜​感应",
+      gotIt: "知道了",
+    },
   },
   education: {
     number: "01",
