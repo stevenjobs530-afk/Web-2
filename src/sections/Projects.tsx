@@ -1,6 +1,6 @@
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { motion, useMotionTemplate, useMotionValueEvent, useReducedMotion, useScroll, type MotionStyle } from "motion/react";
-import { QUESTIONNAIRE_URL, links, type Content, type Lang } from "../data/content";
+import { QUESTIONNAIRE_URL, type Content, type Lang } from "../data/content";
 import { ArrowRight, Cta, Film, SectionHead, asset, pageHref, useRange } from "../components/primitives";
 
 type Project = Content["projects"]["items"][number];
@@ -237,21 +237,21 @@ function VoyageCinema({ f, lang }: { f: Content["projects"]["fitness"]; lang: La
           <motion.div className="voyage__head" style={fadeStyle}>
             <p className="mono-label mono-label--dark">
               <span className="mono-label__num">+</span>
-              {f.label} · React · Supabase · RLS
+              {f.label} · SwiftUI · macOS 26
             </p>
             <h3 className="voyage__title">{f.heading}</h3>
           </motion.div>
 
           <motion.div className="voyage__deck" style={copyStyle}>
             <div className="voyage__copy">
-              <p className="voyage__name">{f.title}</p>
+              <p className="voyage__name">
+                <img className="voyage__icon" src={asset("personal-projects/gym-log/gym-log-icon.webp")} alt="" width={40} height={40} loading="lazy" />
+                {f.title}
+              </p>
               <p className="voyage__body">{f.description}</p>
               <div className="cta-row">
                 <Cta href={pageHref("personal-projects/personal-training", lang)} tone="light">
                   {f.view}
-                </Cta>
-                <Cta href={links.trainingRepo} tone="ghost-dark" external>
-                  GitHub
                 </Cta>
               </div>
             </div>
