@@ -1369,6 +1369,285 @@ button {
   }
 }
 
+/* Shared cinema variants -------------------------------------------- */
+
+.cinema__metric {
+  margin-top: 1.4rem;
+}
+
+.cinema--research .cinema__copy {
+  max-width: min(620px, calc(100% - 40px));
+}
+
+.cinema--research .cinema__copy .cta-row {
+  margin-top: 1.6rem;
+}
+
+/* The voyage card now fills the opening frame instead of sitting in a rounded box. */
+.cinema--voyage .voyage {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
+/* Clear the floating site nav once the frame is full bleed. */
+.cinema--voyage .voyage__head {
+  padding-top: clamp(84px, 11vh, 110px);
+}
+
+@media (max-width: 720px) {
+  .cinema--voyage .voyage__head {
+    padding-bottom: 0;
+  }
+
+  .cinema--voyage .voyage__deck {
+    padding: 18px;
+  }
+
+  .cinema--voyage .voyage__body {
+    margin-block: 0.5rem 1rem;
+    font-size: 0.92rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cinema--voyage .voyage__flow li {
+    padding-top: 0.7rem;
+  }
+
+  .cinema--voyage .voyage__flow-label {
+    font-size: 0.82rem;
+  }
+}
+
+/* UK retail — "The Ledger" ----------------------------------------- */
+
+.ledger {
+  --ledger-ink: #0c1113;
+  --ledger-bone: #ede7dc;
+  --ledger-muted: #b9b2a6;
+  --ledger-brass: #c9a46a;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--ledger-ink);
+  color: var(--ledger-bone);
+  isolation: isolate;
+}
+
+.ledger__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(237, 231, 220, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(237, 231, 220, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 85% 80% at 62% 45%, #000 35%, transparent 100%);
+}
+
+.ledger__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(50% 55% at 72% 45%, rgba(201, 164, 106, 0.13), transparent 70%);
+}
+
+.ledger__corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 0 solid rgba(237, 231, 220, 0.5);
+}
+
+.ledger__corner--tl { left: 22px; top: 22px; border-left-width: 1px; border-top-width: 1px; }
+.ledger__corner--tr { right: 22px; top: 22px; border-right-width: 1px; border-top-width: 1px; }
+.ledger__corner--bl { left: 22px; bottom: 22px; border-left-width: 1px; border-bottom-width: 1px; }
+.ledger__corner--br { right: 22px; bottom: 22px; border-right-width: 1px; border-bottom-width: 1px; }
+
+.ledger__stage {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 6vw, 96px) clamp(80px, 12vh, 120px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.ledger__copy {
+  max-width: 560px;
+}
+
+.ledger__title {
+  margin-top: 1.1rem;
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: #f4efe6;
+}
+
+.lang-zh .ledger__title,
+:lang(zh-CN) .ledger__title {
+  font-family: var(--sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.ledger__body {
+  margin-top: 1.1rem;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: rgba(237, 231, 220, 0.82);
+}
+
+.ledger__metric {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  margin-top: 1.6rem;
+}
+
+.ledger__metric span:first-child {
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--ledger-brass);
+}
+
+.ledger__metric span:last-child {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ledger-muted);
+}
+
+.ledger__cta {
+  margin-top: 1.8rem;
+}
+
+.ledger__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: clamp(20px, 2.4vw, 30px);
+  border: 1px solid rgba(237, 231, 220, 0.14);
+  border-radius: 4px;
+  background: rgba(16, 24, 26, 0.72);
+  box-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.75);
+}
+
+.ledger__panel-head {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ledger-muted);
+}
+
+.ledger__phase {
+  color: var(--ledger-brass);
+}
+
+.ledger__dots {
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  gap: clamp(4px, 0.55vw, 8px);
+}
+
+.ledger__dots i {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ledger-bone);
+  opacity: 0.5;
+  transition:
+    opacity 0.9s ease-in calc(var(--w) * 0.08s),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--w) * 0.08s),
+    background-color 0.7s ease-out calc(var(--w) * 0.08s),
+    box-shadow 0.7s ease-out calc(var(--w) * 0.08s);
+}
+
+/* As the frame opens the export is "cleaned": most dots drop, a third turn brass. */
+.ledger.is-open .ledger__dots .is-dropped {
+  opacity: 0.08;
+  transform: scale(0.5);
+}
+
+.ledger.is-open .ledger__dots .is-kept {
+  opacity: 1;
+  background-color: var(--ledger-brass);
+  box-shadow: 0 0 10px rgba(201, 164, 106, 0.55);
+}
+
+.ledger__path {
+  border-top-color: rgba(237, 231, 220, 0.16);
+}
+
+@media (max-width: 900px) {
+  .ledger {
+    justify-content: flex-end;
+  }
+
+  .ledger__stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding-bottom: 132px;
+  }
+
+  .ledger__panel {
+    order: -1;
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .ledger__corner {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .ledger__body {
+    font-size: 0.95rem;
+  }
+
+  .ledger__metric {
+    margin-top: 1.1rem;
+  }
+
+  .ledger__cta {
+    margin-top: 1.2rem;
+  }
+
+  .cinema--research .cinema__body {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cinema__metric {
+    margin-top: 0.9rem;
+  }
+}
+
 /* ================================================================== */
 /* AI workflow — falcon split                                          */
 /* ================================================================== */
