@@ -2929,3 +2929,38 @@ button {
     display: none;
   }
 }
+
+/* ================================================================== */
+/* ID card                                                             */
+/* ================================================================== */
+
+.id-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.id-card__stage {
+  width: 100%;
+  height: clamp(520px, 82vh, 780px);
+}
+
+.id-card__still {
+  display: block;
+  width: min(280px, 64vw);
+  margin: 72px auto 0;
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.45);
+}
+
+.id-card__hint {
+  margin-top: -8px;
+  color: var(--ink-4);
+}
+
+@media (max-width: 640px) {
+  .id-card__stage {
+    height: clamp(460px, 72vh, 620px);
+  }
+}

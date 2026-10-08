@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { content, type Lang } from "./data/content";
 import { Nav } from "./sections/Nav";
 import { Hero } from "./sections/Hero";
+import { IdCard } from "./sections/IdCard";
 import { Education } from "./sections/Education";
 import { Honours } from "./sections/Honours";
 import { Projects } from "./sections/Projects";
@@ -63,6 +64,7 @@ export default function App() {
       <Nav t={t} onToggleLanguage={() => setLang((l) => (l === "en" ? "zh" : "en"))} />
       <main className={lang === "zh" ? "lang-zh" : undefined}>
         <Hero t={t} />
+        <IdCard t={t} />
         <Education t={t} />
         <Honours t={t} lang={lang} />
         <Projects t={t} lang={lang} />

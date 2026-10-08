@@ -76,6 +76,11 @@ const en = {
     pause: "Pause background video",
     play: "Play background video",
   },
+  idCard: {
+    label: "Zishun Gao's ID card",
+    alt: "Zishun Gao in University of Bristol graduation robes and sunglasses",
+    hint: "Drag the card · tap to flip",
+  },
   education: {
     number: "01",
     label: "Academic foundation",
@@ -291,6 +296,11 @@ const zh: Content = {
     explore: "继续了解",
     pause: "暂停背​景视频",
     play: "播放背​景视频",
+  },
+  idCard: {
+    label: "高子舜​的证件卡",
+    alt: "高子舜身穿布里斯托大学毕业袍、戴着墨镜",
+    hint: "拖动​卡片 · 点击​翻面",
   },
   education: {
     number: "01",
