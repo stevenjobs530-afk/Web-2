@@ -1,0 +1,1074 @@
+// UK retail case study — "The Ledger".
+// Ink ground, bone type, one brass accent; film-frame HUD and chapter timecodes.
+
+$ink: #0c1113;
+$ink-deep: #0a0e10;
+$ink-raised: #10181a;
+$bone: #ede7dc;
+$bone-bright: #f4efe6;
+$muted: #a9a399;
+$soft: #cfc8bc;
+$brass: #c9a46a;
+$brass-light: #e2c48f;
+$paper: #f2eee6;
+$paper-ink: #15191b;
+$paper-muted: #5e5a54;
+$paper-brass: #8a6a35;
+$rec: #d2553f;
+
+$sans: "Geist Variable", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
+$serif: "Instrument Serif", "Songti SC", "STSong", Georgia, serif;
+$mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+$ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+@mixin mono-label {
+  font-family: $mono;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ldg-page {
+  background: $ink;
+  color: $bone;
+  font-family: $sans;
+  font-weight: 400;
+  min-height: 100vh;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure,
+  ol,
+  dl,
+  dd,
+  pre {
+    margin: 0;
+  }
+
+  ol {
+    list-style: none;
+    padding: 0;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  ::selection {
+    background: rgba($brass, 0.35);
+    color: $bone-bright;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  pre:focus-visible {
+    outline: 2px solid $brass;
+    outline-offset: 3px;
+  }
+}
+
+.ldg-sr {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.ldg-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+// ---------------------------------------------------------------------------
+// Hero
+// ---------------------------------------------------------------------------
+
+.ldg-hero {
+  position: relative;
+  min-height: max(100svh, 760px);
+  display: flex;
+  flex-direction: column;
+  padding: 18px 38px 30px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ldg-hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba($bone, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($bone, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 90% 80% at 60% 45%, #000 40%, transparent 100%);
+}
+
+.ldg-hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(55% 55% at 74% 46%, rgba($brass, 0.11), transparent 70%);
+  animation: ldg-glow 9s ease-in-out infinite alternate;
+}
+
+.ldg-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 0 solid rgba($bone, 0.55);
+  animation: ldg-corner 0.9s $ease both;
+
+  &-tl { left: 14px; top: 14px; border-left-width: 1px; border-top-width: 1px; }
+  &-tr { right: 14px; top: 14px; border-right-width: 1px; border-top-width: 1px; }
+  &-bl { left: 14px; bottom: 14px; border-left-width: 1px; border-bottom-width: 1px; }
+  &-br { right: 14px; bottom: 14px; border-right-width: 1px; border-bottom-width: 1px; }
+}
+
+.ldg-topbar {
+  display: flex;
+  justify-content: flex-end;
+  min-height: 54px;
+  animation: ldg-fade 0.8s ease 0.2s both;
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    @include mono-label;
+    color: $muted;
+  }
+
+  a {
+    color: $muted;
+    text-decoration: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s;
+
+    &:hover { color: $brass; }
+  }
+
+  button {
+    min-height: 38px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid rgba($bone, 0.24);
+    background: transparent;
+    color: $bone;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+
+    &:hover { border-color: $brass; color: $brass; }
+  }
+}
+
+.ldg-timecode {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $bone;
+  font-variant-numeric: tabular-nums;
+}
+
+.ldg-rec {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $rec;
+  animation: ldg-blink 1.2s steps(1) infinite;
+}
+
+.ldg-hero-body {
+  flex: 1;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 40px 22px 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 56px;
+  align-items: center;
+}
+
+.ldg-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.ldg-eyebrow {
+  @include mono-label;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: $brass;
+}
+
+.ldg-title {
+  font-family: $serif;
+  font-weight: 400;
+  font-size: clamp(60px, 8.6vw, 132px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: $bone-bright;
+
+  em { color: $brass; }
+
+  :lang(zh-CN) & {
+    font-family: $sans;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+}
+
+.ldg-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+
+  > * {
+    display: block;
+    animation: ldg-rise 1.15s $ease 0.1s both;
+  }
+
+  &-2 > * { animation-delay: 0.24s; }
+}
+
+.ldg-rule {
+  display: block;
+  height: 1px;
+  max-width: 520px;
+  background: rgba($bone, 0.22);
+  transform-origin: left;
+  animation: ldg-rule 1.2s $ease 0.35s both;
+}
+
+.ldg-summary {
+  max-width: 520px;
+  font-size: 18px;
+  line-height: 1.65;
+  font-weight: 300;
+  color: $soft;
+}
+
+.ldg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ldg-btn,
+.ldg-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s $ease;
+
+  svg { width: 16px; height: 16px; transition: transform 0.3s $ease; }
+}
+
+.ldg-btn {
+  background: $brass;
+  color: $ink;
+
+  &:hover { background: $brass-light; color: $ink; }
+  &:hover svg { transform: translate(2px, 2px); }
+}
+
+.ldg-btn-lg {
+  min-height: 56px;
+  padding: 0 30px;
+  font-size: 16px;
+
+  &:hover svg { transform: translateX(4px); }
+}
+
+.ldg-btn-ghost {
+  border: 1px solid rgba($bone, 0.28);
+  color: $bone;
+
+  &:hover { border-color: $brass; color: $brass; }
+}
+
+.ldg-in {
+  animation: ldg-fade-up 1s $ease both;
+
+  &-1 { animation-delay: 0.45s; }
+  &-2 { animation-delay: 0.65s; }
+  &-3 { animation-delay: 0.85s; }
+}
+
+// The ledger panel: 1.6M records → 524,878 clean rows.
+.ldg-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 28px;
+  border: 1px solid rgba($bone, 0.14);
+  border-radius: 4px;
+  background: rgba($ink-raised, 0.72);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.7);
+}
+
+.ldg-panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  @include mono-label;
+  color: $muted;
+}
+
+.ldg-phase {
+  transition: color 0.4s;
+
+  &-1 { color: $brass-light; }
+  &-2 { color: $brass; }
+}
+
+.ldg-dots {
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  gap: 7px;
+
+  i {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: $bone;
+    opacity: 0;
+    will-change: transform, opacity;
+    --in: calc(var(--w) * 0.08s);
+    --out: calc(2.4s + var(--w) * 0.1s);
+  }
+
+  .is-kept {
+    animation:
+      ldg-dot-in 0.5s ease-out var(--in) both,
+      ldg-dot-keep 0.7s ease-out var(--out) forwards;
+  }
+
+  .is-dropped {
+    animation:
+      ldg-dot-in 0.5s ease-out var(--in) both,
+      ldg-dot-drop 0.9s ease-in var(--out) forwards;
+  }
+}
+
+.ldg-counters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgba($bone, 0.14);
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 16px 0;
+    min-width: 0;
+
+    &:first-child { padding-left: 0; }
+    &:last-child { padding-right: 0; }
+    & + div { border-left: 1px solid rgba($bone, 0.14); }
+    &:nth-child(2) dd { color: $brass; }
+
+    > span {
+      @include mono-label;
+      font-size: 10px;
+      color: $muted;
+    }
+  }
+
+  dt {
+    order: 2;
+    font-size: 13px;
+    color: $muted;
+  }
+
+  dd {
+    order: 1;
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+}
+
+.ldg-replay {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba($bone, 0.22);
+  background: transparent;
+  color: $muted;
+  @include mono-label;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+
+  svg { width: 13px; height: 13px; transition: transform 0.5s $ease; }
+
+  &:hover { border-color: $brass; color: $brass; }
+  &:hover svg { transform: rotate(-180deg); }
+}
+
+.ldg-hud-bottom,
+.ldg-hud-end {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  @include mono-label;
+  color: $muted;
+}
+
+.ldg-hud-bottom {
+  padding: 4px 0;
+  animation: ldg-fade 0.8s ease 1s both;
+}
+
+// ---------------------------------------------------------------------------
+// Ticker
+// ---------------------------------------------------------------------------
+
+.ldg-ticker {
+  overflow: hidden;
+  padding: 18px 0;
+  background: $ink-deep;
+  border-block: 1px solid rgba($bone, 0.12);
+  font-family: $mono;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: $muted;
+}
+
+.ldg-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ldg-marquee 42s linear infinite;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    padding: 0 28px 0 0;
+    white-space: nowrap;
+  }
+
+  i {
+    font-style: normal;
+    color: $brass;
+    font-size: 9px;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Sections
+// ---------------------------------------------------------------------------
+
+.ldg-section {
+  padding: clamp(88px, 11vw, 136px) 16px;
+  background: $ink;
+}
+
+.ldg-deep {
+  background: $ink-raised;
+  border-top: 1px solid rgba($bone, 0.06);
+}
+
+.ldg-paper {
+  background: $paper;
+  color: $paper-ink;
+
+  .ldg-chapter {
+    color: $paper-muted;
+    border-color: rgba($paper-ink, 0.18);
+  }
+
+  .ldg-h2 em { color: $paper-brass; }
+  .ldg-body { color: #34383a; }
+}
+
+.ldg-chapter {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba($bone, 0.16);
+  @include mono-label;
+  color: $muted;
+}
+
+.ldg-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+
+  &-end { align-items: end; }
+  &-code { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+}
+
+.ldg-h2 {
+  font-family: $serif;
+  font-weight: 400;
+  font-size: clamp(40px, 5.4vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+
+  em { color: $brass; }
+
+  &-narrow { max-width: 920px; }
+  &-sm { font-size: clamp(38px, 4.6vw, 64px); }
+
+  :lang(zh-CN) & {
+    font-family: $sans;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    font-size: clamp(32px, 4.2vw, 56px);
+  }
+}
+
+.ldg-section:not(.ldg-paper) .ldg-h2 { color: $bone-bright; }
+
+.ldg-body {
+  font-size: 18px;
+  line-height: 1.65;
+  color: $soft;
+}
+
+.ldg-kicker {
+  @include mono-label;
+  color: $brass;
+}
+
+.ldg-overview-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 10px;
+
+  aside {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid $paper-ink;
+
+    span {
+      @include mono-label;
+      color: $paper-brass;
+    }
+
+    p {
+      font-family: $serif;
+      font-style: italic;
+      font-size: 26px;
+      line-height: 1.3;
+
+      :lang(zh-CN) & {
+        font-family: $sans;
+        font-style: normal;
+        font-size: 20px;
+        line-height: 1.6;
+      }
+    }
+  }
+}
+
+// Method: four frames of a film strip.
+.ldg-frames {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba($bone, 0.14);
+  border: 1px solid rgba($bone, 0.14);
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 290px;
+    padding: 32px 28px 36px;
+    background: $ink;
+    transition: background 0.5s $ease;
+
+    &:hover { background: $ink-raised; }
+    &:hover .ldg-frame-number { color: rgba($brass, 0.4); }
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: $muted;
+  }
+}
+
+.ldg-frame-label {
+  @include mono-label;
+  color: $brass;
+}
+
+.ldg-frame-number {
+  font-family: $serif;
+  font-size: 88px;
+  line-height: 0.8;
+  color: rgba($bone, 0.12);
+  transition: color 0.5s $ease;
+}
+
+// Results
+.ldg-results-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  .ldg-body { max-width: 500px; }
+}
+
+.ldg-mega {
+  font-size: clamp(88px, 13vw, 188px);
+  line-height: 0.85;
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  color: $bone-bright;
+
+  span { color: $brass; }
+}
+
+.ldg-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  figcaption {
+    display: flex;
+    gap: 28px;
+    @include mono-label;
+    color: $muted;
+
+    span { flex: 1; }
+  }
+}
+
+.ldg-bars-plot {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  height: 300px;
+  border-bottom: 1px solid rgba($bone, 0.3);
+}
+
+.ldg-bar {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+
+  span {
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  i {
+    display: block;
+    transform-origin: bottom;
+    transition: transform 1.4s $ease 0.2s;
+  }
+
+  &-raw i {
+    height: 88%;
+    border: 1px solid rgba($bone, 0.3);
+    border-bottom: 0;
+    background: repeating-linear-gradient(135deg, rgba($bone, 0.22) 0 2px, transparent 2px 8px);
+  }
+
+  &-clean {
+    span { color: $brass; }
+
+    i {
+      height: 29%;
+      background: $brass;
+      transition-delay: 0.5s;
+    }
+  }
+}
+
+// Outputs
+.ldg-spark {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: clamp(24px, 3.5vw, 44px);
+  border-radius: 4px;
+  background: $ink;
+  color: $bone;
+
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+}
+
+.ldg-spark-head {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  @include mono-label;
+  color: $muted;
+}
+
+.ldg-spark-grid { stroke: rgba($bone, 0.08); }
+.ldg-spark-axis { stroke: rgba($bone, 0.25); }
+
+.ldg-spark-line {
+  fill: none;
+  stroke: $brass;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.2s;
+}
+
+.ldg-spark-peak {
+  fill: $brass;
+  transition: opacity 0.5s ease 2.4s, transform 0.5s $ease 2.4s;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ldg-spark-note,
+.ldg-spark-tick {
+  font-family: $mono;
+  font-size: 8px;
+  fill: $muted;
+}
+
+.ldg-spark-note {
+  font-size: 9px;
+  fill: $bone;
+  transition: opacity 0.6s ease 2.5s;
+}
+
+.ldg-prints {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  figcaption {
+    display: flex;
+    gap: 18px;
+
+    > span {
+      @include mono-label;
+      color: $paper-brass;
+      padding-top: 4px;
+    }
+
+    h3 {
+      margin-bottom: 6px;
+      font-size: 19px;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: $paper-muted;
+    }
+  }
+}
+
+.ldg-print {
+  padding: clamp(12px, 1.6vw, 20px);
+  border: 1px solid rgba($paper-ink, 0.12);
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 30px 60px -40px rgba($paper-ink, 0.5);
+  transition: transform 0.6s $ease, box-shadow 0.6s $ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 46px 80px -40px rgba($paper-ink, 0.55);
+  }
+
+  img { display: block; width: 100%; height: auto; }
+}
+
+// Code + decisions
+.ldg-code-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ldg-code {
+  overflow: hidden;
+  border: 1px solid rgba($bone, 0.14);
+  border-radius: 4px;
+  background: $ink-deep;
+
+  pre {
+    padding: 28px 24px;
+    overflow-x: auto;
+    font-family: $mono;
+    font-size: 15px;
+    line-height: 1.8;
+    color: $bone;
+  }
+
+  b { font-weight: 500; color: $brass; }
+}
+
+.ldg-code-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba($bone, 0.14);
+  background: $ink-raised;
+  @include mono-label;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  color: $muted;
+}
+
+.ldg-decisions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 22px;
+    border-top: 1px solid rgba($bone, 0.3);
+  }
+
+  span {
+    @include mono-label;
+    color: $brass;
+  }
+
+  h4 {
+    font-family: $serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.1;
+
+    :lang(zh-CN) & { font-family: $sans; font-weight: 600; font-size: 22px; }
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: $muted;
+  }
+}
+
+// Closing title card
+.ldg-closing {
+  padding: clamp(120px, 14vw, 170px) 38px 32px;
+  background: radial-gradient(70% 80% at 50% 0%, rgba($brass, 0.14), transparent 70%), $ink-deep;
+  text-align: center;
+}
+
+.ldg-closing-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+
+  h2 {
+    font-size: clamp(46px, 6.5vw, 96px);
+    line-height: 0.98;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: $bone-bright;
+
+    em {
+      display: block;
+      font-family: $serif;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: $brass;
+    }
+
+    :lang(zh-CN) & em { font-family: $sans; font-style: normal; font-weight: 500; }
+  }
+
+  p {
+    max-width: 580px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: $soft;
+  }
+}
+
+.ldg-hud-end {
+  max-width: 1320px;
+  margin: clamp(90px, 10vw, 130px) auto 0;
+}
+
+// ---------------------------------------------------------------------------
+// Scroll reveals (only armed once JS runs and motion is allowed)
+// ---------------------------------------------------------------------------
+
+.ldg-motion {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 1s $ease, transform 1.1s $ease;
+
+    &.is-in {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  // The wipe sits on the children: a clipped observer target never intersects.
+  .ldg-chapter[data-reveal] {
+    transform: none;
+    transition: opacity 0.6s ease;
+
+    > span {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 1.2s $ease 0.1s;
+    }
+
+    > span + span { transition-delay: 0.35s; }
+
+    &.is-in > span { clip-path: inset(0 0 0 0); }
+  }
+
+  .ldg-frames[data-reveal] li {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s $ease, transform 0.9s $ease, background 0.5s $ease;
+
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i}) { transition-delay: #{($i - 1) * 0.12}s, #{($i - 1) * 0.12}s, 0s; }
+    }
+  }
+
+  .ldg-frames.is-in li { opacity: 1; transform: none; }
+
+  .ldg-bars:not(.is-in) .ldg-bar i { transform: scaleY(0); }
+
+  .ldg-spark:not(.is-in) {
+    .ldg-spark-line { stroke-dashoffset: 1; }
+    .ldg-spark-peak { opacity: 0; transform: scale(0); }
+    .ldg-spark-note { opacity: 0; }
+  }
+
+  .ldg-prints figure:nth-child(2) { transition-delay: 0.15s; }
+}
+
+// ---------------------------------------------------------------------------
+// Keyframes
+// ---------------------------------------------------------------------------
+
+@keyframes ldg-rise { from { opacity: 0; transform: translateY(105%); } to { opacity: 1; transform: none; } }
+@keyframes ldg-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ldg-fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes ldg-corner { from { opacity: 0; transform: scale(1.3); } to { opacity: 1; transform: none; } }
+@keyframes ldg-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes ldg-blink { 50% { opacity: 0.25; } }
+@keyframes ldg-glow { from { opacity: 0.7; transform: translate3d(-2%, 0, 0); } to { opacity: 1; transform: translate3d(2%, -2%, 0); } }
+@keyframes ldg-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes ldg-dot-in { from { opacity: 0; transform: scale(0.2); } to { opacity: 0.55; transform: none; } }
+@keyframes ldg-dot-keep { to { opacity: 1; background: $brass; box-shadow: 0 0 10px rgba($brass, 0.55); } }
+@keyframes ldg-dot-drop { to { opacity: 0.08; transform: scale(0.5); } }
+
+// ---------------------------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------------------------
+
+@media (max-width: 960px) {
+  .ldg-hero { padding: 18px 16px 26px; }
+  .ldg-hero-body { grid-template-columns: minmax(0, 1fr); padding: 56px 6px 28px; gap: 44px; }
+  .ldg-split,
+  .ldg-split-code { grid-template-columns: minmax(0, 1fr); }
+  .ldg-frames { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ldg-decisions { grid-template-columns: minmax(0, 1fr); }
+  .ldg-hide-sm { display: none; }
+  .ldg-closing { padding-inline: 16px; }
+}
+
+@media (max-width: 640px) {
+  .ldg-wrap { padding: 0 6px; gap: 40px; }
+  .ldg-topbar { min-height: 54px; padding-left: 150px; }
+  .ldg-topbar nav { gap: 14px; }
+  .ldg-topbar nav > a { display: none; }
+  .ldg-panel { padding: 20px; }
+  .ldg-dots { gap: 4px; }
+  .ldg-counters > div { padding-inline: 10px; }
+  .ldg-frames { grid-template-columns: minmax(0, 1fr); }
+  .ldg-frames li { min-height: 0; }
+  .ldg-prints { grid-template-columns: minmax(0, 1fr); }
+  .ldg-bars-plot { height: 220px; }
+  .ldg-code pre { font-size: 13px; padding: 22px 18px; }
+  .ldg-corner { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ldg-page *,
+  .ldg-page *::before,
+  .ldg-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

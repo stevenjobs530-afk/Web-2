@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight, RotateCcw } from "lucide-react";
 import Image from "next/image";
+import "@fontsource-variable/geist";
 import PortfolioBackLink from "../../components/portfolio-back-link";
-import "./uk-retail-hero.scss";
+import "./uk-retail-ledger.scss";
 
 type Language = "en" | "zh";
 const appBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -12,14 +13,6 @@ const appBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 function withBasePath(src: string) {
   return src.startsWith("/") ? `${appBasePath}${src}` : src;
 }
-
-// Where each card's pin lands on the artwork (share of its 4:3 frame): the tops of
-// the RAW DATA, CLEANING and CLEAN DATA panes.
-const pinPositions = [
-  ["35%", "43.7%"],
-  ["57.1%", "40.7%"],
-  ["77.9%", "38.5%"],
-];
 
 const repositoryUrl =
   "https://github.com/stevenjobs530-afk/UK-Retail-Sales-ETL-SQL-Analysis";
@@ -39,6 +32,37 @@ const copy = {
       "A large retail export was cleaned and organised into a separate analysis table for examining revenue and product performance.",
     cta: "View repository",
     explore: "Explore the case study",
+    ledger: {
+      source: "raw_transactions → clean",
+      phases: ["Loading export", "Applying filters", "Clean · ready"],
+      replay: "Replay sequence",
+      replayLabel: "Replay the cleaning sequence",
+    },
+    hud: {
+      opening: "01 — The data",
+      period: "Dec 2010 — Dec 2011 · Online retail · United Kingdom",
+      end: "End",
+    },
+    ticker: [
+      "Quantity > 0",
+      "UnitPrice > 0",
+      "Description IS NOT NULL",
+      "SELECT DISTINCT",
+      "Excel serial → DATETIME",
+      "Source table retained",
+      "Credentials from environment",
+      "1.6M → 524,878",
+    ],
+    chart: {
+      label: "Monthly revenue · £",
+      period: "Dec 2010 — Dec 2011",
+      peak: "Nov 2011 · peak ≈ £1.5M",
+      aria: "Monthly revenue line, December 2010 to December 2011: steady through mid-2011, rising from September and peaking at about £1.5 million in November 2011.",
+    },
+    resultsKicker: "Sales value analysed",
+    codeFile: "clean_transactions.sql",
+    closingTop: "One clean table.",
+    closingBottom: "From raw export to the last receipt.",
     items: [
       ["1.6M", "raw records"],
       ["524,878", "clean rows"],
@@ -127,6 +151,37 @@ const copy = {
       "一份​大型​零售交易​数据​经过​清洗​后被​整理​为独立​分析表，​用于​分析​营收​与商品​表现。",
     cta: "查看代​码仓库",
     explore: "浏览​案例​研究",
+    ledger: {
+      source: "原始​交易表 → 清洗表",
+      phases: ["载入​导出​数据", "应用​筛选​规则", "清洗​完成"],
+      replay: "重播​动画",
+      replayLabel: "重播​数据​清洗​动画",
+    },
+    hud: {
+      opening: "01 — 数据",
+      period: "2010 年 12 月 — 2011 年 12 月 · 线上​零售 · 英国",
+      end: "完",
+    },
+    ticker: [
+      "Quantity > 0",
+      "UnitPrice > 0",
+      "Description IS NOT NULL",
+      "SELECT DISTINCT",
+      "Excel 序列​日期 → DATETIME",
+      "保留​原始表",
+      "凭据​来自​环境​变量",
+      "160 万 → 524,878",
+    ],
+    chart: {
+      label: "月度​营收 · £",
+      period: "2010.12 — 2011.12",
+      peak: "2011.11 · 峰值 ≈ £150 万",
+      aria: "2010 年 12 月至 2011 年 12 月的月度营收折线：2011 年年中保持平稳，9 月起上升，并在 2011 年 11 月达到约 150 万英镑的峰值。",
+    },
+    resultsKicker: "已分析​销售额",
+    codeFile: "clean_transactions.sql",
+    closingTop: "一张​清洗表。",
+    closingBottom: "从原始​导出​到最后​一张​收据。",
     items: [
       ["160 万", "原始记录"],
       ["524,878", "清洗记录"],
@@ -203,10 +258,154 @@ const copy = {
   },
 } as const;
 
+type Copy = (typeof copy)[Language];
+
+// The hero grid stands in for the raw export: one dot per ~5,500 records. The share
+// that survives cleaning matches the real ratio (524,878 of ~1.6M).
+const DOT_COLUMNS = 24;
+const DOT_COUNT = 288;
+const KEEP_SHARE = 524878 / 1600000;
+const ledgerDots = (() => {
+  let seed = 7;
+  return Array.from({ length: DOT_COUNT }, (_, index) => {
+    seed = (seed * 9301 + 49297) % 233280;
+    const row = Math.floor(index / DOT_COLUMNS);
+    const column = index % DOT_COLUMNS;
+    return { keep: seed / 233280 < KEEP_SHARE, wave: Math.min(9, Math.floor((row + column) / 3.5)) };
+  });
+})();
+
+// Read from the project's exported monthly revenue chart (£M, Dec 2010 – Dec 2011),
+// redrawn in the page's own style; the original export is shown alongside it.
+const monthlyRevenue = [0.82, 0.69, 0.52, 0.715, 0.535, 0.77, 0.76, 0.718, 0.758, 1.056, 1.15, 1.505, 0.637];
+const sparkPoints = monthlyRevenue
+  .map((value, index) => `${((index * 560) / 12).toFixed(1)},${(160 - ((value - 0.4) / 1.2) * 160).toFixed(1)}`)
+  .join(" ");
+const peakIndex = monthlyRevenue.indexOf(Math.max(...monthlyRevenue));
+const peakX = (peakIndex * 560) / 12;
+const peakY = 160 - ((monthlyRevenue[peakIndex] - 0.4) / 1.2) * 160;
+
+const chapterTimecodes = ["00:00:02:40", "00:00:05:10", "00:00:08:20", "00:00:10:30", "00:00:12:50"];
+
+function prefersReducedMotion() {
+  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+const easeOut = (x: number) => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3);
+
+function Timecode() {
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const start = performance.now();
+    const pad = (n: number) => String(n).padStart(2, "0");
+    const id = window.setInterval(() => {
+      const frames = Math.floor(((performance.now() - start) / 1000) * 25);
+      const seconds = Math.floor(frames / 25);
+      if (ref.current) {
+        ref.current.textContent = `00:${pad(Math.floor(seconds / 60) % 60)}:${pad(seconds % 60)}:${pad(frames % 25)}`;
+      }
+    }, 40);
+    return () => window.clearInterval(id);
+  }, []);
+  return (
+    <span className="ldg-timecode" aria-hidden="true">
+      <span className="ldg-rec" />
+      <span ref={ref}>00:00:00:00</span>
+    </span>
+  );
+}
+
+function LedgerPanel({ t, language }: { t: Copy; language: Language }) {
+  const [run, setRun] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) {
+      setElapsed(99);
+      return;
+    }
+    let frame = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const seconds = (now - start) / 1000;
+      setElapsed(seconds);
+      if (seconds < 5) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [run]);
+
+  const locale = language === "zh" ? "zh-CN" : "en-GB";
+  const count = (value: number) => Math.round(value).toLocaleString(locale);
+  const [[rawFinal], [cleanFinal], [valueFinal]] = t.items;
+  const raw = elapsed >= 1.9 ? rawFinal : count(1600000 * easeOut(elapsed / 1.9));
+  const clean = elapsed < 2.4 ? "—" : elapsed >= 3.8 ? cleanFinal : count(524878 * easeOut((elapsed - 2.4) / 1.4));
+  const value = elapsed < 3.4 ? "—" : elapsed >= 4.6 ? valueFinal : `£${(10.6 * easeOut((elapsed - 3.4) / 1.2)).toFixed(1)}M+`;
+  const phase = elapsed > 3.8 ? 2 : elapsed > 1.9 ? 1 : 0;
+
+  return (
+    <div className="ldg-panel">
+      <div className="ldg-panel-head">
+        <span>{t.ledger.source}</span>
+        <span className={`ldg-phase ldg-phase-${phase}`}>{t.ledger.phases[phase]}</span>
+      </div>
+      <div key={run} className="ldg-dots" aria-hidden="true">
+        {ledgerDots.map((dot, index) => (
+          <i
+            key={index}
+            className={dot.keep ? "is-kept" : "is-dropped"}
+            style={{ "--w": dot.wave } as CSSProperties}
+          />
+        ))}
+      </div>
+      <dl className="ldg-counters">
+        {[raw, clean, value].map((shown, index) => (
+          <div key={index}>
+            <span aria-hidden="true">{`0${index + 1}`}</span>
+            <dt>{t.items[index][1]}</dt>
+            <dd>
+              <span aria-hidden="true">{shown}</span>
+              <span className="ldg-sr">{t.items[index][0]}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <button type="button" className="ldg-replay" onClick={() => setRun((n) => n + 1)} aria-label={t.ledger.replayLabel}>
+        <RotateCcw aria-hidden="true" />
+        {t.ledger.replay}
+      </button>
+    </div>
+  );
+}
+
+function ChapterBar({ label, timecode }: { label: string; timecode: string }) {
+  return (
+    <div className="ldg-chapter" data-reveal>
+      <span>{label}</span>
+      <span aria-hidden="true">{timecode}</span>
+    </div>
+  );
+}
+
+/** Splits a section title so its final phrase can be set in the accent italic. */
+function AccentTitle({ text, language }: { text: string; language: Language }) {
+  const clean = text.replace(/[​⁠]/g, "");
+  const split = language === "zh" ? Math.max(clean.length - 6, 0) : clean.lastIndexOf(" ", clean.length - 12);
+  if (split <= 0) return <>{text}</>;
+  return (
+    <>
+      {clean.slice(0, split)} <em>{clean.slice(split).trim()}</em>
+    </>
+  );
+}
+
 export default function UkRetailCaseStudy({ initialLanguage }: { initialLanguage: Language }) {
   const [language, setLanguage] = useState<Language>(initialLanguage);
   const resolvedUrlLanguage = useRef(false);
+  const pageRef = useRef<HTMLElement>(null);
   const t = copy[language];
+  const s = t.sections;
   const portfolioHref = `${appBasePath}/?lang=${language}#project-uk-retail`;
 
   useEffect(() => {
@@ -234,6 +433,27 @@ export default function UkRetailCaseStudy({ initialLanguage }: { initialLanguage
     };
   }, [language]);
 
+  // Scroll reveals: content stays visible without JS; only once this runs are
+  // [data-reveal] blocks held back until they enter the viewport.
+  useEffect(() => {
+    const page = pageRef.current;
+    if (!page || prefersReducedMotion() || !("IntersectionObserver" in window)) return;
+    page.classList.add("ldg-motion");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -6% 0px" },
+    );
+    page.querySelectorAll("[data-reveal]").forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
   function toggleLanguage() {
     const next: Language = language === "en" ? "zh" : "en";
     setLanguage(next);
@@ -242,152 +462,181 @@ export default function UkRetailCaseStudy({ initialLanguage }: { initialLanguage
     window.history.replaceState(window.history.state, "", url);
   }
 
+  const ticker = [...t.ticker, ...t.ticker];
+
   return (
-    <main className="uk-retail-page" lang={language === "zh" ? "zh-CN" : "en"}>
+    <main ref={pageRef} className="ldg-page" lang={language === "zh" ? "zh-CN" : "en"}>
       <PortfolioBackLink href={portfolioHref} language={language} ariaLabel={t.backLabel} />
-      <header className="uk-retail-nav">
-        <nav className="uk-retail-nav-links" aria-label={t.navigationLabel}>
-          <a href={repositoryUrl} target="_blank" rel="noreferrer">
-            {t.repository}
-          </a>
-          <button type="button" onClick={toggleLanguage} aria-label={t.languageLabel}>
-            {t.language}
-          </button>
-        </nav>
 
-        <button
-          className="uk-retail-mobile-language"
-          type="button"
-          onClick={toggleLanguage}
-          aria-label={t.languageLabel}
-        >
-          {t.language}
-        </button>
+      <section className="ldg-hero" aria-labelledby="uk-retail-title">
+        <div className="ldg-hero-grid" aria-hidden="true" />
+        <div className="ldg-hero-glow" aria-hidden="true" />
+        <span className="ldg-corner ldg-corner-tl" aria-hidden="true" />
+        <span className="ldg-corner ldg-corner-tr" aria-hidden="true" />
+        <span className="ldg-corner ldg-corner-bl" aria-hidden="true" />
+        <span className="ldg-corner ldg-corner-br" aria-hidden="true" />
 
-        <a
-          className="uk-retail-nav-cta"
-          href={repositoryUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={t.repositoryLabel}
-        >
-          {t.cta}
-        </a>
-      </header>
-      <section className="ukr-hero" aria-labelledby="uk-retail-title">
-        <div className="ukr-stage" aria-hidden="true">
-          <img
-            src={withBasePath("/case-studies/uk-retail/uk-retail-hero-clean-data.webp")}
-            alt=""
-            fetchPriority="high"
-            draggable={false}
-          />
+        <header className="ldg-topbar">
+          <nav aria-label={t.navigationLabel}>
+            <a href={repositoryUrl} target="_blank" rel="noreferrer" aria-label={t.repositoryLabel}>
+              {t.repository}
+            </a>
+            <button type="button" onClick={toggleLanguage} aria-label={t.languageLabel}>
+              {t.language}
+            </button>
+            <Timecode />
+          </nav>
+        </header>
+
+        <div className="ldg-hero-body">
+          <div className="ldg-hero-copy">
+            <p className="ldg-eyebrow ldg-in ldg-in-1">{t.eyebrow}</p>
+            <h1 id="uk-retail-title" className="ldg-title">
+              <span className="ldg-line"><span>{t.titleTop}</span></span>
+              <span className="ldg-line ldg-line-2"><em>{t.titleBottom}{language === "en" ? "." : ""}</em></span>
+            </h1>
+            <span className="ldg-rule" aria-hidden="true" />
+            <p className="ldg-summary ldg-in ldg-in-2">{t.summary}</p>
+            <div className="ldg-actions ldg-in ldg-in-3">
+              <a className="ldg-btn" href="#overview">
+                {t.explore}
+                <ArrowDown aria-hidden="true" />
+              </a>
+              <a className="ldg-btn-ghost" href={repositoryUrl} target="_blank" rel="noreferrer">
+                {t.cta}
+              </a>
+            </div>
+          </div>
+          <div className="ldg-in ldg-in-2">
+            <LedgerPanel t={t} language={language} />
+          </div>
         </div>
-        <div className="ukr-scrim" aria-hidden="true" />
 
-        <p className="ukr-eyebrow">{t.eyebrow}</p>
-        <h1 id="uk-retail-title" className="ukr-title">
-          <span className="ukr-line" style={{ "--dl": "0.1s" } as CSSProperties}>
-            <span className="ukr-line-in" style={{ "--dl": "0.1s" } as CSSProperties}>{t.titleTop}</span>
-          </span>
-          <span className="ukr-line" style={{ "--dl": "0.22s" } as CSSProperties}>
-            <span className="ukr-line-in" style={{ "--dl": "0.22s" } as CSSProperties}>{t.titleBottom}</span>
-          </span>
-        </h1>
-
-        <ul className="ukr-pins">
-          {t.items.map(([value, label], index) => (
-            <li
-              key={label}
-              className="ukr-pin"
-              style={{ "--x": pinPositions[index][0], "--y": pinPositions[index][1] } as CSSProperties}
-            >
-              <span className="ukr-pin-dot" aria-hidden="true" />
-              <span className="ukr-pin-line" aria-hidden="true" />
-              <div className="ukr-card">
-                <em aria-hidden="true">{String(index + 1).padStart(2, "0")}</em>
-                <strong>{value}</strong>
-                <span>{label}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-
-        <div className="ukr-intro">
-          <p>{t.summary}</p>
-          <a className="ukr-cta" href="#overview">
-            {t.explore}
-          </a>
+        <div className="ldg-hud-bottom" aria-hidden="true">
+          <span>{t.hud.opening}</span>
+          <span className="ldg-hide-sm">{t.hud.period}</span>
+          <span>51.5074°N 0.1278°W</span>
         </div>
       </section>
 
-      <div className="uk-retail-story">
-        <section id="overview" className="uk-retail-overview uk-retail-section" aria-labelledby="overview-title">
-          <div className="uk-retail-section-heading">
-            <p>{t.sections.overview.label}</p>
-            <h2 id="overview-title">{t.sections.overview.title}</h2>
-          </div>
-          <div className="uk-retail-overview-copy">
-            <p>{t.sections.overview.body}</p>
-            <aside>
-              <span>{t.sections.overview.challengeLabel}</span>
-              <p>{t.sections.overview.challenge}</p>
-            </aside>
-          </div>
-        </section>
+      <div className="ldg-ticker" aria-hidden="true">
+        <div className="ldg-ticker-track">
+          {ticker.map((rule, index) => (
+            <span key={index}>
+              {rule}
+              <i>◆</i>
+            </span>
+          ))}
+        </div>
+      </div>
 
-        <section id="method" className="uk-retail-method uk-retail-section uk-retail-section-dark" aria-labelledby="method-title">
-          <div className="uk-retail-section-heading">
-            <p>{t.sections.method.label}</p>
-            <h2 id="method-title">{t.sections.method.title}</h2>
+      <section id="overview" className="ldg-section ldg-paper" aria-labelledby="overview-title">
+        <div className="ldg-wrap">
+          <ChapterBar label={`02 — ${s.overview.label.split("/").pop()?.trim()}`} timecode={chapterTimecodes[0]} />
+          <div className="ldg-split">
+            <h2 id="overview-title" className="ldg-h2" data-reveal>
+              <AccentTitle text={s.overview.title} language={language} />
+            </h2>
+            <div className="ldg-overview-copy" data-reveal>
+              <p className="ldg-body">{s.overview.body}</p>
+              <aside>
+                <span>{s.overview.challengeLabel}</span>
+                <p>{s.overview.challenge}</p>
+              </aside>
+            </div>
           </div>
-          <ol className="uk-retail-method-grid">
-            {t.sections.method.steps.map(([number, title, body]) => (
+        </div>
+      </section>
+
+      <section id="method" className="ldg-section" aria-labelledby="method-title">
+        <div className="ldg-wrap">
+          <ChapterBar label={`03 — ${s.method.label.split("/").pop()?.trim()}`} timecode={chapterTimecodes[1]} />
+          <h2 id="method-title" className="ldg-h2 ldg-h2-narrow" data-reveal>
+            <AccentTitle text={s.method.title} language={language} />
+          </h2>
+          <ol className="ldg-frames" data-reveal>
+            {s.method.steps.map(([number, title, body]) => (
               <li key={number}>
-                <span>{number}</span>
+                <span className="ldg-frame-label">{`FRAME ${number} / 04`}</span>
+                <span className="ldg-frame-number" aria-hidden="true">{number}</span>
                 <h3>{title}</h3>
                 <p>{body}</p>
               </li>
             ))}
           </ol>
-        </section>
+        </div>
+      </section>
 
-        <section id="evidence" className="uk-retail-evidence uk-retail-section" aria-labelledby="evidence-title">
-          <div className="uk-retail-section-heading">
-            <p>{t.sections.evidence.label}</p>
-            <h2 id="evidence-title">{t.sections.evidence.title}</h2>
-          </div>
-          <ol className="uk-retail-evidence-list">
-            {t.sections.evidence.steps.map(([label, title, body], index) => (
-              <li key={label}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <div>
-                  <p>{label}</p>
-                  <h3>{title}</h3>
-                </div>
-                <p>{body}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section id="outputs" className="uk-retail-outputs uk-retail-section" aria-labelledby="outputs-title">
-          <div className="uk-retail-output-intro">
-            <div className="uk-retail-section-heading">
-              <p>{t.sections.outputs.label}</p>
-              <h2 id="outputs-title">{t.sections.outputs.title}</h2>
+      <section id="results" className="ldg-section ldg-deep" aria-labelledby="results-title">
+        <div className="ldg-wrap">
+          <ChapterBar label={`04 — ${s.results.label.split("/").pop()?.trim()}`} timecode={chapterTimecodes[2]} />
+          <div className="ldg-split ldg-split-end">
+            <div className="ldg-results-copy" data-reveal>
+              <span className="ldg-kicker">{t.resultsKicker}</span>
+              <h2 id="results-title" className="ldg-sr">{s.results.title}</h2>
+              <strong className="ldg-mega">
+                £10.6M<span>+</span>
+              </strong>
+              <p className="ldg-body">{s.results.body}</p>
             </div>
-            <p>{t.sections.outputs.body}</p>
+            <figure className="ldg-bars" data-reveal>
+              <div className="ldg-bars-plot">
+                <div className="ldg-bar ldg-bar-raw">
+                  <span>{s.results.stats[0][0]}</span>
+                  <i />
+                </div>
+                <div className="ldg-bar ldg-bar-clean">
+                  <span>{s.results.stats[1][0]}</span>
+                  <i />
+                </div>
+              </div>
+              <figcaption>
+                <span>{s.results.stats[0][1]}</span>
+                <span>{s.results.stats[1][1]}</span>
+              </figcaption>
+            </figure>
           </div>
-          <div className="uk-retail-chart-grid">
+        </div>
+      </section>
+
+      <section id="outputs" className="ldg-section ldg-paper" aria-labelledby="outputs-title">
+        <div className="ldg-wrap">
+          <ChapterBar label={`05 — ${s.outputs.label.split("/").pop()?.trim()}`} timecode={chapterTimecodes[3]} />
+          <div className="ldg-split ldg-split-end">
+            <h2 id="outputs-title" className="ldg-h2" data-reveal>
+              <AccentTitle text={s.outputs.title} language={language} />
+            </h2>
+            <p className="ldg-body" data-reveal>{s.outputs.body}</p>
+          </div>
+
+          <figure className="ldg-spark" data-reveal>
+            <div className="ldg-spark-head">
+              <span>{t.chart.label}</span>
+              <span>{t.chart.period}</span>
+            </div>
+            <svg viewBox="-10 0 580 190" role="img" aria-label={t.chart.aria}>
+              {[12.7, 60, 112].map((y) => (
+                <line key={y} x1="0" x2="560" y1={y} y2={y} className="ldg-spark-grid" />
+              ))}
+              <line x1="0" x2="560" y1="160" y2="160" className="ldg-spark-axis" />
+              <polyline points={sparkPoints} className="ldg-spark-line" pathLength={1} />
+              <circle cx={peakX} cy={peakY} r="4" className="ldg-spark-peak" />
+              <text x={peakX - 8} y={peakY - 3} textAnchor="end" className="ldg-spark-note">{t.chart.peak}</text>
+              <text x="0" y="178" className="ldg-spark-tick">2010-12</text>
+              <text x="280" y="178" textAnchor="middle" className="ldg-spark-tick">2011-06</text>
+              <text x="560" y="178" textAnchor="end" className="ldg-spark-tick">2011-12</text>
+            </svg>
+          </figure>
+
+          <div className="ldg-prints">
             {[
               ["/case-studies/uk-retail/monthly-revenue-trend.png", 3600, 1800],
               ["/case-studies/uk-retail/top-products-revenue.png", 3600, 2400],
             ].map(([src, width, height], index) => {
-              const [title, body] = t.sections.outputs.charts[index];
+              const [title, body] = s.outputs.charts[index];
               return (
-                <figure key={String(src)}>
-                  <div className="uk-retail-chart-frame">
+                <figure key={String(src)} data-reveal>
+                  <div className="ldg-print">
                     <Image
                       src={withBasePath(String(src))}
                       unoptimized
@@ -408,65 +657,70 @@ export default function UkRetailCaseStudy({ initialLanguage }: { initialLanguage
               );
             })}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="uk-retail-code uk-retail-section uk-retail-section-dark" aria-labelledby="code-title">
-          <div className="uk-retail-code-inner">
-            <div className="uk-retail-code-copy">
-              <div className="uk-retail-section-heading">
-                <p>{t.sections.code.label}</p>
-                <h2 id="code-title">{t.sections.code.title}</h2>
-              </div>
-              <p>{t.sections.code.body}</p>
+      <section id="decisions" className="ldg-section" aria-labelledby="code-title">
+        <div className="ldg-wrap">
+          <ChapterBar label={`06 — ${s.decisions.label.split("/").pop()?.trim()}`} timecode={chapterTimecodes[4]} />
+          <div className="ldg-split ldg-split-code">
+            <div className="ldg-code-copy" data-reveal>
+              <span className="ldg-kicker">{s.code.label}</span>
+              <h2 id="code-title" className="ldg-h2 ldg-h2-sm">
+                <AccentTitle text={s.code.title} language={language} />
+              </h2>
+              <p className="ldg-body">{s.code.body}</p>
             </div>
-            <pre role="region" tabIndex={0} aria-label={t.sections.code.label}>
-              <code>{t.sections.code.snippet}</code>
-            </pre>
+            <div className="ldg-code" data-reveal>
+              <div className="ldg-code-head">
+                <span>{t.codeFile}</span>
+                <span>SQL</span>
+              </div>
+              <pre role="region" tabIndex={0} aria-label={s.code.label}>
+                <code>
+                  {s.code.snippet.split(/(SELECT DISTINCT|FROM|WHERE|AND|IS NOT NULL)/).map((part, index) =>
+                    index % 2 === 1 ? <b key={index}>{part}</b> : part,
+                  )}
+                </code>
+              </pre>
+            </div>
           </div>
-        </section>
-
-        <section id="decisions" className="uk-retail-decisions uk-retail-section" aria-labelledby="decisions-title">
-          <div className="uk-retail-section-heading">
-            <p>{t.sections.decisions.label}</p>
-            <h2 id="decisions-title">{t.sections.decisions.title}</h2>
-          </div>
-          <ol>
-            {t.sections.decisions.items.map(([title, body], index) => (
+          <h3 className="ldg-sr">{s.decisions.title}</h3>
+          <ol className="ldg-decisions" data-reveal>
+            {s.decisions.items.map(([title, body], index) => (
               <li key={title}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{title}</h3>
+                <h4>{title}</h4>
                 <p>{body}</p>
               </li>
             ))}
           </ol>
-        </section>
+        </div>
+      </section>
 
-        <section id="results" className="uk-retail-results uk-retail-section" aria-labelledby="results-title">
-          <div className="uk-retail-section-heading">
-            <p>{t.sections.results.label}</p>
-            <h2 id="results-title">{t.sections.results.title}</h2>
-          </div>
-          <p className="uk-retail-results-body">{t.sections.results.body}</p>
-          <dl>
-            {t.sections.results.stats.map(([value, label]) => (
-              <div key={label}>
-                <dt>{value}</dt>
-                <dd>{label}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-
-        <section className="uk-retail-closing uk-retail-section uk-retail-section-dark" aria-labelledby="closing-title">
-          <p>{t.sections.closing.label}</p>
-          <h2 id="closing-title">{t.sections.closing.title}</h2>
-          <span>{t.sections.closing.body}</span>
-          <a href={repositoryUrl} target="_blank" rel="noreferrer">
-            {t.sections.closing.cta}
+      <section className="ldg-closing" aria-labelledby="closing-title">
+        <div className="ldg-closing-inner" data-reveal>
+          <span className="ldg-kicker">{`07 — ${s.closing.label}`}</span>
+          <h2 id="closing-title">
+            {t.closingTop}
+            <em>{t.closingBottom}</em>
+          </h2>
+          <p>
+            {s.closing.title}
+            {language === "zh" ? "。" : ". "}
+            {s.closing.body}
+          </p>
+          <a className="ldg-btn ldg-btn-lg" href={repositoryUrl} target="_blank" rel="noreferrer">
+            {s.closing.cta}
             <ArrowRight aria-hidden="true" />
           </a>
-        </section>
-      </div>
+        </div>
+        <div className="ldg-hud-end" aria-hidden="true">
+          <span>ZISHUN GAO · CASE 01</span>
+          <span>{`00:00:15:00 · ${t.hud.end}`}</span>
+          <span>51.5074°N 0.1278°W</span>
+        </div>
+      </section>
     </main>
   );
 }
