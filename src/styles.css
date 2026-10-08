@@ -2964,3 +2964,116 @@ button {
     height: clamp(460px, 72vh, 620px);
   }
 }
+
+.id-card__stage {
+  position: relative;
+}
+
+.id-card__tip {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 14px 14px 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  translate: -50% 0;
+}
+
+.id-card__tip-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  animation: id-card-wave 2.4s var(--ease) infinite;
+}
+
+@keyframes id-card-wave {
+  0%, 60%, 100% { transform: translateX(0) rotate(0deg); }
+  20% { transform: translateX(6px) rotate(14deg); }
+  40% { transform: translateX(-4px) rotate(-8deg); }
+}
+
+.id-card__tip-copy {
+  max-width: 300px;
+}
+
+.id-card__tip-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.id-card__tip-body {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.id-card__tip-actions {
+  display: flex;
+  flex: none;
+  gap: 8px;
+}
+
+.id-card__tip-btn {
+  min-height: 2.4rem;
+  padding: 0 1.1rem;
+  background: rgba(17, 17, 17, 0.06);
+  color: var(--ink);
+}
+
+.id-card__tip-btn:hover {
+  background: rgba(17, 17, 17, 0.1);
+}
+
+.id-card__tip-btn--dark,
+.id-card__tip-btn--dark:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+.id-card__hint-btn {
+  margin-left: 0.9em;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .id-card__tip {
+    flex-wrap: wrap;
+    bottom: -28px;
+  }
+
+  .id-card__tip-copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .id-card__tip-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .id-card__tip-icon {
+    animation: none;
+  }
+}

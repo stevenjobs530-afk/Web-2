@@ -626,8 +626,8 @@ const stepSimulation = (sim, dt, physics, time) => {
     for (let i = 1; i < JOINTS; i++) {
       const v = velocities[i];
       v.y -= physics.gravity * h;
-      v.x += windX * h;
-      v.z += windZ * h;
+      v.x += (windX + physics.tiltX) * h;
+      v.z += (windZ + physics.tiltZ) * h;
       previous[i].copy(nodes[i]);
       nodes[i].addScaledVector(v, h);
     }
@@ -658,8 +658,8 @@ const stepSimulation = (sim, dt, physics, time) => {
       body.angular.addScaledVector(up, (physics.twist * (sim.turn - sim.twist) - physics.twistDamping * spin) * h);
     }
     body.velocity.y -= physics.gravity * h;
-    body.velocity.x += windX * 0.35 * h;
-    body.velocity.z += windZ * 0.35 * h;
+    body.velocity.x += (windX * 0.35 + physics.tiltX) * h;
+    body.velocity.z += (windZ * 0.35 + physics.tiltZ) * h;
     body.position.addScaledVector(body.velocity, h);
     rotateBody(body.quaternion, scratch.f.copy(body.angular).multiplyScalar(h));
 
@@ -722,6 +722,7 @@ const Lanyard = ({
   breeze = 0.5,
   interactive = true,
   intro = true,
+  tiltRef,
   className = '',
   style
 }) => {
@@ -749,7 +750,8 @@ const Lanyard = ({
     elasticity,
     breeze,
     interactive,
-    intro
+    intro,
+    tiltRef
   };
 
   useEffect(() => {
@@ -1124,7 +1126,10 @@ const Lanyard = ({
         twistDamping: 3,
         grip: 40,
         gripDamping: 6,
-        breeze: reducedMotion ? 0 : clamp(s.breeze, 0, 1)
+        breeze: reducedMotion ? 0 : clamp(s.breeze, 0, 1),
+        // Phone tilt (-1..1 per axis) pushes the card sideways like a sway of the hand.
+        tiltX: reducedMotion ? 0 : gravity * 0.45 * clamp(s.tiltRef?.current?.x ?? 0, -1, 1),
+        tiltZ: reducedMotion ? 0 : gravity * 0.35 * clamp(s.tiltRef?.current?.z ?? 0, -1, 1)
       };
     };
 
@@ -1142,7 +1147,7 @@ const Lanyard = ({
         placeHanging(sim, layout, false);
       }
       render();
-      const resting = sim.calm > 1.2 && !sim.grab && current.breeze === 0;
+      const resting = sim.calm > 1.2 && !sim.grab && current.breeze === 0 && !current.tiltX && !current.tiltZ;
       if (visible && !resting) raf = requestAnimationFrame(tick);
     };
 

@@ -1,4 +1,4 @@
-import type { CSSProperties, FC } from "react";
+import type { CSSProperties, FC, MutableRefObject } from "react";
 
 export interface LanyardProps {
   frontImage?: string;
@@ -21,6 +21,8 @@ export interface LanyardProps {
   breeze?: number;
   interactive?: boolean;
   intro?: boolean;
+  /** Live phone tilt, each axis -1..1; read every frame. */
+  tiltRef?: MutableRefObject<{ x: number; z: number }>;
   className?: string;
   style?: CSSProperties;
 }
