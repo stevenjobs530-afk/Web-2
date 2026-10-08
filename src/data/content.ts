@@ -88,6 +88,11 @@ const en = {
       enableTilt: "Turn on tilt",
       gotIt: "Got it",
     },
+    schools: [
+      { id: "cufe", name: "Central University of Finance and Economics", degree: "Undergraduate", place: "Beijing" },
+      { id: "victoria", name: "Victoria University", degree: "Undergraduate", place: "Melbourne" },
+      { id: "bristol", name: "University of Bristol", degree: "MSc Management", place: "Bristol" },
+    ],
   },
   education: {
     number: "01",
@@ -317,6 +322,11 @@ const zh: Content = {
       enableTilt: "开启​倾斜​感应",
       gotIt: "知道了",
     },
+    schools: [
+      { id: "cufe", name: "中央​财经​大学", degree: "本科", place: "北京" },
+      { id: "victoria", name: "维多利亚​大学", degree: "本科", place: "墨尔本" },
+      { id: "bristol", name: "布里斯托​大学", degree: "管理学​硕士", place: "布里斯托" },
+    ],
   },
   education: {
     number: "01",
