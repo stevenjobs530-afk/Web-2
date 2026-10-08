@@ -10,9 +10,9 @@ const Lanyard = lazy(() => import("../components/lanyard/Lanyard"));
 const TIP_KEY = "web2-lanyard-tip";
 
 const SCHOOL_LOGOS: Record<string, string> = {
-  cufe: "media/universities/cufe.webp",
-  victoria: "media/universities/victoria.webp",
-  bristol: "media/universities/bristol.webp",
+  cufe: "media/universities/cufe.svg",
+  victoria: "media/universities/victoria.svg",
+  bristol: "media/universities/bristol.svg",
 };
 
 type School = Content["idCard"]["schools"][number];
@@ -24,14 +24,20 @@ function Schools({ schools, side, reduce }: { schools: School[]; side: "left" | 
       {schools.map((school, i) => (
         <motion.li
           key={school.id}
-          className="id-card__school"
+          className={`id-card__school id-card__school--${school.id}`}
           initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18, filter: "blur(6px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.9, delay: 0.5 + i * 0.15, ease }}
         >
           <img src={asset(SCHOOL_LOGOS[school.id])} alt={school.name} loading="lazy" decoding="async" />
-          <span className="mono-label id-card__school-note">{school.note}</span>
+          <span className="mono-label id-card__school-note">
+            <span>{school.degree}</span>
+            <span className="id-card__school-sep" aria-hidden="true">
+              ·
+            </span>
+            <span>{school.place}</span>
+          </span>
         </motion.li>
       ))}
     </ul>

@@ -3092,11 +3092,11 @@ button {
 }
 
 .id-card__schools--left {
-  left: clamp(24px, 8vw, 140px);
+  left: clamp(24px, 6vw, 110px);
 }
 
 .id-card__schools--right {
-  right: clamp(24px, 8vw, 140px);
+  right: clamp(24px, 6vw, 110px);
 }
 
 .id-card__school {
@@ -3115,7 +3115,15 @@ button {
   object-fit: contain;
 }
 
+.id-card__school--cufe img {
+  height: clamp(84px, 9vw, 120px);
+}
+
 .id-card__school-note {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.6em;
   color: var(--ink-4);
 }
 
@@ -3151,8 +3159,19 @@ button {
     height: clamp(34px, 9vw, 52px);
   }
 
+  .id-card__school--cufe img {
+    height: clamp(46px, 12vw, 68px);
+    margin-block: -6px;
+  }
+
   .id-card__school-note {
+    flex-direction: column;
     font-size: 0.62rem;
+    line-height: 1.6;
+  }
+
+  .id-card__school-sep {
+    display: none;
   }
 }
 

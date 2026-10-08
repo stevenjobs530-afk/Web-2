@@ -89,9 +89,9 @@ const en = {
       gotIt: "Got it",
     },
     schools: [
-      { id: "cufe", name: "Central University of Finance and Economics", note: "Undergraduate · Beijing" },
-      { id: "victoria", name: "Victoria University", note: "Undergraduate · Melbourne" },
-      { id: "bristol", name: "University of Bristol", note: "MSc Management · Bristol" },
+      { id: "cufe", name: "Central University of Finance and Economics", degree: "Undergraduate", place: "Beijing" },
+      { id: "victoria", name: "Victoria University", degree: "Undergraduate", place: "Melbourne" },
+      { id: "bristol", name: "University of Bristol", degree: "MSc Management", place: "Bristol" },
     ],
   },
   education: {
@@ -323,9 +323,9 @@ const zh: Content = {
       gotIt: "知道了",
     },
     schools: [
-      { id: "cufe", name: "中央​财经​大学", note: "本科 · 北京" },
-      { id: "victoria", name: "维多利亚​大学", note: "本科 · 墨尔本" },
-      { id: "bristol", name: "布里斯托​大学", note: "管理学​硕士 · 布里斯托" },
+      { id: "cufe", name: "中央​财经​大学", degree: "本科", place: "北京" },
+      { id: "victoria", name: "维多利亚​大学", degree: "本科", place: "墨尔本" },
+      { id: "bristol", name: "布里斯托​大学", degree: "管理学​硕士", place: "布里斯托" },
     ],
   },
   education: {
