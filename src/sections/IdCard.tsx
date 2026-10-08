@@ -9,6 +9,35 @@ const Lanyard = lazy(() => import("../components/lanyard/Lanyard"));
 
 const TIP_KEY = "web2-lanyard-tip";
 
+const SCHOOL_LOGOS: Record<string, string> = {
+  cufe: "media/universities/cufe.webp",
+  victoria: "media/universities/victoria.webp",
+  bristol: "media/universities/bristol.webp",
+};
+
+type School = Content["idCard"]["schools"][number];
+
+/** University logos that sit beside the card; they collapse into a row underneath on narrow screens. */
+function Schools({ schools, side, reduce }: { schools: School[]; side: "left" | "right"; reduce: boolean | null }) {
+  return (
+    <ul className={`id-card__schools id-card__schools--${side}`}>
+      {schools.map((school, i) => (
+        <motion.li
+          key={school.id}
+          className="id-card__school"
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.9, delay: 0.5 + i * 0.15, ease }}
+        >
+          <img src={asset(SCHOOL_LOGOS[school.id])} alt={school.name} loading="lazy" decoding="async" />
+          <span className="mono-label id-card__school-note">{school.note}</span>
+        </motion.li>
+      ))}
+    </ul>
+  );
+}
+
 type OrientationEventWithPermission = typeof DeviceOrientationEvent & {
   requestPermission?: () => Promise<"granted" | "denied">;
 };
@@ -93,6 +122,7 @@ export function IdCard({ t }: { t: Content }) {
   const { tilt, canAsk, request } = useTilt(near && webgl && !reduce);
   const front = asset("lanyard/card-front.webp");
   const tip = t.idCard.tip;
+  const schools = t.idCard.schools;
 
   useEffect(() => {
     const node = ref.current;
@@ -135,6 +165,8 @@ export function IdCard({ t }: { t: Content }) {
 
   return (
     <section id="id-card" ref={ref} className="id-card" aria-label={t.idCard.label}>
+      <Schools schools={schools.slice(0, 2)} side="left" reduce={reduce} />
+      <Schools schools={schools.slice(2)} side="right" reduce={reduce} />
       <div className="id-card__stage" onPointerDown={showTip ? dismiss : undefined}>
         {webgl ? (
           near && (
