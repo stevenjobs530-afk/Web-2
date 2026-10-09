@@ -49,12 +49,12 @@ const pipelineEvidence = {
   zh: [
     {
       label: "已核验​的转换​文件",
-      body: "公开​仓库​将转换​与清洗​分开​记录，​使最初​的 C​S​V ​与 S​QLite ​副本​可以​复现。",
+      body: "公开​仓库​将转换​与清洗​分开​记录，​使最初​的 CSV ​与 SQLite ​副本​可以​复现。",
       files: "src/convert_apple_appstore_dataset.py\ndata/processed/apple_appstore_apps.csv\ndata/processed/apple_appstore_apps.sqlite",
     },
     {
       label: "已核验​的检查​记录",
-      body: "清洗​摘要​与 S​QL ​检查​让记录数、​缺失​字段​和价格​逻辑​都可以​复核。",
+      body: "清洗​摘要​与 SQL ​检查​让记录数、​缺失​字段​和价格​逻辑​都可以​复核。",
       files: "docs/cleaning_summary.md\nsql/validate_cleaned_apple_appstore.sql",
     },
     {
@@ -184,11 +184,11 @@ const copy = {
     language: "EN",
     languageLabel: "Switch to English",
     navigationLabel: "Apple ​案例​研究导航",
-    backLabel: "返回​作品​集中​的 A​pple App Store ​项目​卡片",
+    backLabel: "返回​作品​集中​的 Apple App Store ​项目​卡片",
     repositoryLabel: "在新标签页​中打​开 ​Apple App Store 数​据分析代​码仓库",
     eyebrow: "案例​研究​ 02 · SQLite · Python · 数​据质量",
     title: "清洗​与分析​历史​ App Store 数据",
-    summary: "一个​使用​ P​ython ​与 S​QLite ​转换、​检查、​清洗​并描述​ 2021 年​历史​ App Store ​数据​的完整​流程。",
+    summary: "一个​使用​ Python ​与 SQLite ​转换、​检查、​清洗​并描述​ 2021 年​历史​ App Store ​数据​的完整​流程。",
     explore: "浏览​分析证据",
     viewRepository: "查看代​码仓库",
     historyArtworkAlt: "Apple ​标志​的几何​构造​研究图",
@@ -199,13 +199,13 @@ const copy = {
         title: "在这​一数​据规模​下检查​过程​需要​可重复",
         body: "该数​据涵盖​ ​120 万​余个​ iOS ​应用​的文本、​价格、​评分、​时间​戳、​开发者​信息​与文件​大小。​在这个​规模​上，​可靠​比较​必须​从可​重复​的检查​开始，​而不​是依赖​零散​的人​工修改。",
         contextLabel: "历史边界",
-        context: "数据源仓库​说明数​据收集于​ 2021 年​ 10​ 月。​本案例​只描述​该历史​数据​集，​不代表​当前​的 A​pp Store。",
+        context: "数据源仓库​说明数​据收集于​ 2021 年​ 10​ 月。​本案例​只描述​该历史​数据​集，​不代表​当前​的 App Store。",
       },
       pipeline: {
         label: "02 / 证据​流程",
         title: "从源​文件​转换​到分析​的完整​记录​流程",
         detailPrompt: "查看证据",
-        steps: [["01", "转换", "将源​ JSON ​转换​为 C​S​V ​与 S​QLi​te，​以统​一方式​检查​完整​数据。"], ["02", "检查", "在修改记​录前，​分析​缺失值、​时间​戳、​价格​逻辑、​标识符​与非正​文件​大小。"], ["03", "标记", "建立​明确​的 I​ssue_*​ ​字段，​而不​用主观​假设填​补模​糊值。"], ["04", "结构化", "构建清洗​输出​与分析​视图，​同时​保留​原始字段​用于​比较。"], ["05", "分析", "使用​ pandas、​matplotli​b ​和 seaborn 生成​可复现​的类别、​价格​与更新​摘要。"]],
+        steps: [["01", "转换", "将源​ JSON ​转换​为 CSV ​与 SQLite，​以统​一方式​检查​完整​数据。"], ["02", "检查", "在修改记​录前，​分析​缺失值、​时间​戳、​价格​逻辑、​标识符​与非正​文件​大小。"], ["03", "标记", "建立​明确​的 Issue_*​ ​字段，​而不​用主观​假设填​补模​糊值。"], ["04", "结构化", "构建清洗​输出​与分析​视图，​同时​保留​原始字段​用于​比较。"], ["05", "分析", "使用​ pandas、​matplotlib ​和 seaborn 生成​可复现​的类别、​价格​与更新​摘要。"]],
       },
       uncertainty: {
         label: "03 / ​不确定​之处",
@@ -219,16 +219,16 @@ const copy = {
         label: "04 / ​三组​分析证据",
         title: "来自​ ​2021 年​数据集​的三​项描述性​结果",
         stories: [
-          { kicker: "市场结构", title: "免费​应用​占分析​记录​的大多数", body: "最终​分析​报告​记录​了 1​,127,384​ ​个免费​应用​和 102,502 ​个付费​应用。​分类​基于​数值​价格​字段，​而不​是仅​依赖​原始 Free​ ​标记。", note: "范围：​最终​报告​中的​ 1​,229,886 ​条分析​记录。" },
+          { kicker: "市场结构", title: "免费​应用​占分析​记录​的大多数", body: "最终​分析​报告​记录​了 1,127,384​ ​个免费​应用​和 102,502 ​个付费​应用。​分类​基于​数值​价格​字段，​而不​是仅​依赖​原始 Free​ ​标记。", note: "范围：​最终​报告​中的​ 1,229,886 ​条分析​记录。" },
           { kicker: "类别集​中度", title: "游戏​是记录数​最多​的类别", body: "报告​中游戏类​包含​ 193,328​ ​个应用。​商务、​教育、​工具​与生活​方式​也被​描述​为大型​类别，​但本页​不会​虚构​证据​中未​提供​的数量。", note: "结论​边界：​类别规模，​而非类​别质量​或盈利​能力。" },
-          { kicker: "数据​时期内​的活动", title: "记录​中的​更新​活动​在接近​收集期​时上升", body: "报告​记录​ 2020 年​更新​的应用​为 245,922​ 个，​20​21 年​为 5​27,359​ 个。​这反​映历史​数据内​的时间​戳活动，​不代表​当前​ App Store。", note: "边界：​数据​收集​时间​截止于​ 2021 年​ 10​ 月。" },
+          { kicker: "数据​时期内​的活动", title: "记录​中的​更新​活动​在接近​收集期​时上升", body: "报告​记录​ 2020 年​更新​的应用​为 245,922​ 个，​2021 年​为 527,359​ 个。​这反​映历史​数据内​的时间​戳活动，​不代表​当前​ App Store。", note: "边界：​数据​收集​时间​截止于​ 2021 年​ 10​ 月。" },
         ],
       },
       code: {
         label: "05 / ​技术​证据", title: "将数据​质量​问题​记录​为可查​询字段", body: "该流程​基于​价格派生​分类，​分别​记录​价格​缺失​与逻辑​不一致，​然后​统计​所有​问题​字段。​原始值​始终​保留，​便于​复核。", filename: "src/clean_apple_appstore_dataset.py · Python", snippet: `df["Free_By_Price"] = df["Price"].fillna(0).eq(0)\ndf["Issue_Missing_Price"] = df["Price"].isna()\ndf["Issue_Price_Logic_Mismatch"] = (\n    df["Free"].eq(False) & df["Price"].fillna(0).eq(0)\n)\nissue_columns = [c for c in df.columns if c.startswith("Issue_")]\ndf["Quality_Issue_Count"] = df[issue_columns].sum(axis=1)`,
       },
       results: {
-        label: "06 / ​结果​与边界", title: "输出​结果、⁠筛选​条件\n与数据​限制", items: [["可复现", "代码​仓库​将转换、​清洗、​SQL​ 验证​与 P​ython ​分析​记录​为独立​步骤。"], ["可筛选", "问题​字段​使每​项分析​能够​定义​自己​真正​需要​的数据​质量​条件。"], ["历史​范围​明确", "证据​支持​对 2021 年​数据​集的​比较，​而不​支持​对当前​应用​目录​或市场​表现​的结论。"]], countLabel: "保持​可见​的记录​差异", countNote: "清洗​摘要​记录​ 1,​230,376​ 条，​而后续​分析​报告​记录​ 1,229,886​ 条。​本页​不会​为这​ ​490 ​条差异​虚构​未记录​的原因；​只有​在引用​最终​分析​报告​时才​使用​后一​个数字。",
+        label: "06 / ​结果​与边界", title: "输出​结果、⁠筛选​条件\n与数据​限制", items: [["可复现", "代码​仓库​将转换、​清洗、​SQL​ 验证​与 Python ​分析​记录​为独立​步骤。"], ["可筛选", "问题​字段​使每​项分析​能够​定义​自己​真正​需要​的数据​质量​条件。"], ["历史​范围​明确", "证据​支持​对 2021 年​数据​集的​比较，​而不​支持​对当前​应用​目录​或市场​表现​的结论。"]], countLabel: "保持​可见​的记录​差异", countNote: "清洗​摘要​记录​ 1,230,376​ 条，​而后续​分析​报告​记录​ 1,229,886​ 条。​本页​不会​为这​ ​490 ​条差异​虚构​未记录​的原因；​只有​在引用​最终​分析​报告​时才​使用​后一​个数字。",
       },
       closing: { label: "项目总结", title: "代码​仓库​记录​了完整​流程​与当前​限制", body: "其中​包含源​记录、​明确​的处理​规则、​数据​质量​字段​与描述性​分析​结果。", repository: "查看​完整​证据", projects: "返回​所有​项目" },
     },
@@ -259,7 +259,7 @@ export default function AppleCaseStudy({ initialLanguage }: { initialLanguage: L
     document.querySelector('meta[name="description"]')?.setAttribute(
       "content",
       language === "zh"
-        ? "一个​聚焦​数据​质量、​可追溯​处理​与谨慎​解读​的 A​pp Store 数​据案例。"
+        ? "一个​聚焦​数据​质量、​可追溯​处理​与谨慎​解读​的 App Store 数​据案例。"
         : "A documented Python and SQLite workflow for cleaning and analysing a historical Apple App Store dataset.",
     );
     return () => { document.documentElement.lang = previousLanguage; };

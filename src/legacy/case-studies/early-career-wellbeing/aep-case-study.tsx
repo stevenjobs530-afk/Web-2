@@ -87,7 +87,7 @@ if (payload.route !== expectedRoute(payload.situation as string)) {
     language: "EN",
     languageLabel: "Switch to English",
     navLabel: "AEP ​案例​研究导航",
-    backLabel: "返回​作品​集中​的 A​EP ​项目​卡片",
+    backLabel: "返回​作品​集中​的 AEP ​项目​卡片",
     repositoryLabel: "在新标签页​中打​开 ​AEP 问卷代​码仓库",
     sections: {
       flow: {
@@ -95,10 +95,10 @@ if (payload.route !== expectedRoute(payload.situation as string)) {
         title: "回答验证、⁠存储​与导出​准备",
         steps: [
           ["01", "问卷", "序列化​当前​路径​与可选​回答，​不收集账户​或登录​标识。"],
-          ["02", "验证", "Edge Funct​ion ​检查​来源、​同意​状态、​版本、​路径、​选项、​评分​范围​与文本​长度。"],
+          ["02", "验证", "Edge Function ​检查​来源、​同意​状态、​版本、​路径、​选项、​评分​范围​与文本​长度。"],
           ["03", "保护", "浏览器​不能​直接​读写​回答表；​只有​服务器​函数​执行​插入。"],
           ["04", "检查", "导出​前使用​完整性​查询​检查​重复、​同意​状态、​路径​与选择​限制。"],
-          ["05", "导出", "扁平化​的 C​SV 查询​支持​后续​分析，​同时​保持​测试​与正式​数据​分离。"],
+          ["05", "导出", "扁平化​的 CSV 查询​支持​后续​分析，​同时​保持​测试​与正式​数据​分离。"],
         ],
       },
       safeguards: {

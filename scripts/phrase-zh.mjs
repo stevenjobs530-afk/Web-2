@@ -40,6 +40,8 @@ function phrase(value) {
     .split("\\n")
     .map((line) => {
       let out = mergeSingles(parser.parse(line)).join(ZW);
+      // BudouX can split inside a number or a Latin word (5|24,878, Exce|l); keep those whole.
+      out = out.replace(new RegExp(`(?<=[A-Za-z0-9£$.,%])${ZW}(?=[A-Za-z0-9£$.,%])|(?<=[£$])${ZW}`, "g"), "");
       if (headingLike) {
         // Never end a heading line on punctuation: glue it to the following phrase.
         out = out.replace(new RegExp(`([${PUNCT}])${ZW}?`, "g"), `$1${WJ}`);

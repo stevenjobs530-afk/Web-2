@@ -1212,12 +1212,21 @@ $ease: cubic-bezier(0.22, 1, 0.36, 1);
   .gl-hud span:last-child { display: none; }
   .gl-corner { display: none; }
   .gl-lang { right: 16px; min-height: 44px; }
-  .gl-library-intro .gl-h2 { font-size: 30px; }
+  // Stack the count above the heading so a narrow phone doesn't squeeze the heading into a sliver.
+  .gl-library-intro { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .gl-library-intro .gl-count { flex-direction: row; align-items: baseline; gap: 12px; }
+  .gl-library-intro .gl-count strong { font-size: 56px; }
+  .gl-library-intro .gl-h2 { font-size: 28px; }
   .gl-library-intro .gl-body { display: none; }
   .gl-card { width: 210px; }
   .gl-points { grid-template-columns: minmax(0, 1fr); }
   .gl-tab-list { grid-template-columns: minmax(0, 1fr); }
   .gl-stats > div { padding-inline: 4px; }
+}
+
+// Tall phones have room for the library intro's sentence again.
+@media (max-width: 640px) and (min-height: 800px) {
+  .gl-library-intro .gl-body { display: block; font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

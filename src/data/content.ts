@@ -25,7 +25,7 @@ export const honours = {
   en: [
     { title: "Three Good Student", detail: "2022–2023 · School of International Trade and Economics, CUFE", label: "Academic honour", image: "three-good-student-2023" },
     { title: "Comprehensive Development Scholarship", detail: "2021–2022 · Second Prize · School of International Trade and Economics, CUFE", label: "Scholarship", image: "comprehensive-development-scholarship-second-prize-2022" },
-    { title: "三创赛 · Best Entrepreneu​rship", detail: "2023 university round · Team award · Cross-border E-commerce / Alibaba International Station", label: "Team award", image: "ecommerce-entrepreneurship-2023-redacted" },
+    { title: "三创赛 · Best Entrepreneurship", detail: "2023 university round · Team award · Cross-border E-commerce / Alibaba International Station", label: "Team award", image: "ecommerce-entrepreneurship-2023-redacted" },
     { title: "三创赛 · Best Creativity", detail: "2023 university round · Team award · Cross-border E-commerce / Alibaba International Station", label: "Team award", image: "ecommerce-creativity-2023-redacted" },
     { title: "三创赛 · Best Innovation", detail: "2023 university round · Team award · Cross-border E-commerce / Alibaba International Station", label: "Team award", image: "ecommerce-innovation-2023-redacted" },
     { title: "Market Research & Business Planning", detail: "2023 CMAU National Competition · University selection round · Team Second Prize", label: "Team award", image: "market-research-second-prize-2023-redacted" },
@@ -277,7 +277,7 @@ export type Content = typeof en;
 const zh: Content = {
   meta: {
     title: "高子舜 — 个人作品集",
-    description: "高子舜​的个人​作品集，​聚焦​金融、​经济、​风险​管理、​数据​分析、​应用​研究​与负责任​的 A​I ​辅助​工作流。",
+    description: "高子舜​的个人​作品集，​聚焦​金融、​经济、​风险​管理、​数据​分析、​应用​研究​与负责任​的 AI ​辅助​工作流。",
   },
   nav: {
     brand: "高子舜",
@@ -373,9 +373,9 @@ const zh: Content = {
         type: "数据工程",
         tools: "SQL · Python · MySQL",
         title: "英国​零售​交易​分析",
-        description: "将约​ ​160 万条​原始​零售记录清洗​为 5​24,878​ ​条可​分析​交易，​用于​复核​超过​ ​1​,060 万​英镑​的销售​数据。",
+        description: "将约​ ​160 万条​原始​零售记录清洗​为 524,878​ ​条可​分析​交易，​用于​复核​超过​ ​1,060 万​英镑​的销售​数据。",
         path: ["原始记录", "清洗规则", "分析表", "图表"],
-        value: "清洗后​的数据​表可​用于​比较​月度​营收​与商品​表现，​相关​处理​规则​记录​在 S​QL ​中。",
+        value: "清洗后​的数据​表可​用于​比较​月度​营收​与商品​表现，​相关​处理​规则​记录​在 SQL ​中。",
         metric: "£10.6M+",
         metricLabel: "分析销​售额",
       },
@@ -384,7 +384,7 @@ const zh: Content = {
         type: "数据质量",
         tools: "SQLite · pandas · seaborn",
         title: "Apple App Store 数​据分析",
-        description: "通过​有记录​的 P​ython 流程、​可复​现 SQL ​与明确​的质量​标记，​清洗​并分析​ 1,229,886 条​应用​记录。",
+        description: "通过​有记录​的 Python 流程、​可复​现 SQL ​与明确​的质量​标记，​清洗​并分析​ 1,229,886 条​应用​记录。",
         path: ["原始记录", "质量标记", "分析表", "图表"],
         value: "质量​标记​可针对​类别、​价格​和更新​时间​分析​分别​设置​筛选​条件。",
         metric: "123万",
@@ -440,7 +440,7 @@ const zh: Content = {
     stages: [
       ["范围​与来源", "先明确​问题，​找到​原始​来源，​并在​分析​开始​前记录​日期、​定义​与出处。", "一份​来源​记录，​将观察​事实​与假设清楚​分开。"],
       ["数据质量", "检查​缺失值、​重复项、​格式​与无效​范围；​记录​每条​清洗​规则，​对不​确定​记录​做标记而​不是​静默​覆盖。", "一份​可供​复核​的数据​集，​清楚​说明​排除​规则​与质量​限制。"],
-      ["分析", "通过​可复现​的 S​QL、​Py​thon ​或 Exce​l 步骤​比较​趋势、​分组​与 K​PI，​并让​每张​图表​都能​回溯​到核查后​的数据。", "能够​被复现、​解释​与质疑​的分析​发现。"],
+      ["分析", "通过​可复现​的 SQL、​Python ​或 Excel 步骤​比较​趋势、​分组​与 KPI，​并让​每张​图表​都能​回溯​到核查后​的数据。", "能够​被复现、​解释​与质疑​的分析​发现。"],
       ["业务背景", "将发现​与收入、​应收​账款、​对账、​控制​和风险​等指标​联系​起来，​并说​明谁​可以​使用​这些​信息。", "与相关​流程​或控制​直接​对应​的实际​含义。"],
       ["结论​与限制", "说明​限制、​不确定性​与缺失​资料，​再记录现​有证据​支持​的结论​和合理​下一步。", "一项​可随​新增资料​复核​和修正​的结论。"],
     ],
@@ -462,7 +462,7 @@ const zh: Content = {
         metrics: [["6", "项 DMS 流程​基准​评估"], ["8+", "个测试​用例​与 SOP"], ["3", "个部门​参与​推广"]],
         details: [
           "支持​ DeepSeek 赋​能报表​模块​的集成​与规则​调优，​助力​报表生​成效率​与字段​匹配​准确率​据报​提升​约 40%。",
-          "记录数​据治理​与权限​流程；​相关​测试​用例​和 S​OP ​帮助​减少约​ 20​% ​的重复性​人工返工。",
+          "记录数​据治理​与权限​流程；​相关​测试​用例​和 SOP ​帮助​减少约​ 20% ​的重复性​人工返工。",
           "与产品、​运营​及销售​团队​协作，​在三​个部门​推广​更新后​的报表​流程。",
         ],
       },
@@ -474,7 +474,7 @@ const zh: Content = {
         summary: "通过​结构化客户​台账​支持​应收​账款​跟进、​财务​核对​与周度​汇总。",
         metrics: [["4,000+", "条客户​记录"], ["¥100K+", "一个​月内​回收应​收款"], ["4–5 pp", "通话​到付款转化​提升"]],
         details: [
-          "搭建并​维护​覆盖 ​4​,000 余​条客户​记录​的 E​xce​l ​跟踪表，​让跟​进状态​与付款​反馈​更清晰​可查。",
+          "搭建并​维护​覆盖 ​4,000 余​条客户​记录​的 Excel ​跟踪表，​让跟​进状态​与付款​反馈​更清晰​可查。",
           "根据​客户​响应数​据调整​跟进​优先​级，​帮助​将通话​到付款​转化率​提升​ 4–5​ ​个百分点，​并在​一个​月内​回收​超过​人民币​ 10 万​元应​收款。",
           "为财务​团队​编制​每日​对账记录​与每​周应​收账​款汇​总。",
         ],

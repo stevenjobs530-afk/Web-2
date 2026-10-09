@@ -29,13 +29,13 @@ const interfaceCopy = {
     reduced: "Logo rotation is off because reduced motion is enabled",
   },
   zh: {
-    eyebrow: "A​I ​研究​工具",
+    eyebrow: "AI ​研究​工具",
     title: "工作​流工具​的层叠视图",
-    groupLabel: "研究​工作​流中​使用​的 A​I 工具 Logo ​轮播组",
+    groupLabel: "研究​工作​流中​使用​的 AI 工具 Logo ​轮播组",
     note: "仅用​于识别工具 · 不​代表​合作​或官方背书",
     pause: "暂停 ​Logo ​轮播",
     play: "播放 Logo ​轮播",
-    reduced: "已启用减少​动态​效果，⁠Lo​go ​轮播​已关闭",
+    reduced: "已启用减少​动态​效果，⁠Logo ​轮播​已关闭",
   },
 } as const;
 

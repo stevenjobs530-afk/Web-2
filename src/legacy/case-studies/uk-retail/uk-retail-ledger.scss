@@ -675,6 +675,11 @@ $ease: cubic-bezier(0.22, 1, 0.36, 1);
   color: $bone-bright;
 
   span { color: $brass; }
+
+  // The 88px floor is wider than a 320–360px phone; scale with the screen there instead.
+  @media (max-width: 600px) {
+    font-size: min(88px, 21vw);
+  }
 }
 
 .ldg-bars {

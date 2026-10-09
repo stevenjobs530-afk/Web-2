@@ -351,6 +351,7 @@ button {
 
 .nav__brand {
   display: inline-flex;
+  white-space: nowrap;
   align-items: center;
   gap: 0.6rem;
   font-size: 1.05rem;
@@ -432,6 +433,7 @@ button {
 
 .nav__lang,
 .nav__menu {
+  white-space: nowrap;
   min-height: 2.35rem;
   padding: 0 1.1rem;
   border-radius: 999px;
@@ -469,6 +471,22 @@ button {
 
   .nav--hero .nav__lang {
     color: #fff !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav {
+    gap: 0.5rem;
+  }
+
+  .nav--page .nav__brand {
+    padding-inline: 0.7rem 0.85rem;
+    font-size: 0.98rem;
+  }
+
+  .nav__lang,
+  .nav__menu {
+    padding: 0 0.8rem;
   }
 }
 
@@ -1645,6 +1663,132 @@ button {
 
   .cinema__metric {
     margin-top: 0.9rem;
+  }
+}
+
+/* Short phones (iPhone SE, or any phone with Safari's bars showing): keep the copy clear of the nav. */
+@media (max-width: 900px) and (max-height: 800px) {
+  /* The dot field only illustrates the metric below it, so it gives way first. */
+  .ledger__panel {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) and (max-height: 800px) {
+  .ledger__title,
+  .cinema__title {
+    margin-top: 0.8rem;
+    font-size: clamp(1.9rem, 8.2vw, 2.4rem);
+  }
+
+  .ledger__body,
+  .cinema__body {
+    margin-top: 0.7rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .ledger__metric {
+    margin-top: 0.8rem;
+  }
+
+  .ledger__metric span:first-child,
+  .cinema--research .metric-figure {
+    font-size: 2.3rem;
+  }
+
+  .cinema--research .cinema__metric {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+  }
+
+  .cinema--research .metric-label {
+    margin-top: 0;
+  }
+
+  .ledger__cta,
+  .cinema--research .cinema__copy .cta-row {
+    margin-top: 1rem;
+  }
+
+  .cinema--research .cta-row {
+    gap: 0.5rem;
+  }
+
+  .cinema .cta {
+    min-height: 3rem;
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .cinema .cta__icon {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+}
+
+/* The smallest phones (320×568): drop the step trail under the copy and tighten the voyage title. */
+@media (max-width: 720px) and (max-height: 620px) {
+  .cinema__path {
+    display: none;
+  }
+
+  .ledger__stage {
+    padding-bottom: 28px;
+  }
+
+  .cinema__copy {
+    bottom: 28px;
+  }
+
+}
+
+/* Phones up to 700px tall: a smaller voyage title and a tighter step list so the deck fits. */
+@media (max-width: 720px) and (max-height: 700px) {
+  .cinema--voyage .voyage__head {
+    padding-top: 76px;
+  }
+
+  .cinema--voyage .voyage__title {
+    margin-top: 0.6rem;
+    font-size: 1.8rem;
+  }
+
+  .cinema--voyage .voyage__flow {
+    row-gap: 0.6rem;
+  }
+
+  .cinema--voyage .voyage__flow li {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding-top: 0.6rem;
+  }
+
+  .cinema--voyage .voyage__cta,
+  .cinema--voyage .cta {
+    min-height: 3rem;
+  }
+}
+
+/* iPad in landscape and short laptops: a smaller ledger title so the copy fits under the nav. */
+@media (min-width: 901px) and (max-height: 800px) {
+  .ledger__title {
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+  }
+
+  .ledger__body {
+    margin-top: 0.8rem;
+  }
+
+  .ledger__metric {
+    margin-top: 1rem;
+  }
+
+  .ledger__cta {
+    margin-top: 1.2rem;
   }
 }
 

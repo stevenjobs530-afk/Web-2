@@ -202,7 +202,7 @@ const copy = {
           ["01", "检查", "在修改数​据前​检查​缺失值、​无效​记录​与重复​记录组。"],
           ["02", "准备", "转换​ Excel​ 序列​日期，​剔除​无效销售​记录，​并将​去重记录​写入​清洗表。"],
           ["03", "分析", "从清洗后​的 MySQL 表计算营收、​独立​订单数​和客户数。"],
-          ["04", "呈现", "使用​ P​ython​ 导出​月度​营收​与商品​营收​排行​图表。"],
+          ["04", "呈现", "使用​ Python​ 导出​月度​营收​与商品​营收​排行​图表。"],
         ],
       },
       evidence: {
@@ -226,7 +226,7 @@ const copy = {
       code: {
         label: "清洗​规则​ · 简化​展示",
         title: "清洗​表使用​的记录​筛选​条件",
-        body: "清洗​表保留​数量​与单价​为正、​描述​不为​空且​去重后​的记录，​并将​日期​转换​为 S​QL ​日期​时间；​原始表​保持​不变。",
+        body: "清洗​表保留​数量​与单价​为正、​描述​不为​空且​去重后​的记录，​并将​日期​转换​为 SQL ​日期​时间；​原始表​保持​不变。",
         snippet: `SELECT DISTINCT\n  InvoiceNo, StockCode, Description,\n  Quantity, InvoiceDate, UnitPrice, CustomerID\nFROM raw_transactions\nWHERE Quantity > 0\n  AND UnitPrice > 0\n  AND Description IS NOT NULL;`,
       },
       decisions: {
@@ -241,7 +241,7 @@ const copy = {
       results: {
         label: "05 / ​项目​结果",
         title: "清洗​交易​数量​与分析销​售额",
-        body: "该工作​流将​约 ​160 万条​原始记录​整理​为 5​24,878 ​条清洗​交易，​支持​对超过​ ​£​1,060 万销​售额​的分析。",
+        body: "该工作​流将​约 ​160 万条​原始记录​整理​为 524,878 ​条清洗​交易，​支持​对超过​ ​£1,060 万销​售额​的分析。",
         stats: [
           ["160 万", "原始记录"],
           ["524,878", "清洗交易"],
@@ -425,7 +425,7 @@ export default function UkRetailCaseStudy({ initialLanguage }: { initialLanguage
     document.querySelector('meta[name="description"]')?.setAttribute(
       "content",
       language === "zh"
-        ? "一个​使用​ S​QL ​与 P​ython​ 构建​的可追​溯英国​零售数​据清洗​与分析​案例。"
+        ? "一个​使用​ SQL ​与 Python​ 构建​的可追​溯英国​零售数​据清洗​与分析​案例。"
         : "A traceable UK retail data-cleaning and analysis case study built with SQL and Python.",
     );
     return () => {
