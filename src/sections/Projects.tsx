@@ -1,5 +1,5 @@
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { motion, useMotionTemplate, useMotionValueEvent, useReducedMotion, useScroll, type MotionStyle } from "motion/react";
+import { motion, useMotionTemplate, useMotionValueEvent, useReducedMotion, useScroll, type MotionStyle, type MotionValue } from "motion/react";
 import { QUESTIONNAIRE_URL, type Content, type Lang } from "../data/content";
 import { ArrowRight, Cta, Film, SectionHead, asset, pageHref, useRange } from "../components/primitives";
 
@@ -22,13 +22,15 @@ function caseStudyHref(slug: string, lang: Lang) {
   return pageHref(`case-studies/${slug}`, lang);
 }
 
-type CinemaMotion = {
+export type CinemaMotion = {
   /** Copy that fades and rises in once the frame has nearly opened. */
   copyStyle: MotionStyle | undefined;
   /** Secondary layers that only fade in. */
   fadeStyle: MotionStyle | undefined;
   /** True once the frame is open enough for the scene to "play". */
   open: boolean;
+  /** Raw track progress (0 to 1), for scenes that step through their own beats. */
+  progress: MotionValue<number>;
 };
 
 /**
@@ -36,7 +38,7 @@ type CinemaMotion = {
  * scroll track, then opens to full bleed as the track scrolls past while the
  * copy rises in. Shared by every project so they all move the same way.
  */
-function ScrollCinema({
+export function ScrollCinema({
   id,
   className,
   children,
@@ -64,6 +66,7 @@ function ScrollCinema({
             copyStyle: reduce ? undefined : { opacity: copyOpacity, y: copyY },
             fadeStyle: reduce ? undefined : { opacity: copyOpacity },
             open: reduce || open,
+            progress: scrollYProgress,
           })}
         </motion.div>
       </div>
