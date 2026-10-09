@@ -211,6 +211,21 @@ const en = {
       ["Conclusion and limits", "State limitations, uncertainty and missing evidence, then record the supported conclusion and any reasonable next step.", "A conclusion that can be reviewed and revised when new evidence is available."],
     ],
     outputLabel: "Working output",
+    tags: [
+      ["Source verification", "Provenance"],
+      ["Data cleaning", "MySQL", "Quality flags"],
+      ["SQL", "Python", "Excel", "KPIs"],
+      ["Revenue", "Receivables", "Controls", "Risk"],
+      ["Clear reporting", "Stated limits"],
+    ],
+    statement: "Finance and risk, read through careful data: checked at the source, reproducible at every step, and honest about what it cannot show.",
+    strengthsLabel: "What this method shows",
+    strengths: [
+      ["Evidence first", "Every figure traces back to an original, dated source."],
+      ["Reproducible", "SQL, Python and Excel steps that someone else can re-run."],
+      ["Business-aware", "Findings tied to revenue, receivables, controls and risk."],
+      ["Honest about limits", "Uncertainty and missing evidence are stated, not hidden."],
+    ],
   },
   experience: {
     number: "06",
@@ -445,6 +460,21 @@ const zh: Content = {
       ["结论​与限制", "说明​限制、​不确定性​与缺失​资料，​再记录现​有证据​支持​的结论​和合理​下一步。", "一项​可随​新增资料​复核​和修正​的结论。"],
     ],
     outputLabel: "工作产出",
+    tags: [
+      ["来源核验", "出处记录"],
+      ["数据清洗", "MySQL", "质量标记"],
+      ["SQL", "Python", "Excel", "KPI"],
+      ["收入", "应收账款", "内部控制", "风险"],
+      ["清晰汇报", "说明局限"],
+    ],
+    statement: "以严谨的数据解读金融与风险：从源头核验，每一步都可复现，并如实说明数据无法证明的部分。",
+    strengthsLabel: "这套方法体现的能力",
+    strengths: [
+      ["证据优先", "每个数字都能追溯到有日期的原始来源。"],
+      ["可复现", "SQL、Python 与 Excel 步骤，他人可以重新运行。"],
+      ["理解业务", "将发现与收入、应收账款、控制和风险联系起来。"],
+      ["如实说明局限", "不确定性与缺失资料会被写明，而不是隐藏。"],
+    ],
   },
   experience: {
     number: "06",

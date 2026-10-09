@@ -2085,6 +2085,68 @@ button {
   background: linear-gradient(180deg, var(--page) 0%, #0b0c10 9%, #0b0c10 91%, var(--page) 100%);
 }
 
+/* Ambient backdrop: two drifting lights, a faint grid and film grain over the ink. */
+.method-section {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.method-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.method-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Fade the decoration out where the section melts into the light page above and below. */
+  mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.method-bg__light {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.method-bg__light--warm {
+  top: 18%;
+  left: -12%;
+  width: min(760px, 70vw);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, color-mix(in srgb, var(--method-glow, #e67e22) 34%, transparent), transparent 66%);
+  transition: background 1.2s var(--ease);
+}
+
+.method-bg__light--cool {
+  top: 46%;
+  right: -16%;
+  width: min(820px, 76vw);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(64, 110, 200, 0.22), transparent 66%);
+}
+
+.method-bg__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 45% at 50% 40%, #000 20%, transparent 100%);
+}
+
+.method-bg__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 .method {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -2116,11 +2178,34 @@ button {
 
 .method__ring-fill {
   fill: none;
-  stroke: #e67e22;
+  stroke: var(--method-glow, #e67e22);
   stroke-width: 1.6;
   stroke-linecap: round;
   stroke-dasharray: 339.3;
-  transition: stroke-dashoffset 0.8s var(--ease);
+  filter: drop-shadow(0 0 3px var(--method-glow, #e67e22));
+  transition: stroke-dashoffset 0.8s var(--ease), stroke 0.8s var(--ease);
+}
+
+.method__tick {
+  fill: rgba(255, 255, 255, 0.22);
+  transition: fill 0.6s var(--ease), r 0.6s var(--ease);
+}
+
+.method__tick.is-done {
+  fill: #fff;
+}
+
+/* A soft glass disc behind the number, lit by the current stage colour. */
+.method__halo {
+  position: absolute;
+  inset: 13%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015) 60%),
+    radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--method-glow, #e67e22) 22%, transparent), transparent 70%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 30px 80px -30px color-mix(in srgb, var(--method-glow, #e67e22) 45%, transparent);
+  transition: background 0.8s var(--ease), box-shadow 0.8s var(--ease);
 }
 
 .method__num {
@@ -2152,14 +2237,55 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  opacity: 0.28;
+  padding-block: 1.2rem;
+  opacity: 0.32;
   transition: opacity 0.6s var(--ease);
 }
 
 .method__step.is-active {
   opacity: 1;
+}
+
+/* The active step lifts onto a thin glass card with a light catching its top edge. */
+.method__card {
+  position: relative;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 28px;
+  border: 1px solid transparent;
+  transform: scale(0.98);
+  transition: background-color 0.7s var(--ease), border-color 0.7s var(--ease), box-shadow 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.method__step.is-active .method__card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 40px 90px -50px color-mix(in srgb, var(--method-glow, #e67e22) 60%, transparent);
+  transform: scale(1);
+  backdrop-filter: blur(14px);
+}
+
+.method__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.4rem;
+}
+
+.method__tags li {
+  padding: 0.38rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.78);
+  transition: border-color 0.6s var(--ease), color 0.6s var(--ease);
+}
+
+.method__step.is-active .method__tags li {
+  border-color: color-mix(in srgb, var(--method-glow, #e67e22) 45%, rgba(255, 255, 255, 0.12));
+  color: #fff;
 }
 
 .method__title {
@@ -2195,6 +2321,87 @@ button {
   color: #f0a560;
 }
 
+.method-statement {
+  max-width: 980px;
+  margin: clamp(96px, 14vw, 180px) auto 0;
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.strengths {
+  margin-top: clamp(64px, 9vw, 120px);
+  /* Keep the tiles on the ink, clear of the fade back to the light page. */
+  padding-bottom: clamp(96px, 12vw, 180px);
+}
+
+.strengths__label {
+  display: flex;
+  justify-content: center;
+}
+
+.strengths__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 1.6rem;
+}
+
+.strengths__tile {
+  position: relative;
+  padding: clamp(22px, 2.4vw, 32px);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+/* A sliver of stage light along each tile's top edge. */
+.strengths__tile::before {
+  content: "";
+  position: absolute;
+  inset: 0 18% auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--method-glow, #e67e22) 80%, #fff), transparent);
+  opacity: 0.7;
+}
+
+.strengths__num {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.strengths__title {
+  margin-top: 2.4rem;
+  font-size: clamp(1.35rem, 1.9vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  background: linear-gradient(160deg, #fff 40%, rgba(255, 255, 255, 0.55));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.strengths__body {
+  margin-top: 0.7rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 1080px) {
+  .strengths__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   .method {
     grid-template-columns: 1fr;
@@ -2206,7 +2413,33 @@ button {
 
   .method__step {
     min-height: 0;
+    padding-block: 0.4rem;
     opacity: 1;
+  }
+
+  .method__card {
+    padding: 22px;
+    transform: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .method__step.is-active .method__card {
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .strengths__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .strengths__title {
+    margin-top: 1.2rem;
+  }
+
+  .method-statement {
+    text-align: left;
   }
 }
 
