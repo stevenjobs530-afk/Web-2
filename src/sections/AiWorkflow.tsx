@@ -5,13 +5,14 @@ import { remoteMedia, type Content, type Lang } from "../data/content";
 import { ArrowRight, Film, SectionHead, asset, gap, pageHref } from "../components/primitives";
 import { ScrollCinema, type CinemaMotion } from "./Projects";
 
-// Track progress where the four steps take their turn, after the frame has opened and the panel faded in.
-const STEPS_FROM = 0.5;
-const STEPS_TO = 0.92;
+// Track progress where the four steps take their turn. The panel is on screen from the first frame,
+// so Discover is lit straight away and the rest follow while the frame opens.
+const STEPS_FROM = 0.12;
+const STEPS_TO = 0.9;
 
 /**
  * The falcon as a scroll cinema: the light frame opens to full bleed with the film on the left,
- * then the four-step panel fades in and each step opens in turn as the visitor keeps scrolling.
+ * with the four-step panel already showing; each step opens in turn as the visitor keeps scrolling.
  */
 export function AiWorkflow({ t, lang }: { t: Content; lang: Lang }) {
   const a = t.ai;
@@ -29,7 +30,7 @@ export function AiWorkflow({ t, lang }: { t: Content; lang: Lang }) {
   );
 }
 
-function FalconScene({ a, lang, copyStyle, fadeStyle, progress }: { a: Content["ai"]; lang: Lang } & CinemaMotion) {
+function FalconScene({ a, lang, copyStyle, progress }: { a: Content["ai"]; lang: Lang } & CinemaMotion) {
   const reduce = useReducedMotion();
   const [step, setStep] = useState(0);
   useMotionValueEvent(progress, "change", (value) => {
@@ -63,7 +64,7 @@ function FalconScene({ a, lang, copyStyle, fadeStyle, progress }: { a: Content["
           </p>
         </motion.div>
 
-        <motion.div className="falcon-scene__panel" style={fadeStyle}>
+        <div className="falcon-scene__panel">
           <div>
             <h3 className="falcon__panel-title">{a.panelTitle}</h3>
             <p className="falcon__panel-sub">{a.panelSub}</p>
@@ -88,7 +89,7 @@ function FalconScene({ a, lang, copyStyle, fadeStyle, progress }: { a: Content["
             <ArrowRight className="h-3 w-4" />
           </a>
           <p className="falcon__assurance">{a.assurance}</p>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

@@ -1840,8 +1840,8 @@ button {
   inset: 0;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) min(460px, 40%);
-  column-gap: 4vw;
+  grid-template-columns: minmax(0, 1fr) min(560px, 46%);
+  column-gap: 3vw;
   padding: 92px clamp(20px, 5vw, 80px) clamp(32px, 7vh, 72px) clamp(20px, 6vw, 96px);
 }
 
@@ -1866,9 +1866,9 @@ button {
   align-self: center;
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: clamp(1.1rem, 2.2vh, 1.6rem);
   width: 100%;
-  padding: clamp(22px, 2.4vw, 32px);
+  padding: clamp(24px, 2.8vw, 40px);
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -1878,14 +1878,14 @@ button {
 
 .falcon-scene__stages {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .falcon-scene__stage {
   display: grid;
-  grid-template-columns: 2.2rem minmax(0, 1fr);
-  gap: 0.7rem;
-  padding: 0.8rem 1rem;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: clamp(0.8rem, 1.6vh, 1.05rem) 1.2rem;
   border-radius: 14px;
   background: rgba(245, 245, 243, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -1940,7 +1940,7 @@ button {
 }
 
 .falcon__panel-title {
-  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-size: clamp(1.7rem, 2.6vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.08;
@@ -1949,7 +1949,7 @@ button {
 
 .falcon__panel-sub {
   margin-top: 0.5rem;
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: var(--ink-3);
   text-align: center;
 }
@@ -1962,14 +1962,14 @@ button {
 }
 
 .falcon__stage-title {
-  font-size: 1rem;
+  font-size: 1.08rem;
   font-weight: 600;
   letter-spacing: -0.015em;
 }
 
 .falcon__stage-body {
-  padding-top: 0.25rem;
-  font-size: 0.88rem;
+  padding-top: 0.3rem;
+  font-size: 0.95rem;
   line-height: 1.5;
   color: var(--ink-3);
 }
@@ -2044,6 +2044,33 @@ button {
 
   .falcon__assurance {
     display: none;
+  }
+}
+
+/* iPad portrait: the stacked layout, with a roomier centred panel. */
+@media (min-width: 601px) and (max-width: 960px) {
+  .falcon-scene__layer {
+    align-items: center;
+    padding-inline: 32px;
+    padding-bottom: 32px;
+  }
+
+  .falcon-scene__copy {
+    align-self: stretch;
+  }
+
+  .falcon-scene__panel {
+    width: min(620px, 100%);
+    padding: 28px;
+  }
+
+  .falcon__panel-title {
+    font-size: 1.9rem;
+  }
+
+  .falcon__panel-sub,
+  .falcon__assurance {
+    display: block;
   }
 }
 
