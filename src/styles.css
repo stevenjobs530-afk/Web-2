@@ -1674,6 +1674,45 @@ button {
 .falcon__video {
   position: absolute;
   inset: 0;
+  /* A slight clockwise tilt steepens the dive; the scale keeps the rotated corners covered. */
+  transform: rotate(4deg) scale(1.1);
+}
+
+/* Step-through: on screens tall enough for the whole card, the card pins and the steps light up in turn. */
+.falcon-track.is-pinned {
+  height: 260vh;
+}
+
+.falcon-track.is-pinned .falcon-pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 100svh;
+  padding-top: 64px;
+}
+
+.falcon-track.is-pinned .falcon {
+  width: 100%;
+}
+
+.falcon.is-stepping .falcon__stage {
+  transition: background-color 0.5s var(--ease), border-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+.falcon.is-stepping .falcon__stage > * {
+  opacity: 0.42;
+  transition: opacity 0.5s var(--ease);
+}
+
+.falcon.is-stepping .falcon__stage.is-active {
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 30px rgba(20, 24, 30, 0.08);
+}
+
+.falcon.is-stepping .falcon__stage.is-active > * {
+  opacity: 1;
 }
 
 .falcon__shade {
