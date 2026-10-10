@@ -203,7 +203,7 @@ export default function ResilientBackgroundVideo({
         muted
         loop
         playsInline
-        preload={staticOnMobile ? "none" : priority ? "auto" : "metadata"}
+        preload={priority ? "auto" : "metadata"}
         onLoadedData={() => void requestPlayback()}
         onCanPlay={() => void requestPlayback()}
         onPlaying={handlePlaying}
