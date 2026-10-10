@@ -1,5 +1,5 @@
 @import "@fontsource/newsreader/400.css";
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+@import "@fontsource-variable/inter/wght.css";
 
 $ink: #102023;
 $night: #061317;
@@ -16,7 +16,7 @@ $line: rgba($ink, 0.12);
   overflow-x: hidden;
   background: $paper;
   color: $ink;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter Variable", "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -342,7 +342,7 @@ $line: rgba($ink, 0.12);
 .aep-page[lang="zh-CN"] .aep-hero-copy h1,
 .aep-page[lang="zh-CN"] .aep-heading h2,
 .aep-page[lang="zh-CN"] .aep-closing h2 {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
   letter-spacing: -0.025em;
   line-height: 1.12;
 }
@@ -789,7 +789,7 @@ $line: rgba($ink, 0.12);
       overflow-x: auto;
       border-bottom: 1px solid rgba(255, 255, 255, 0.11);
       color: rgba(255, 255, 255, 0.62);
-      font-family: "Inter", sans-serif;
+      font-family: "Inter Variable", "Inter", sans-serif;
       font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;

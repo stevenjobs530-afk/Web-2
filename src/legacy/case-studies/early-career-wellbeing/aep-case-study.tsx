@@ -27,6 +27,10 @@ const questionnaireUrl = aepQuestionnaireUrl;
 const heroVideo = `${appBasePath}/media/video/early-career-wellbeing-hero.mp4`;
 const heroPoster = `${appBasePath}/media/posters/early-career-wellbeing-hero.jpg`;
 
+// Phones on Save-Data or a slow link keep the poster instead of downloading the 1.3 MB hero loop.
+const connection = typeof navigator === "undefined" ? undefined : (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+const constrainedConnection = Boolean(connection?.saveData) || /^(slow-2g|2g|3g)$/.test(connection?.effectiveType ?? "");
+
 const flowIcons = [ClipboardCheck, ShieldCheck, LockKeyhole, FileCheck2, Database];
 
 const copy = {
@@ -189,6 +193,7 @@ export default function AepCaseStudy({ initialLanguage }: { initialLanguage: Lan
           src={heroVideo}
           poster={heroPoster}
           priority
+          staticOnMobile={constrainedConnection}
           language={language}
           controlClassName="aep-video-control"
         />
