@@ -1,3 +1,5 @@
+@import "@fontsource-variable/inter/wght.css";
+
 $ink: #10141a;
 $night: #070a10;
 $blue: #75a9ff;
@@ -10,7 +12,7 @@ $line: rgba($ink, 0.14);
   overflow-x: hidden;
   background: $paper;
   color: $ink;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter Variable", "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -863,7 +865,7 @@ $line: rgba($ink, 0.14);
       padding: 0 18px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       color: rgba(255, 255, 255, 0.62);
-      font-family: "Inter", sans-serif;
+      font-family: "Inter Variable", "Inter", sans-serif;
       font-size: 9px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
