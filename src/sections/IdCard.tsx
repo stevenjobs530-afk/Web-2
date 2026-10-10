@@ -135,7 +135,12 @@ export function IdCard({ t }: { t: Content }) {
     if (!node) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setNear(true);
+        if (!entry.isIntersecting) return;
+        // The card sits just under the hero fold; let the hero film and fonts land before
+        // pulling in three.js, so the first paint is not competing with it for bandwidth.
+        const start = () => setNear(true);
+        if (document.readyState === "complete") start();
+        else window.addEventListener("load", start, { once: true });
       },
       { rootMargin: "200px 0px" },
     );

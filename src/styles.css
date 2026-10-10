@@ -15,7 +15,7 @@
   --night: #07080b;
   --accent: #e67e22;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", sans-serif;
   --serif: "Instrument Serif", "New York", Georgia, "Songti SC", serif;
   --mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, monospace;
   color-scheme: light;
