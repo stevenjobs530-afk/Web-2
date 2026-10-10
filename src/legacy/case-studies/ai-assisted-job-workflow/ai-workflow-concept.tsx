@@ -307,6 +307,7 @@ export default function AiWorkflowConcept({ initialLanguage }: { initialLanguage
           src={heroVideo}
           poster={heroPoster}
           priority
+          staticOnMobile
           language={language}
           controlClassName="ai-concept-video-control"
         />

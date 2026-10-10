@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
 import Image from "next/image";
 
@@ -45,8 +45,10 @@ export default function AiLogoLoop({ language }: { language: Language }) {
   const [interactionPaused, setInteractionPaused] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [inView, setInView] = useState(true);
+  const rootRef = useRef<HTMLElement>(null);
   const t = interfaceCopy[language];
-  const isPaused = manualPaused || interactionPaused || !pageVisible || reducedMotion;
+  const isPaused = manualPaused || interactionPaused || !pageVisible || !inView || reducedMotion;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -55,6 +57,15 @@ export default function AiLogoLoop({ language }: { language: Language }) {
     updatePreference();
     mediaQuery.addEventListener("change", updatePreference);
     return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
+  // Stop the 2s re-render timer while the loop is scrolled out of view.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    observer.observe(root);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -77,6 +88,7 @@ export default function AiLogoLoop({ language }: { language: Language }) {
 
   return (
     <section
+      ref={rootRef}
       className="ai-logo-loop"
       aria-label={t.groupLabel}
       onMouseEnter={() => setInteractionPaused(true)}
