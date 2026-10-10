@@ -422,8 +422,19 @@ function Library({ t, language, reduce }: { t: Copy; language: Language; reduce:
   const ref = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [distance, setDistance] = useState(0);
+  const [near, setNear] = useState(false);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const x = useTransform(scrollYProgress, [0.05, 0.95], [0, -distance]);
+
+  // Native lazy loading does not follow cards that slide in sideways, so fetch the whole
+  // gallery once the section is about two screens away instead of leaving blank cards.
+  useEffect(() => {
+    const section = ref.current;
+    if (!section || typeof IntersectionObserver === "undefined") return setNear(true);
+    const observer = new IntersectionObserver(([entry]) => entry.isIntersecting && setNear(true), { rootMargin: "1800px 0px" });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const measure = () => {
@@ -452,9 +463,15 @@ function Library({ t, language, reduce }: { t: Copy; language: Language; reduce:
           </div>
         </div>
         <motion.div ref={trackRef} className="gl-track" style={reduce ? undefined : { x }}>
-          {EXERCISES.map(([slug, name, muscle, equipment]) => (
+          {EXERCISES.map(([slug, name, muscle, equipment], index) => (
             <figure key={slug} className="gl-card">
-              <img src={media(`personal-projects/gym-log/exercises/${slug}.webp`)} alt="" loading="lazy" width={560} height={560} />
+              <img
+                src={near || index < 4 ? media(`personal-projects/gym-log/exercises/${slug}.webp`) : undefined}
+                alt=""
+                decoding="async"
+                width={560}
+                height={560}
+              />
               <figcaption>
                 <span className={muscle === "Cardio" ? "gl-tag gl-tag-cardio" : "gl-tag"}>
                   {language === "zh" ? MUSCLE_ZH[muscle] : muscle}
