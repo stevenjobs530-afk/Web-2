@@ -169,7 +169,7 @@ export function Honours({ t, lang }: { t: Content; lang: Lang }) {
               transition={{ duration: 0.45, ease }}
               onClick={(event) => event.stopPropagation()}
             >
-              <img src={asset(`achievements/${shown.image}.png`)} alt={shown.title} />
+              <img src={asset(`achievements/${shown.image}.webp`)} alt={shown.title} />
               <figcaption>
                 <span className="font-semibold text-white">{shown.title}</span>
                 <span className="text-white/60"> · {shown.detail}</span>
