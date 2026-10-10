@@ -13,14 +13,6 @@ export const links = {
   trainingRepo: "https://github.com/stevenjobs530-afk/personal-training-website-v2",
 };
 
-// Third-party reference media chosen by the owner (hotlinked; replace before going public).
-export const remoteMedia = {
-  falcon: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_052122_e77a27e6-17f1-4794-889b-3ceaa0e9e8cb.mp4",
-  paris: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260813_120239_176d1c43-47bb-4034-880e-9abfa55cb46e.png&w=1280&q=85",
-  london: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260813_120256_cfcb1ed1-6e80-486d-9fed-26ebe5dea114.png&w=1280&q=85",
-  newYork: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260813_131320_4b0da7d5-ad06-4d7d-b491-f99d947a524c.png&w=1280&q=85",
-};
-
 export const honours = {
   en: [
     { title: "Three Good Student", detail: "2022–2023 · School of International Trade and Economics, CUFE", label: "Academic honour", image: "three-good-student-2023" },

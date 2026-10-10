@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { motion, useMotionValueEvent, useReducedMotion } from "motion/react";
-import { remoteMedia, type Content, type Lang } from "../data/content";
+import type { Content, Lang } from "../data/content";
 import { ArrowRight, Film, SectionHead, asset, gap, pageHref } from "../components/primitives";
 import { ScrollCinema, type CinemaMotion } from "./Projects";
 
@@ -42,7 +42,7 @@ function FalconScene({ a, lang, copyStyle, progress }: { a: Content["ai"]; lang:
     <div className={reduce ? "falcon-scene is-still" : "falcon-scene"}>
       <div className="falcon-scene__film">
         <Film
-          src={remoteMedia.falcon}
+          src={asset("media/falcon.mp4")}
           poster={asset("media/posters-web2/falcon.jpg")}
           phone={{ src: asset("media/mobile/falcon.mp4"), poster: asset("media/mobile/falcon.webp") }}
           className="falcon-scene__video"

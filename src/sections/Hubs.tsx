@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { links, remoteMedia, type Content } from "../data/content";
-import { ArrowRight, Reveal, cx } from "../components/primitives";
+import { links, type Content } from "../data/content";
+import { ArrowRight, Reveal, asset, cx } from "../components/primitives";
 
 type City = Content["hubs"]["cities"][number];
+
+const HUB_IMAGES: Record<string, string> = { paris: "paris", london: "london", newYork: "new-york" };
 
 const HOME_ZONE = "Europe/London";
 const WORK_START = 9;
@@ -58,7 +60,7 @@ function HubCard({ city, t, now, open, onToggle, index }: { city: City; t: Conte
           }
         }}
       >
-        <div className="hub__media" style={{ backgroundImage: `url("${remoteMedia[city.id as "paris" | "london" | "newYork"]}")` }} aria-hidden="true" />
+        <div className="hub__media" style={{ backgroundImage: `url("${asset(`media/hubs/${HUB_IMAGES[city.id]}.webp`)}")` }} aria-hidden="true" />
 
         <div className="hub__chrome">
           <div className="hub__top">
