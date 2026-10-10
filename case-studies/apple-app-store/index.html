@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="A documented SQL and Python data-quality case study of 1.23M Apple App Store records." />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preload" as="image" href="%BASE_URL%media/posters/apple-app-store-hero.jpg" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts load without blocking first paint (they were CSS @imports); text shows in a fallback face until they arrive. -->
+    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/9d4d074c9335825a23cce178ee03b498?family=P22+Mackinac+W01+Book" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'" />
     <title>Apple App Store Analysis — Zishun Gao</title>
   </head>
   <body>
