@@ -4,6 +4,10 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowDown, ArrowRight, RotateCcw } from "lucide-react";
 import Image from "next/image";
 import "@fontsource-variable/geist";
+import "@fontsource/instrument-serif/latin-400.css";
+import "@fontsource/instrument-serif/latin-400-italic.css";
+import "@fontsource/ibm-plex-mono/latin-400.css";
+import "@fontsource/ibm-plex-mono/latin-500.css";
 import PortfolioBackLink from "../../components/portfolio-back-link";
 import "./uk-retail-ledger.scss";
 
@@ -630,8 +634,8 @@ export default function UkRetailCaseStudy({ initialLanguage }: { initialLanguage
 
           <div className="ldg-prints">
             {[
-              ["/case-studies/uk-retail/monthly-revenue-trend.png", 3600, 1800],
-              ["/case-studies/uk-retail/top-products-revenue.png", 3600, 2400],
+              ["/case-studies/uk-retail/monthly-revenue-trend.webp", 2000, 1000],
+              ["/case-studies/uk-retail/top-products-revenue.webp", 2000, 1333],
             ].map(([src, width, height], index) => {
               const [title, body] = s.outputs.charts[index];
               return (
