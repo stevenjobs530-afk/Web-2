@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap");
 
 :root {
   --paper: #f0ece4;
@@ -452,7 +451,7 @@
 }
 
 .uk-case-decisions li span,
-.uk-case-results li span { color: #9a7950; font-family: "Inter", sans-serif; font-size: 15px; }
+.uk-case-results li span { color: #9a7950; font-family: "Inter Variable", "Inter", sans-serif; font-size: 15px; }
 
 .uk-case-closing {
   position: relative;
@@ -568,7 +567,7 @@ body {
   overflow-x: hidden;
   background: #0a0a0a;
   color: rgba(255, 255, 255, 0.87);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -1181,7 +1180,7 @@ main[lang="en"] .framework-heading h2 em {
 
 main[lang="zh-CN"] .framework-heading h2 em {
   margin-left: 0.08em;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
   font-size: 1em;
   font-style: normal;
   font-weight: 400;
@@ -2587,7 +2586,7 @@ main[lang="en"] .ai-feature-copy h2 em {
 }
 
 .contact-content h2 {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Inter Variable", "Inter", system-ui, sans-serif;
   font-size: clamp(54px, 8vw, 118px);
   font-weight: 400;
   letter-spacing: -0.06em;
@@ -2613,7 +2612,7 @@ main[lang="en"] .contact-content h2 em {
 }
 
 main[lang="zh-CN"] .contact-content h2 {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
   font-size: clamp(52px, 7.4vw, 104px);
   letter-spacing: -0.055em;
   line-height: 1.02;

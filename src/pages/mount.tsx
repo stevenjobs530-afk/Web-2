@@ -1,5 +1,10 @@
 import { StrictMode, type ComponentType } from "react";
 import { createRoot } from "react-dom/client";
+import "@fontsource-variable/inter/wght.css";
+import "@fontsource-variable/inter/wght-italic.css";
+import "@fontsource/cormorant-garamond/latin-400-italic.css";
+import "@fontsource/cormorant-garamond/latin-500-italic.css";
+import "@fontsource/cormorant-garamond/latin-600-italic.css";
 import "../legacy/globals.css";
 import "../legacy/responsive-readability.css";
 
