@@ -154,25 +154,37 @@ h1,h2,h3,h4,h5,h6 {font-size:inherit; font-weight:inherit}
 .catalog__screen > * {pointer-events:auto}
 .catalog__words {position:absolute; left:50%; top:47svh; width:41.5vw; max-width:44rem; text-align:center; text-wrap:balance; pointer-events:none; z-index:0; color:#000}
 @media (max-width:47.99rem) { .catalog__words {width:88vw; top:40svh} }
-.widgets {position:absolute; inset-inline:var(--pad-x); bottom:calc(3.4svh + 1.4rem); display:flex; gap:10px; height:min(180px, 18.8svh)}
+.widgets {position:absolute; inset-inline:var(--pad-x); bottom:calc(3.4svh + 1.4rem); display:flex; gap:10px; min-height:clamp(140px, 18.8svh, 180px)}
 .widget {background:#f1f1f1; color:#000; border-radius:var(--radius-card); display:flex; flex-direction:column; justify-content:center; align-items:center; gap:.6rem}
 .widget--arrow {flex:0 0 90px; font-size:1.4rem; color:#000; transition:background-color .2s var(--ease-magic); cursor:pointer}
 @media (hover:hover) and (pointer:fine) { .widget--arrow:hover {background:#e8e8e8} }
 .widget--arrow:active {transform:scale(.98)}
-.widget--main {flex:1 1 auto; align-items:stretch; justify-content:space-between; padding:1.7rem 1.8rem 1.5rem; gap:1rem}
+.widget--main {flex:1 1 auto; min-width:0; align-items:stretch; justify-content:space-between; padding:clamp(1.1rem, 2.6svh, 1.7rem) 1.8rem clamp(1rem, 2.4svh, 1.5rem); gap:clamp(.6rem, 1.6svh, 1rem)}
 .widget__row {display:flex; align-items:flex-end; justify-content:space-between; gap:2rem}
+.widget__row .btn {flex-shrink:0}
 .widget__desc {max-width:20em; text-wrap:balance}
-.widget--loc {flex:0 0 156px}
-.widget--price {flex:0 0 160px; gap:.35rem}
+.widget--loc {flex:0 0 156px; padding:1rem .75rem}
+.widget--price {flex:0 0 236px; gap:.35rem; padding:1rem 1.25rem}
+.btn--cta {align-self:stretch; height:3.25rem; font-size:1.0625rem; gap:.6rem}
+.btn--cta .bi {transition:translate .25s var(--ease-magic)}
+@media (hover:hover) and (pointer:fine) { .btn--cta:hover .bi {translate:.25rem 0} }
 .widget__price {margin-bottom:.45rem}
 .btn--card {background:#e2e2e2; color:#000}
 @media (hover:hover) and (pointer:fine) { .btn--card:hover {background:#d8d8d8} }
 .pill--card {background:#e2e2e2; backdrop-filter:none; color:#000}
+@media (min-width:48rem) and (max-width:80rem) {
+  .widget--arrow {flex-basis:64px}
+  .widget--loc {flex-basis:128px}
+  .widget--price {flex-basis:212px; padding-inline:1rem}
+  .widget--main {padding-inline:1.4rem}
+  .widget__row {gap:1.25rem}
+}
 @media (max-width:47.99rem) {
   .widgets {flex-wrap:wrap; height:auto; bottom:calc(1.5svh + 4.6rem); gap:8px}
   .widget--main {order:1; flex-basis:100%; padding:1.2rem 1.25rem 1.1rem; gap:.8rem}
   .widget--main .widget__row {align-items:flex-end; gap:1rem}
   .widget--loc, .widget--price {order:2; flex:1 1 calc(50% - 4px); height:auto; padding:1rem .75rem; gap:.3rem}
+  .btn--cta {height:2.875rem; font-size:.9375rem; padding-inline:.75rem; gap:.4rem}
   .widget--loc {flex-direction:row; flex-wrap:wrap; gap:.4rem}
   .widget__price {margin-bottom:.2rem}
   .widget--arrow {order:3; flex:1 1 calc(50% - 4px); height:3.25rem; font-size:1.25rem}
