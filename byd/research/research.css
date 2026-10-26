@@ -13,6 +13,13 @@ img { display: block; max-width: 100%; height: auto }
 .bar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 1.5rem; padding: .875rem var(--pad-x); background: color-mix(in srgb, var(--w) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px) }
 .bar__logo { display: flex; align-items: center; gap: .6rem; font-weight: 500; text-decoration: none; font-size: 1.125rem }
 .dot { width: .6rem; height: .6rem; border-radius: 50%; background: var(--k) }
+.bar__logo--back { gap: .5rem; padding: .45rem 1rem .45rem .8rem; margin-left: -.8rem; border-radius: 999px; background: var(--soft); transition: background-color .2s }
+.bar__logo--back:hover { background: #e6e6e6 }
+.bar__arrow { display: inline-block; transition: translate .25s }
+.bar__logo--back:hover .bar__arrow { translate: -.2rem 0 }
+.btn--soft { background: var(--soft); color: var(--k) }
+.btn--soft:hover { background: #e6e6e6 }
+.foot__back { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem }
 .bar__nav { display: flex; gap: 1.5rem; margin-inline: auto; font-weight: 500; font-size: .9375rem }
 .bar__nav a { text-decoration: none }
 .bar__nav a:hover { opacity: .6 }

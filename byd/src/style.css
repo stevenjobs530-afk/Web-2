@@ -92,6 +92,10 @@ h1,h2,h3,h4,h5,h6 {font-size:inherit; font-weight:inherit}
  .header__bar {display:flex; align-items:center; gap:2rem; padding:1.6rem var(--pad-x); pointer-events:auto}
  .header__logo {display:inline-flex; align-items:center; gap:.7rem; font-size:1.375rem; letter-spacing:-.02em}
 .header__mark {width:.75em; height:1em; fill:currentColor}
+.header__logo--back {gap:.55rem; padding:.45rem 1rem .45rem .8rem; margin-left:-.8rem; border-radius:999px; background:var(--glass); backdrop-filter:blur(var(--glass-blur)); -webkit-backdrop-filter:blur(var(--glass-blur)); transition:background-color .2s var(--ease-magic)}
+@media (hover:hover) and (pointer:fine) { .header__logo--back:hover {background:var(--glass-hover)} .header__logo--back:hover .header__back-icon {translate:-.2rem 0} }
+.header__back-icon {font-size:.8em; line-height:1; display:inline-flex; transition:translate .25s var(--ease-magic)}
+@media (max-width:47.99rem) { .header__logo--back {font-size:1.125rem; margin-left:-.4rem; padding-inline:.6rem .85rem} }
  .header__nav {display:flex; align-items:center; gap:2rem; margin-left:auto; margin-right:clamp(3rem, 8vw, 8.5rem)}
 .header__ghost {color:var(--ink-40); margin-right:clamp(2rem, 5vw, 5rem)}
 .header__menu {display:none}
