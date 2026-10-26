@@ -28,6 +28,8 @@ export default defineConfig({
         earlyCareerWellbeing: resolve(root, "case-studies/early-career-wellbeing/index.html"),
         aiWorkflow: resolve(root, "case-studies/ai-assisted-job-workflow/index.html"),
         personalTraining: resolve(root, "personal-projects/personal-training/index.html"),
+        bydConcept: resolve(root, "byd/index.html"),
+        bydResearch: resolve(root, "byd/research/index.html"),
       },
     },
   },
