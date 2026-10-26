@@ -92,10 +92,14 @@ h1,h2,h3,h4,h5,h6 {font-size:inherit; font-weight:inherit}
  .header__bar {display:flex; align-items:center; gap:2rem; padding:1.6rem var(--pad-x); pointer-events:auto}
  .header__logo {display:inline-flex; align-items:center; gap:.7rem; font-size:1.375rem; letter-spacing:-.02em}
 .header__mark {width:.75em; height:1em; fill:currentColor}
-.header__logo--back {gap:.55rem; padding:.45rem 1rem .45rem .8rem; margin-left:-.8rem; border-radius:999px; background:var(--glass); backdrop-filter:blur(var(--glass-blur)); -webkit-backdrop-filter:blur(var(--glass-blur)); transition:background-color .2s var(--ease-magic)}
-@media (hover:hover) and (pointer:fine) { .header__logo--back:hover {background:var(--glass-hover)} .header__logo--back:hover .header__back-icon {translate:-.2rem 0} }
-.header__back-icon {font-size:.8em; line-height:1; display:inline-flex; transition:translate .25s var(--ease-magic)}
-@media (max-width:47.99rem) { .header__logo--back {font-size:1.125rem; margin-left:-.4rem; padding-inline:.6rem .85rem} }
+/* Back to the portfolio: the same frosted white pill as the homepage's name badge. */
+.header__logo--back {gap:.6rem; height:2.75rem; padding:0 1.1rem 0 .4rem; margin-left:-.4rem; font-size:1.05rem; font-weight:500; letter-spacing:-.02em; color:#111; border-radius:999px; background:rgba(255,255,255,.72); border:1px solid rgba(0,0,0,.06); box-shadow:0 10px 40px rgba(20,20,20,.08); backdrop-filter:blur(24px) saturate(160%); -webkit-backdrop-filter:blur(24px) saturate(160%); transition:background-color .35s var(--ease-expo), box-shadow .35s var(--ease-expo), transform .35s var(--ease-expo)}
+.header__logo--back:active {transform:scale(.97)}
+@media (hover:hover) and (pointer:fine) { .header__logo--back:hover {background:#fff; box-shadow:0 12px 44px rgba(20,20,20,.12)} .header__logo--back:hover .header__back-icon {translate:-.15rem 0} }
+.header__back-icon {display:grid; place-items:center; width:1.9rem; height:1.9rem; border-radius:50%; background:#111; color:#fff; font-size:.85rem; line-height:1; transition:translate .35s var(--ease-expo)}
+@media (max-width:47.99rem) { .header__logo--back {height:2.5rem; font-size:.98rem; gap:.5rem; padding-right:.9rem} .header__back-icon {width:1.7rem; height:1.7rem; font-size:.78rem} }
+/* The car name sits in a compact panel, so it uses a smaller size than the page statements. */
+.widget__name {font-size:clamp(1.5rem, 1.05rem + 1.1vw, 2rem); line-height:1.05; letter-spacing:-.035em}
  .header__nav {display:flex; align-items:center; gap:2rem; margin-left:auto; margin-right:clamp(3rem, 8vw, 8.5rem)}
 .header__ghost {color:var(--ink-40); margin-right:clamp(2rem, 5vw, 5rem)}
 .header__menu {display:none}

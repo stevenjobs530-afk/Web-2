@@ -13,10 +13,11 @@ img { display: block; max-width: 100%; height: auto }
 .bar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 1.5rem; padding: .875rem var(--pad-x); background: color-mix(in srgb, var(--w) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px) }
 .bar__logo { display: flex; align-items: center; gap: .6rem; font-weight: 500; text-decoration: none; font-size: 1.125rem }
 .dot { width: .6rem; height: .6rem; border-radius: 50%; background: var(--k) }
-.bar__logo--back { gap: .5rem; padding: .45rem 1rem .45rem .8rem; margin-left: -.8rem; border-radius: 999px; background: var(--soft); transition: background-color .2s }
-.bar__logo--back:hover { background: #e6e6e6 }
-.bar__arrow { display: inline-block; transition: translate .25s }
-.bar__logo--back:hover .bar__arrow { translate: -.2rem 0 }
+.bar__logo--back { gap: .6rem; height: 2.75rem; padding: 0 1.1rem 0 .4rem; margin-left: -.4rem; font-size: 1.05rem; letter-spacing: -.02em; color: #111; border-radius: 999px; background: rgba(255,255,255,.72); border: 1px solid rgba(0,0,0,.06); box-shadow: 0 10px 40px rgba(20,20,20,.08); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); transition: background-color .35s, box-shadow .35s, transform .35s }
+.bar__logo--back:hover { background: #fff; box-shadow: 0 12px 44px rgba(20,20,20,.12) }
+.bar__logo--back:active { transform: scale(.97) }
+.bar__arrow { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: #111; color: #fff; font-size: .9rem; line-height: 1; transition: translate .35s }
+.bar__logo--back:hover .bar__arrow { translate: -.15rem 0 }
 .btn--soft { background: var(--soft); color: var(--k) }
 .btn--soft:hover { background: #e6e6e6 }
 .foot__back { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem }
