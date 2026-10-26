@@ -13,7 +13,7 @@ export function initCatalog({ words }) {
     fields.price.textContent = car.price;
     fields.loc.textContent = car.powertrain;
     const n = car.trims.length - 1;
-    fields.extra.textContent = `+${n} trims`;
+    fields.extra.textContent = (fields.extra.dataset.tpl || '+{n} trims').replace('{n}', n);
     fields.extra.hidden = n === 0;
     fields.link.href = car.bydUrl;
   }

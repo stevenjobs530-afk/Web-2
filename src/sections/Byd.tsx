@@ -38,10 +38,10 @@ export function Byd({ t, lang }: { t: Content; lang: Lang }) {
                 <span className="metric-label !text-white/60">{b.metricLabel}</span>
               </div>
               <div className="cta-row">
-                <Cta href={pageHref("byd/research", lang)} tone="light">
+                <Cta href={pageHref(lang === "zh" ? "byd/research/zh" : "byd/research", lang)} tone="light">
                   {b.cta}
                 </Cta>
-                <Cta href={pageHref("byd", lang)} tone="ghost-dark">
+                <Cta href={pageHref(lang === "zh" ? "byd/zh" : "byd", lang)} tone="ghost-dark">
                   {b.cars}
                 </Cta>
               </div>

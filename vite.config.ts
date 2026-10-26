@@ -30,6 +30,8 @@ export default defineConfig({
         personalTraining: resolve(root, "personal-projects/personal-training/index.html"),
         bydConcept: resolve(root, "byd/index.html"),
         bydResearch: resolve(root, "byd/research/index.html"),
+        bydConceptZh: resolve(root, "byd/zh/index.html"),
+        bydResearchZh: resolve(root, "byd/research/zh/index.html"),
       },
     },
   },

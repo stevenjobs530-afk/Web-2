@@ -50,6 +50,9 @@ h1,h2,h3,h4,h5,h6 {font-size:inherit; font-weight:inherit}
 @media (min-width:1580px) {html {font-size:clamp(18px, 1.1765vw - .5882px, 22px)}}
  html {-webkit-text-size-adjust:100%; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; -webkit-tap-highlight-color:transparent; background:var(--w)}
  body {font-family:'Inter Tight','Inter Tight Fallback',-apple-system,BlinkMacSystemFont,sans-serif; font-weight:400; line-height:1.5; background-color:#fff; color:#000}
+ :lang(zh) body, body:lang(zh) {font-family:'Inter Tight','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif}
+ :lang(zh) .t-display, :lang(zh) .t-statement {letter-spacing:-.01em}
+ :lang(zh) [data-words], :lang(zh) .about__statement {word-break:keep-all}
  ::selection {background-color:var(--ink); color:var(--plate)}
  html.lenis, html.lenis body {height:auto}
 .lenis:not(.lenis-autoToggle).lenis-stopped {overflow:clip}
