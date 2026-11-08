@@ -1,4 +1,5 @@
-import 'bootstrap-icons/font/bootstrap-icons.min.css';
+import '@fontsource/inter-tight/400.css';
+import '@fontsource/inter-tight/500.css';
 import './style.css';
 import { ScrollTrigger } from './lib/gsap.js';
 import { applyBeats, beats } from './lib/beats.js';

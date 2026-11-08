@@ -245,3 +245,4 @@ html:not(.js) [data-about-in] {--in:1}
 html.js .header, html.js .hero {visibility:visible}
 [data-credits] {translate:none !important; opacity:1 !important}
 }
+.bi {display:inline-flex; align-items:center; justify-content:center; line-height:1; vertical-align:-.125em} .bi > svg {display:block; width:1em; height:1em; flex:none}
