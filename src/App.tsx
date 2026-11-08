@@ -8,6 +8,7 @@ import { Honours } from "./sections/Honours";
 import { Projects } from "./sections/Projects";
 import { AiWorkflow } from "./sections/AiWorkflow";
 import { Byd } from "./sections/Byd";
+import { DingFang } from "./sections/DingFang";
 import { Method } from "./sections/Method";
 import { Experience } from "./sections/Experience";
 import { Hubs } from "./sections/Hubs";
@@ -71,6 +72,7 @@ export default function App() {
         <Projects t={t} lang={lang} />
         <AiWorkflow t={t} lang={lang} />
         <Byd t={t} lang={lang} />
+        <DingFang t={t} lang={lang} />
         <Method t={t} />
         <Experience t={t} />
         <Hubs t={t} />

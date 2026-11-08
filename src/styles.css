@@ -3704,3 +3704,20 @@ button {
     animation: none;
   }
 }
+
+.cinema--ding .cinema__still {
+  object-position: 50% 40%;
+}
+
+/* The snow peak is bright, so the copy side needs a deeper shade than the BYD film. */
+.cinema--ding .cinema__shade {
+  background:
+    linear-gradient(90deg, rgba(7, 8, 11, 0.92) 0%, rgba(7, 8, 11, 0.7) 40%, rgba(7, 8, 11, 0.1) 70%),
+    linear-gradient(0deg, rgba(7, 8, 11, 0.92) 0%, rgba(7, 8, 11, 0) 45%);
+}
+
+@media (max-width: 47.99rem) {
+  .cinema--ding .cinema__shade {
+    background: linear-gradient(0deg, rgba(7, 8, 11, 0.96) 0%, rgba(7, 8, 11, 0.78) 60%, rgba(7, 8, 11, 0.3) 100%);
+  }
+}
